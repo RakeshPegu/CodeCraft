@@ -1,5 +1,6 @@
 import About from "@/components/About";
 import Introduction from "@/components/Introduction";
+import OtherSkills from "@/components/otherSkill";
 import Portfolio from "@/components/Portfolio";
 import Skill from "@/components/Skills";
 function Home(){
@@ -8,6 +9,7 @@ function Home(){
          <Introduction/>
          <About/>
          <Skill/>
+         <OtherSkills/>
          <Portfolio/>
          </div>
     )

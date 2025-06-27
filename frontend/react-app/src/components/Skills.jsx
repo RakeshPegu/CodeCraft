@@ -1,9 +1,25 @@
-import OtherSkills from "@/subComponent/otherSkill";
 import SkillCard from "./card/SkillCard";
 
 function Skill(){
     return(
-    <div className="flex flex-wrap gap-6 justify-center">
+    <div>
+        <div className="  h-[100vh] lg:flex lg:flex-row text-white">
+        <div className="lg:flex-2 lg:flex lg:flex-col  lg:items-center ">
+            <div className="lg:justify-center lg:items-center lg:w-[80%] lg:h-full lg:flex  lg:flex-col lg:gap-5">
+            <h1 className="lg:text-8xl font-serif ">| TOOLS</h1>
+            <p className="font-mono lg:w-[50%] lg:text-[1.1em] "> Here is the some of the tools and technologies I use</p>
+            </div>
+            
+        </div>
+        <div className=" lg:flex-3 lg:flex ">
+            <div className=" lg:w-[70%] lg:h-[40%] lg:relative lg:flex lg:top-100 lg:left-50  lg:justify-center lg:items-center">
+                <p className=" text-lg font-mono">From powerful frameworks to clever little libraries, these tools aren't just part of my workflow — they're my creative partners in crime. Whether it's building slick frontends, crafting efficient backends, or debugging at 2 AM with way too much coffee, each tool plays a role in bringing ideas to life. I believe in using the right tech for the right task — and having a little fun while doing it.</p>
+            </div>
+            
+
+        </div>
+        </div>
+    <div className="flex flex-wrap gap-6 justify-center bg-gray-400 lg:justify-start  lg:h-[700px] lg:flex-nowrap lg:flex-row overflow-x-auto scroll-smooth lg:items-center lg:w-[100%]">
         <SkillCard name='express.js' img='./express.svg' number="01"/>
         <SkillCard name="node.js" img='./node-js-svgrepo-com.svg' number="02"/>
         <SkillCard name="mongodb"img={'./mongodb-svgrepo-com.svg'} number="03"/>
@@ -29,17 +45,10 @@ function Skill(){
         <SkillCard name="Render" img={'./render.svg'} number="23"/>
         <SkillCard name="razorPay" img={'./razorpay-icon.svg'} number="24"/>
         <SkillCard name="C" img={'./icons8-c-programming.svg'} number="25"/>
-        <SkillCard name="JWT" img={'./json-web-tokens-jwt-io-seeklogo.svg'} number="26"/>
-    
+        <SkillCard name="JWT" img={'./json-web-tokens-jwt-io-seeklogo.svg'} number="26"/>  
         
-        
-        <div className="flex flex-col justify-center w-[95%] pt-[100px] text-white gap-15">
-            <h1 className="text-4xl font-sans font-bold ">| FEW OF MY SKILLS:</h1>
-            <OtherSkills/>
-
-        </div>
-   
-        
-    </div>)
+    </div>
+    </div>
+    )
 }
 export default Skill;

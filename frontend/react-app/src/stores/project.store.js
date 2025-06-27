@@ -4,7 +4,7 @@ import { create } from 'zustand'
 export const projectAuth = create((set, get)=>({
     isCreactingProject:false,
     isUpdatingProject:false,
-    checkProjects:null,
+    checkProjects:[ ],
     checkProject:null,
     isDeletingProject:false,
     createProject:async(data)=>{
@@ -51,6 +51,16 @@ export const projectAuth = create((set, get)=>({
             
         } catch (error) {
             console.log('get project error', error)
+            
+        }
+    },
+    deleteProject: async()=>{
+        try {
+            const res = await apiRequest.delete('/projects/:projectId')
+
+            
+        } catch (error) {
+            console.log('delete project error', error)
             
         }
     }
