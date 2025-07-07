@@ -1,4 +1,5 @@
 import { userModel } from "../lib/db.js"
+import mongoose from "mongoose"
 
 export const getUsers = async(req, res)=>{
     const userRole = req.session.userRole
@@ -17,9 +18,12 @@ export const getUsers = async(req, res)=>{
 }
 export const getUser = async(req, res)=>{
     const userRole = req.session.userRole
-    const sessionUserId = req.session.userId
-    const userId = req.params.id
+    let  sessionUserId = req.session.userId
+    let  userId = req.params.id
     try {
+        userId =userId.trim()
+        sessionUserId = sessionUserId.trim()
+        
         if(sessionUserId !== userId || userRole !== 'admin'){
             return res.status(403).json({message:'Not authorized'})
         }
@@ -36,12 +40,13 @@ export const getUser = async(req, res)=>{
     }
 }
 export const updateUser = async(req, res)=>{
-    const userRole = req.session.userRole;
-    const sessionUserId = req.session.userId
-    const userId = req.params.id
+    let  sessionUserId = req.session.userId
+    let userId = req.params.id
     const {...userInfo} = req.body
     try {
-        if(sessionUserId !== userId || userRole !=='admin'){
+        userId = userId.trim()
+        sessionUserId = sessionUserId.trim()
+        if(sessionUserId !== userId ){
             return res.status(403).json({ succss:false, message:'Not authorized'})
 
         }
@@ -49,7 +54,7 @@ export const updateUser = async(req, res)=>{
         if(!existingUser){
             return res.status(404).json({ succss:false, message:'User not found'})
         }
-        const updateInfo = await userModel.findByIdAndUpdate({userId},{$set:{...userInfo}})
+        const updateInfo = await userModel.findByIdAndUpdate(userId,{$set:{...userInfo}})
         res.status(200).json({succss:true, message:'Updated user successfully', updateInfo})
     } catch (error) {
         console.log('update user Error',error)
@@ -59,9 +64,12 @@ export const updateUser = async(req, res)=>{
 }
 export const deleteUser = async(req, res)=>{
     const userRole = req.session.userRole
-    const sessionUserId = req.session.userId
-    const userID = req.params.id
+    let sessionUserId = req.session.userId
+    let userID = req.params.id
     try {
+        sessionUserId = sessionUserId.trim()
+        userID = userID.trim()
+
         if(sessionUserId !== userID || userRole !=='admin'){
             return res.status(200).json({ succss:false, message:"not authorized"})
         }

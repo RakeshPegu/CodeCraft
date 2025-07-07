@@ -1,3 +1,4 @@
+
 function Footer(){
     return(
         <div className="bg-[url(/cod.jpg)] bg-gray-400 bg-blend-overlay h-full bg-no-repeat bg-cover bg-center text-amber-50">
@@ -27,14 +28,15 @@ function Footer(){
                 <h1 className="text-2xl font-serif"> Social platforms </h1>
                <ul className="flex flex-col items-center gap-1 pt-2">
                 
-                <li>
-                    GIthub
+                <li className="">
+                    <a href='https://github.com/RakeshPegu'> GitHub</a>
+                   
                 </li>
                 <li>
-                    LINKEDIN
+                     <a href='https://www.linkedin.com/in/rakeshpegu/'>LinkedIn</a>                
                 </li>
                 <li>
-                    FIVERR
+                    Fiverr
                 </li>
                </ul>
                </div>

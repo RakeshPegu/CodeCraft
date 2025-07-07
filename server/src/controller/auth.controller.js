@@ -28,6 +28,7 @@ export const register = async(req, res)=>{
 export const send_otp = async(req, res)=>{
     const {email}= req.body
     try {
+        console.log(email)
         if(!email){
             return res.status(400).json({message:'valid email required'})
         }  
@@ -49,6 +50,7 @@ export const send_otp = async(req, res)=>{
         res.status(500).json({success:false, message:"Something went wrong"})    
     }
 }
+
 export const login = async(req, res)=>{
     const {email, password} = req.body
     try {
@@ -64,22 +66,20 @@ export const login = async(req, res)=>{
         if(!isValidPass){
             return res.status(401).json({success:false, message:"wrong password! try again"})
         } 
-        console.log(req.session)
-        res.session.userId = existingUser._id
-        req.session.userRole = existingUser.role
-       console.log('this is session', req.session)
-       res.status(200).json({success:true, existingUser})
+        req.session.userId = existingUser.id
+        req.session.userRole = existingUser.role      
+       res.status(200).json({success:true,message:"LoggedIn successfully", existingUser})
     } catch (error) {
         console.log('login error',error)
         res.status(500).json({ success:false, message:'Something went wrong'})
         
     }
 }
-export const logout = async()=>{
+export const logout = async(req, res)=>{
     const userID= req.session.userID
     try {
         console.log(req.session)
-        res.session = null
+        req.session = null
         res.status(200).json({success:'logout successfully'})
         
     } catch (error) {

@@ -7,15 +7,24 @@ function OtherSkills(){
     const pinRef = useRef(null)
     const rightDivRef = useRef(null)
     useLayoutEffect(()=>{
-        if(!parentContainerRef.current ||!pinRef.current ||!rightDivRef.current){
+        
+       const mm = gsap.matchMedia()
+       mm.add({
+        isLarge : '(min-width: 992px)',
+
+
+       },
+       (context)=>{
+        let {isLarge} = context.conditions
+        if(isLarge){
+            if(!parentContainerRef.current ||!pinRef.current ||!rightDivRef.current){
             return;
         }
-       const scrollInstance =  ScrollTrigger.create({
+         ScrollTrigger.create({
             trigger:parentContainerRef.current,
             start:"top top",
             end:'bottom bottom',
             scrub:true,
-            markers:true,
             pin:pinRef.current,
         
             onUpdate: (self)=>{
@@ -27,23 +36,28 @@ function OtherSkills(){
             }
 
         });
+
+        }
+
+       }
+    )
+
+       
         return ()=>{
-            if(scrollInstance){
-                scrollInstance.kill()
-            }
+            mm.revert()
         }
 
     }, [])
     return(
-        <div className=" flex flex-col gap-10 font-medium lg:relative lg:bg-gray-200 lg:flex lg:h-[300vh] lg:flex-row-reverse lg:gap-0" ref={parentContainerRef} >
-            <div className=" lg:flex lg:flex-row h-[100vh]  lg:items-center  lg:w-2/5 lg:bg-gray-500" ref={pinRef}>
-                <div className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-3 lg:absolute ">
-                    <h1 className=" lg:text-8xl lg:text-center font-serif">| Skills</h1>
-                    <p className=" lg:w-[40%]  font-mono"> Here’s a quick overview of the technologies and tools I've been able to learn so far</p>
+        <div className="relative flex flex-col  font-medium lg:relative lg:bg-gray-200 lg:flex lg:h-[300vh] lg:flex-row-reverse lg:gap-0 lg:items-start items-center" ref={parentContainerRef} id="experience">
+            <div className=" h-[250px] flex lg:flex-row lg:h-[100vh]  lg:items-center   lg:w-2/5 lg:bg-gray-500 justify-center items-center " ref={pinRef}>
+                <div className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-3 lg:absolute text-pink-50 lg:w-[100%] w-[96%]">
+                    <h1 className=" text-6xl lg:text-8xl lg:text-center font-serif">| Skills</h1>
+                    <p className=" lg:w-[67%]  font-mono lg:pt-0 pt-8"> Here’s a quick overview of the technologies and tools I've been able to learn so far</p>
                 </div>           
                
             </div>
-            <div className="lg:flex lg:flex-col lg:w-4/5 lg:gap-50 lg:pb-60 " ref={rightDivRef}>               
+            <div className="lg:flex lg:flex-col lg:w-4/5 lg:gap-50 lg:pb-60 text-pink-50 lg:h-full  w-[96%] lg:bg-gray-600" ref={rightDivRef}>               
         
             <div className=" lg:w-[500px]  lg:pt-100 lg:ml-20">
                 <p className="text-xl lg:font-mono lg:lg:text-4xl">
@@ -53,12 +67,12 @@ function OtherSkills(){
 
             </div>
             
-            <div className="flex flex-col gap-2  lg:w-[100%] lg:flex lg:items-center  ">
-            <div className=" lg:w-[100%] lg:flex lg:flex-col lg:gap-6 lg:pr-10 lg:pl-10" >
+            <div className="flex flex-col gap-2  lg:w-[100%] lg:flex lg:items-center   ">
+            <div className=" lg:w-[100%] lg:flex lg:flex-col lg:gap-6 lg:pr-20 lg:pl-10" >
             <h2 className="text-2xl font-bold underline underline-offset-10 pb-2 lg:text-4xl ">
                 backend :
             </h2>
-            <div className="lg:flex lg:flex-row lg:gap-10">
+            <div className="lg:flex lg:flex-row lg:gap-7">
             <p className="text-xl font-mono">
                 Experienced in containerization using Docker and implementing secure authentication with JWT, cookie-parser, cookie-session, express-session, and Google Auth. Utilized bcrypt for password hashing to enhance application security.
             </p>

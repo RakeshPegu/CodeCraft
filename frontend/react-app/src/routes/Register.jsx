@@ -30,7 +30,7 @@ function Register (){
     }
 
     return(
-        <div className=" flex flex-col items-center relative h-[90vh] top-10">           
+        <div className=" flex flex-col items-center relative h-[90vh] top-25">           
             <div className="bg-indigo-50 rounded-2xl h-[65%] w-[90%] md:w-[400px] outline-1 outline-blue-200 pl-10 pr-10 flex flex-col gap-4">
             <div className="pt-4">
                 <h1 className="text-2xl font-bold"> Welcome !</h1>

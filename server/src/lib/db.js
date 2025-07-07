@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema({
     username:{type:String, required:true},
     email:{
         type:String, required:true, unique:true,
-        validate:{
+          validate:{
             validator: function(v){
                 return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v)
             },
             message: props => `${props.value} is not valid email address` 
-        }
+        }     
         
     },   
     role:{
@@ -27,16 +27,19 @@ const projectSchema = new mongoose.Schema({
     images:[{type:String}]
 })
 const otpSchema = new mongoose.Schema({
-    email:{type:String, required:true},
+    email:{type:String, required:true,  validate:{
+            validator: function(v){
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v)
+            },
+            message: props => `${props.value} not a valid email address`
+        }},
     otp:{type:String, required:true}
 },{timestamps:true})
 otpSchema.index({email:1, otp:1}, {unique:true})
-otpSchema.pre('updateOne', function(){
+otpSchema.pre('findOneAndUpdate', function(){
     const optIno = this.getUpdate()
     const info = this.getQuery()
-    console.log(optIno)
-    console.log('this is the email', info.email)
-    sendEmail(info.email, optIno.otp)
+    sendEmail(info.email, optIno.$set.otp)
 
 
     

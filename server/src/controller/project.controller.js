@@ -1,9 +1,11 @@
 import { projectModel } from "../lib/db.js"
+import mongoose from 'mongoose'
 
 export const createProject = async(req, res)=>{
     const userRole = req.session.userRole
     const {name, description, images} = req.body
-    try {        
+    try {      
+         
         if(userRole !== 'admin'){
             return res.status(403).json({message:'not authorized'})
         }
@@ -45,22 +47,22 @@ export const getProject = async(req, res)=>{
 }
 export const updateProject = async(req, res)=>{
       const userRole = req.session.userRole
-      const projectId = req.params.id
+      let  projectId = req.params.id
       const {...newProjectInfo} = req.body
 
     try {
-         if(userRole !== 'admin'){
+        if(userRole !== 'admin'){
             return res.status(403).json({message:'not authorized'})
         }
         const projectInfo = await projectModel.findById(projectId)
         if(!projectInfo){
             return res.status(404).json({message:'Not found'})
         }
-        const updatedInfo= await projectModel.findByIdAndUpdate({projectId}, {$set:{...newProjectInfo}})
+        const updatedInfo= await projectModel.findByIdAndUpdate(projectId, {$set:{...newProjectInfo}})
         res.status(200).json({success:true, updatedInfo})
         
     } catch (error) {
-        console.log('',error)
+        console.log('this is the update project error',error)
         res.status(500).json({success:false, message:'something went wrong'})
         
     }
