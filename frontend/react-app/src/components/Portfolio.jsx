@@ -16,10 +16,7 @@ function Portfolio(){
                  
                 <ProjectCard name='chat101'/>
                 <ProjectCard name="tradivibe"/>
-                <ProjectCard name="track101"/>
-                <ProjectCard name="track101"/>
-                <ProjectCard name="track101"/>
-    
+                    
             </div>
         </div>
     );

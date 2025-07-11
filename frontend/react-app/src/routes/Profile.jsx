@@ -15,9 +15,8 @@ function Profile(){
             </div>
             <div className=" flex justify-center items-center bg-gray-600 rounded-b-2xl h-[200px]">
                 <div className="flex flex-col gap-5 text-2xl font-bold font-mono text-pink-50">
-                    <p>Name: Rakesh pegu</p>
-                    <p>Email: rakeshpegu903@gmail.com</p>
-                    
+                    <p>Name: {userInfo.username}</p>
+                    <p>Email:{userInfo.email}</p>                 
                     
                 </div>
 

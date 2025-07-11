@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"  # Expose nginx serving frontend on port 3000
+    restart: unless-stopped

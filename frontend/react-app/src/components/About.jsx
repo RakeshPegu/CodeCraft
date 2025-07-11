@@ -53,7 +53,7 @@ function About() {
         <div className=" lg:relative lg:w-2/5  lg:p-8 lg:h-screen w-full h-full  lg:flex justify-center lg:items-center " ref={pinRef}>    
           <div className="flex flex-col justify-center  h-[200px] lg:h-[100vh] text-pink-50 lg:items-center"
           >
-            <h1 className="text-4xl font-bold font-serif lg:text-6xl">| ABOUT ME</h1>
+            <h2 className="text-4xl font-bold font-serif lg:text-6xl">| ABOUT ME</h2>
             <p className="text-xl font-mono lg:text-[1em] lg:w-[240px] ">
               Everyone brings something different to the table — here’s mine
             </p>
@@ -71,7 +71,7 @@ function About() {
             </div>
 
             <div className="flex flex-col gap-10 lg:w-[87%]">
-              <h1 className="text-4xl font-bold font-serif">What interest me in tech?</h1>
+              <h3 className="text-4xl font-bold font-serif">What interest me in tech?</h3>
               <div>
                 <TechContent />
               </div>

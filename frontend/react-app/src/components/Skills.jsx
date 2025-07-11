@@ -76,32 +76,32 @@ if (screenWidth >= 1024) {
 
 
   const skills = [
-    { name: 'express.js', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859400/express_llojex.svg', number: '01' },
-    { name: 'node.js', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859203/node-js-svgrepo-com_sey10o.svg', number: '02' },
-    { name: 'mongodb', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857488/mongodb-svgrepo-com_kmy8nt.svg', number: '03' },
-    { name: 'TypeScript', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857699/typescript-svgrepo-com_ulrz4l.svg', number: '04' },
-    { name: 'sql', img:'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857747/sql-database-generic-svgrepo-com_puia0d.svg', number: '05' },
-    { name: 'mySql', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857517/mysql-svgrepo-com_evafyj.svg', number: '06' },
-    { name: 'Prisma', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859562/prisma_vepqzy.svg', number: '07' },
-    { name: 'Docker', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857554/docker-svgrepo-com_b4tedh.svg', number: '08' },
-    { name: 'redis', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857648/redis-svgrepo-com_tfnnd1.svg', number: '09' },
-    { name: 'javascript', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857935/js-svgrepo-com_vo4ziq.svg', number: '10' },
-    { name: 'auth2.0', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859445/auth0_erukn2.svg', number: '11' },
-    { name: 'React', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857647/react-javascript-js-framework-facebook-svgrepo-com_y54gyi.svg', number: '12' },
-    { name: 'HTML', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857630/html-5-svgrepo-com_am7wuo.svg', number: '13' },
-      { name: 'CSS', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857590/css-3-svgrepo-com_vi2pce.svg', number: '14' },
-    { name: 'SASS', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857650/sass-svgrepo-com_biolu7.svg', number: '15' },
-    { name: 'Python', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857732/python-svgrepo-com_qpqmzz.svg', number: '16' },
-    { name: 'tailwindscss', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857749/tailwindcss-icon-svgrepo-com_pt8mhg.svg', number: '17' },
-    { name: 'Shadc.ui', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857871/shadcn-ui-seeklogo_gquthd.svg', number: '18' },
-    { name: 'gsap', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859279/gsap-black_lcgjom.svg', number: '19' },
-    { name: 'socket.io', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859397/socketdotio_meyjex.svg', number: '20' },
-    { name: 'Postman', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857731/postman-icon-svgrepo-com_d6uoiv.svg', number: '21' },
-    { name: 'GitHUB', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859392/github_ov0tmx.svg', number: '22' },
-    { name: 'Render', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857649/render_lpjwst.svg', number: '23' },
-    { name: 'razorPay', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857842/razorpay-icon_alnqap.svg', number: '24' },
-    { name: 'C', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857632/icons8-c-programming_jp6rje.svg', number: '25' },
-    { name: 'JWT', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857812/json-web-tokens-jwt-io-seeklogo_1_bbyulp.svg', number: '26' },
+    { name: 'express.js', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859400/express_llojex.svg', number: '01', alt:'express.js logo' },
+    { name: 'node.js', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859203/node-js-svgrepo-com_sey10o.svg', number: '02', alt:'node.js log' },
+    { name: 'mongodb', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857488/mongodb-svgrepo-com_kmy8nt.svg', number: '03', alt:"typescript logo" },
+    { name: 'TypeScript', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857699/typescript-svgrepo-com_ulrz4l.svg', number: '04', alt:"sql logo" },
+    { name: 'sql', img:'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857747/sql-database-generic-svgrepo-com_puia0d.svg', number: '05', alt:"sql database logo" },
+    { name: 'mySql', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857517/mysql-svgrepo-com_evafyj.svg', number: '06', alt:"mysql database logo" },
+    { name: 'Prisma', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859562/prisma_vepqzy.svg', number: '07' , alt:"prisma logo"},
+    { name: 'Docker', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857554/docker-svgrepo-com_b4tedh.svg', number: '08' , alt:"docker logo"},
+    { name: 'redis', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857648/redis-svgrepo-com_tfnnd1.svg', number: '09', alt:"redis logo" },
+    { name: 'javascript', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857935/js-svgrepo-com_vo4ziq.svg', number: '10' , alt:"javascript logo"},
+    { name: 'auth2.0', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859445/auth0_erukn2.svg', number: '11', alt:"auth0 logo" },
+    { name: 'React', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857647/react-javascript-js-framework-facebook-svgrepo-com_y54gyi.svg', number: '12' , alt:"react logo"},
+    { name: 'HTML', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857630/html-5-svgrepo-com_am7wuo.svg', number: '13' , alt:"html logo"},
+      { name: 'CSS', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857590/css-3-svgrepo-com_vi2pce.svg', number: '14' , alt:"css logo"},
+    { name: 'SASS', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857650/sass-svgrepo-com_biolu7.svg', number: '15' , alt:"sass logo"},
+    { name: 'Python', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857732/python-svgrepo-com_qpqmzz.svg', number: '16', alt:"python logo" },
+    { name: 'tailwindscss', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857749/tailwindcss-icon-svgrepo-com_pt8mhg.svg', number: '17', alt:"tailwincss logo" },
+    { name: 'Shadc.ui', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857871/shadcn-ui-seeklogo_gquthd.svg', number: '18' , alt:"shadcn ui logo"},
+    { name: 'gsap', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859279/gsap-black_lcgjom.svg', number: '19' , alt:"gsap logo"},
+    { name: 'socket.io', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859397/socketdotio_meyjex.svg', number: '20' , alt:"socketio loog"},
+    { name: 'Postman', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857731/postman-icon-svgrepo-com_d6uoiv.svg', number: '21', alt:"postman logo" },
+    { name: 'GitHUB', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751859392/github_ov0tmx.svg', number: '22', alt:"github logo" },
+    { name: 'Render', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857649/render_lpjwst.svg', number: '23' , alt:" render logo"},
+    { name: 'razorPay', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857842/razorpay-icon_alnqap.svg', number: '24', alt:"razor pay logo" },
+    { name: 'C', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857632/icons8-c-programming_jp6rje.svg', number: '25', alt:"c logo" },
+    { name: 'JWT', img: 'https://res.cloudinary.com/rakeshcloud/image/upload/v1751857812/json-web-tokens-jwt-io-seeklogo_1_bbyulp.svg', number: '26' , alt:"json web token logo"},
   ];
 
   return (
@@ -134,7 +134,7 @@ if (screenWidth >= 1024) {
                 ref={addToPanels} // Ensure this ref callback is only added to the direct panel elements
                 className=' w-[400px] shrink-0  flex justify-center items-center '
               >
-                <SkillCard img={skill.img} name={skill.name} number={skill.number} />
+                <SkillCard img={skill.img} name={skill.name} number={skill.number} alt={skill.alt} />
               </div>
             ))}
           </div>
