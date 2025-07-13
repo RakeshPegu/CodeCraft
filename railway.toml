@@ -1,5 +1,0 @@
-[build]
-builder = "compose"
-
-[deploy]
-composeFile = "docker-compose.yml"
