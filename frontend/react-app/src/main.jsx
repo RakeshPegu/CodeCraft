@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react'
+import React from 'react'
 import {Toaster} from 'react-hot-toast'
 import './index.css'
 import App from './App.jsx'

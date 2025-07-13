@@ -5,13 +5,14 @@ import path from 'path'
 //import {visualizer} from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
 export default defineConfig({  
-  plugins: [react(), tailwindcss(),viteCompression,],
+  plugins: [react(), tailwindcss(),viteCompression(),],
   server:{
     host:true,
     port:5173
 
   },
   build: {
+    outDir:'dist',
     minify:'esbuild',  
     target:"es2020",
   

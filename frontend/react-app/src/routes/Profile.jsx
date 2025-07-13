@@ -1,5 +1,4 @@
 import { useAuthStore } from "@/stores/auth.store"
-import { useEffect } from "react"
 import { Link } from "react-router";
 
 function Profile(){

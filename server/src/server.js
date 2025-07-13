@@ -8,16 +8,24 @@ import mongoose from 'mongoose'
 import compression from 'compression'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import morgan from 'morgan'
+import helmet from 'helmet'
+
 const app = express()
 dotenv.config()
 const port = process.env.PORT || 5001
+app.set('trust proxy', 1)
+app.use(morgan('combined'))
+app.use(helmet())
 app.use(compression())
 app.use(express.json())
 app.use(cookieParser())
 app.use(cookieSession({
     name:'session',
-    secret:'i am the cool kid',
-    maxAge:1000*60*60*24*3
+    secret:process.env.COOKIE_SECRET,
+    secure:process.envNODE_ENV='production',
+    maxAge:1000*60*60*24*3,
+
 }))
 mongoose.connect(process.env.DATABASE_URL).then(()=>{
     console.log('connected to database successfully')
@@ -29,8 +37,8 @@ app.get('/api/v1/message', (req, res)=>{
     res.status(200).json({message:"Hello this is rakesh pegu"})
 })
 app.use((err, req, res, next)=>{
-    console.log(err.stack)
-    res.status(500).json({message:'Something went wrong'})
+    const status = err.status || 5000
+    res.status(status).json({message: err.message||'Internal server error'})
 
     
 })

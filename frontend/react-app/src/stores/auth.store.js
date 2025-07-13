@@ -10,7 +10,8 @@ export const useAuthStore = create((set,get)=>({
         try {
             set({isSigningUp:true})
             const res =await apiRequest.post('/auth/register', data)  
-            toast.success(res.data.message)       
+            toast.success(res.data.message)   
+            return res    
         } catch (error) {
             console.log('register error', error)
             toast.error(error?.response?.data?.message)

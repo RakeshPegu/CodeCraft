@@ -4,8 +4,7 @@ import {Button} from '@/components/ui/button'
 import {z} from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, Navigate, useNavigate } from 'react-router'
-import { useStore } from 'zustand'
+import { Link, useNavigate } from 'react-router'
 import {  useAuthStore } from '@/stores/auth.store'
 function Login(){
     const { signIn, isSigningIn} = useAuthStore()

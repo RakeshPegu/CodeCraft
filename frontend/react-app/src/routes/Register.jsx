@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Input} from '@/components/ui/input'
-import { Link } from "react-router"
+import { Link, Navigate } from "react-router"
 function Register (){
     const schema = z.object({
         username: z.string().min(2,{
@@ -26,7 +26,12 @@ function Register (){
         }
     })
     const onsubmit = async(data)=>{
-        console.log('this is the formdata', data)
+        const res = await signUp(data)
+        if(res){
+            return <Navigate to={'/login'}/>
+        }
+
+    
     }
 
     return(

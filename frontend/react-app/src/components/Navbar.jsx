@@ -1,6 +1,4 @@
 import { Link, NavLink } from "react-router";
-import { LogInIcon} from 'lucide-react'
-
 function Navbar(){
     return (
        <nav className="flex flex-row justify-between z-20 pt-2 top-0 items-center  h-[50px] backdrop-blur-xl fixed w-full">

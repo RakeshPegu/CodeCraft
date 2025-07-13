@@ -1,9 +1,9 @@
-import List from "@/subComponent/List";
+
 import AboutCard from "./card/AboutCard";
 import TechContent from "@/subComponent/TechContent";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
