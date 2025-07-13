@@ -34,12 +34,12 @@ app.use((err, req, res, next)=>{
 
     
 })
-app.get('/', (req, res)=>{
+app.get('/message', (req, res)=>{
     res.status(200).json({message:"THE IS THE MESSAGE FROM THE BACKEND"})
 })
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users',userRouter)
 app.use('/api/v1/projects', projectRouter)
-app.listen(port, ()=>{
+app.listen(port,'0.0.0.0', ()=>{
     console.log(`The server is listening on port ${port}`)
 })
