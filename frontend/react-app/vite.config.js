@@ -8,9 +8,10 @@ export default defineConfig({
   plugins: [react(), tailwindcss(),viteCompression(),],
   server:{
     host:true,
-    port:5173
+    port:3000
 
   },
+  base:'/',
   build: {
     outDir:'dist',
     minify:'esbuild',  
