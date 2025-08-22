@@ -47,7 +47,7 @@ function About() {
   }, []);
 
   return (
-    <div className="h-[200vh] lg:h-[300vh] w-full bg-center flex flex-col  gap-[60px] pl-3 text-black  lg:bg-gray-600  " id="about">    
+    <div className="h-[200vh] lg:h-[300vh] w-full bg-center flex flex-col  gap-[60px] pl-3 text-pink-50 lg:bg-blue-300 lg:text-black  " id="about">    
        <div className="flex  h-screen flex-col lg:h-[300vh]  lg:relative lg:flex-row  lg:w-full "  ref={parentContainerRef}>  
         
         <div className=" lg:relative lg:w-2/5  lg:p-8 lg:h-screen w-full h-full  lg:flex justify-center lg:items-center " ref={pinRef}>    

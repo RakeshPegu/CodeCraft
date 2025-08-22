@@ -1,6 +1,6 @@
 export function IntroContent() {
   return (
-    <div className="flex flex-col text-pink-100 pt-10 gap-3   lg:pr-7">
+    <div className="flex flex-col text-pink-100 pt-10 gap-3  lg:pr-7">
       <h1 style={{ fontFamily: "'Chokokutai', system-ui" }} className="text-6xl pr-2 flex justify-end  sm:text-[6em] md:text-[8em]">
         CODECRAFT
       </h1>
