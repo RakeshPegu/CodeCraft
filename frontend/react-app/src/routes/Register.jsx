@@ -1,4 +1,4 @@
-import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Button} from '@/components/ui/button'
 import {useForm} from 'react-hook-form'
 import {z} from 'zod'
@@ -28,7 +28,6 @@ function Register (){
         }
     })
     const onsubmit = async(data)=>{
-        console.log(data)
         const res = await signUp(data)
         if(res){
             return <Navigate to={'/login'}/>

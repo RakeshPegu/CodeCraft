@@ -7,16 +7,13 @@ export const useAuthStore = create((set,get)=>({
     isAuthenticated:false,
     userInfo:[],
     signUp:async(data)=>{
-        console.log('sign up data', data)
-        console.log(import.meta.env.VITE_API_URI)
         try {
             set({isSigningUp:true})
             const res =await apiRequest.post('/auth/register', data)  
             toast.success(res.data.message)   
             return res    
         } catch (error) {
-            console.log('register error', error)
-            toast.error(error?.response?.data?.message || 'Something went wrong')
+                toast.error(error?.response?.data?.message || 'Something went wrong')
             
             
         }finally{
@@ -35,8 +32,7 @@ export const useAuthStore = create((set,get)=>({
             return res
                   
         } catch (error) {
-            console.log('login error',error)
-            toast.error(error?.response?.data?.message || 'something went wrong')
+                toast.error(error?.response?.data?.message || 'something went wrong')
             
         }finally{
             set({isSigningIn:false})
