@@ -2,14 +2,14 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+RUN npm install
 COPY . .
 RUN npm run build
 # stage2: development enviroment
 FROM node:18-alpine AS development
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+RUN npm install
 COPY . .
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
