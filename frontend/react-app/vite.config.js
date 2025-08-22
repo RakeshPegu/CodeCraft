@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 import viteCompression from 'vite-plugin-compression'
 export default defineConfig({  
-  plugins: [react(), tailwindcss(),viteCompression(),],
+  plugins: [react(), tailwindcss(),viteCompression(), ],
   server:{
     host:true,
     port:3000
