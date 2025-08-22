@@ -13,7 +13,7 @@ function Introduction() {
     console.log('this is backend url',import.meta.env.VITE_API_URI )
   }, [])
   return (
-    <div className="h-[95vh] w-full flex flex-col pt-6 justify-between" >
+    <div className="h-[95vh] w-full flex flex-col pt-6 justify-between " >
        <div>
         <IntroContent/>
        </div>

@@ -1,5 +1,24 @@
 import { Link, NavLink } from "react-router";
 function Navbar(){
+   const handleAbout = ()=>{
+      const about = document.getElementById('about')
+      if(about){
+         about.scrollIntoView({behavior:"smooth"})
+      }
+   }
+   const handleProject = ()=>{
+      const project = document.getElementById('project')
+      if(project){
+         project.scrollIntoView({behavior:"smooth"})
+      }
+   }
+   const handleSkill = ()=>{
+      const skills = document.getElementById('skill')
+      if(skills){
+         skills.scrollIntoView({behavior:"smooth"})
+      }
+   }
+  
     return (
        <nav className="flex flex-row justify-between z-20 pt-2 top-0 items-center  h-[50px] backdrop-blur-xl fixed w-full">
          <div className="pl-5">
@@ -12,14 +31,14 @@ function Navbar(){
                  <span>Menu</span>
               
             </NavLink>
-            <NavLink className="hidden sm:inline ">
+            <NavLink className="hidden sm:inline " onClick={handleAbout}>
                 About me
              </NavLink>
             
-            <NavLink className="hidden sm:inline ">
+            <NavLink className="hidden sm:inline " onClick={handleProject}>
                 Portfolio
              </NavLink>
-            <NavLink className="hidden sm:inline ">
+            <NavLink className="hidden sm:inline " onClick={handleSkill}>
                 Skills
              </NavLink>
             

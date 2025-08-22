@@ -50,14 +50,14 @@ function OtherSkills(){
     }, [])
     return(
         <div className="relative flex flex-col  font-medium lg:relative lg:bg-gray-200 lg:flex lg:h-[300vh] lg:flex-row-reverse lg:gap-0 lg:items-start items-center" ref={parentContainerRef} id="experience">
-            <div className=" h-[250px] flex lg:flex-row lg:h-[100vh]  lg:items-center   lg:w-2/5 lg:bg-gray-500 justify-center items-center " ref={pinRef}>
+            <div className=" h-[250px] flex lg:flex-row lg:h-[100vh]  lg:items-center   lg:w-2/5 lg:bg-blue-300 justify-center items-center " ref={pinRef}>
                 <div className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-3 lg:absolute text-pink-50 lg:w-[100%] w-[96%]">
                     <h1 className=" text-6xl lg:text-8xl lg:text-center font-serif">| Skills</h1>
                     <p className=" lg:w-[67%]  font-mono lg:pt-0 pt-8"> Here’s a quick overview of the technologies and tools I've been able to learn so far</p>
                 </div>           
                
             </div>
-            <div className="lg:flex lg:flex-col lg:w-4/5 lg:gap-50 lg:pb-60 text-pink-50 lg:h-full  w-[96%] lg:bg-gray-600" ref={rightDivRef}>               
+            <div className="lg:flex lg:flex-col lg:w-4/5 lg:gap-50 lg:pb-60  lg:h-full  w-[96%] lg:bg-blue-200" ref={rightDivRef}>               
         
             <div className=" lg:w-[500px]  lg:pt-100 lg:ml-20">
                 <p className="text-xl lg:font-mono lg:lg:text-4xl">

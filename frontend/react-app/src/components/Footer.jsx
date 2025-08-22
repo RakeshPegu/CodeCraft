@@ -1,5 +1,24 @@
+import { Link } from "react-router"
 
 function Footer(){
+    const handleProjectClick = ()=>{
+        const project = document.getElementById('project')
+        if(project){
+            project.scrollIntoView({behavior:'smooth'})
+        }
+    }
+    const handleAboutClick = ()=>{
+        const about = document.getElementById('about')
+        if(about){
+            about.scrollIntoView({behavior:"smooth"})
+        }
+    }
+    const handleSkillClick = ()=>{
+        const skill = document.getElementById('skill')
+        if(skill){
+            skill.scrollIntoView({behavior:'smooth'})
+        }
+    }
     return(
         <div className="bg-[url(/cod.jpg)] bg-gray-400 bg-blend-overlay h-full bg-no-repeat bg-cover bg-center text-amber-50">
          <div className="flex flex-col gap-10 backdrop-brightness-40">
@@ -7,19 +26,20 @@ function Footer(){
              <div>
                 <h1 className="text-2xl font-serif">Import links</h1>
                 <ul className="flex flex-col items-center gap-1 pt-2">                
-                <li>
-                    HOME
+                <li >
+                    <Link to={'/'}>  HOME</Link>
+                   
                 </li>
-                <li>
+                <li onClick={handleProjectClick} className="cursor-pointer">
                     PROJECTS
                 </li>
-                <li>
+                <li onClick={handleAboutClick}  className="cursor-pointer">
                     ABOUT
                 </li>
-                <li>
+                <li  onClick={handleSkillClick}  className="cursor-pointer">
                     SKILLS
                 </li>
-                <li>
+                <li  className="cursor-pointer">
                     CONTAC ME
                 </li>
                </ul>

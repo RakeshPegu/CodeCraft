@@ -38,7 +38,7 @@ function About() {
     });
     
      return () => {
-            // Kill the ScrollTrigger instance to prevent memory leaks
+            
             if (scrollTriggerInstance) {
                 scrollTriggerInstance.kill();
             }
@@ -47,11 +47,11 @@ function About() {
   }, []);
 
   return (
-    <div className="h-[200vh] lg:h-[300vh] w-full bg-center flex flex-col  gap-[60px] pl-3 " id="about">    
+    <div className="h-[200vh] lg:h-[300vh] w-full bg-center flex flex-col  gap-[60px] pl-3 text-black  lg:bg-gray-600  " id="about">    
        <div className="flex  h-screen flex-col lg:h-[300vh]  lg:relative lg:flex-row  lg:w-full "  ref={parentContainerRef}>  
         
         <div className=" lg:relative lg:w-2/5  lg:p-8 lg:h-screen w-full h-full  lg:flex justify-center lg:items-center " ref={pinRef}>    
-          <div className="flex flex-col justify-center  h-[200px] lg:h-[100vh] text-pink-50 lg:items-center"
+          <div className="flex flex-col justify-center  h-[200px] lg:h-[100vh] lg:text-pink-50 lg:items-center"
           >
             <h2 className="text-4xl font-bold font-serif lg:text-6xl">| ABOUT ME</h2>
             <p className="text-xl font-mono lg:text-[1em] lg:w-[240px] ">
@@ -61,8 +61,8 @@ function About() {
           </div>  
 
         
-          <div className="flex flex-col gap-15 lg:w-3/5 lg:pl-[50px]   lg:gap-70 text-pink-50 " ref={rightDivRef}>
-            <div className="lg:w-[87%] lg:pt-[450px] ">
+          <div className="flex flex-col gap-15 lg:w-3/5 lg:pl-[50px]  lg:bg-blue-200  lg:gap-70 " ref={rightDivRef}>
+            <div className="lg:w-[87%] lg:pt-[450px]">
               <AboutCard
                 heading={"WHO I AM ?"}
                 content1={`I'm a Full-Stack Developer with close to 2 years of experience, but I’m currently transitioning into a more backend-focused role — because that’s where I thrive.`}
@@ -70,7 +70,7 @@ function About() {
               />
             </div>
 
-            <div className="flex flex-col gap-10 lg:w-[87%]">
+            <div className="flex flex-col gap-10 lg:w-[87%] ">
               <h3 className="text-4xl font-bold font-serif">What interest me in tech?</h3>
               <div>
                 <TechContent />

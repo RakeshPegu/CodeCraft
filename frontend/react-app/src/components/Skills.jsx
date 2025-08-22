@@ -1,8 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SkillCard from './card/SkillCard'; // Ensure correct path
-
+import SkillCard from './card/SkillCard'; 
 gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
@@ -42,14 +41,13 @@ if (screenWidth >= 1024) {
 
         let { isLarge } = context.conditions;
 
-        // Only run the animation if 'isLarge' is true
         if (isLarge) {
           if (!containerRef.current || panelRefs.current.length === 0) return;
 
           const panels = panelRefs.current;
           const container = containerRef.current;
 
-          // Your existing ScrollTrigger animation
+          
           gsap.to(panels, {
             xPercent: -100 * (panels.length - 1),
             ease: 'none',
@@ -124,14 +122,13 @@ if (screenWidth >= 1024) {
         </div>
       </div>
 
-      {/* Horizontal scroll container */}
-      <div className=' lg:overflow-hidden ' style={{ height: `${skills.length * heightMultiplier}vh` }}>
+       <div className=' lg:overflow-hidden  bg-gray-500' style={{ height: `${skills.length * heightMultiplier}vh` }}>
         <div ref={containerRef} className='h-full lg:h-screen   lg:pl-15  lg:overflow-hidden '>
           <div className='flex flex-col sm:flex-row  flex-nowrap sm:flex-wrap lg:flex-nowrap  lg:flex-row items-center justify-center lg:justify-start  gap-10 pt-10  pb-10 lg:pt-30  lg:pb-50 '>
             {skills.map((skill, index) => (
               <div
                 key={index}
-                ref={addToPanels} // Ensure this ref callback is only added to the direct panel elements
+                ref={addToPanels}
                 className=' w-[400px] shrink-0  flex justify-center items-center '
               >
                 <SkillCard img={skill.img} name={skill.name} number={skill.number} alt={skill.alt} />
