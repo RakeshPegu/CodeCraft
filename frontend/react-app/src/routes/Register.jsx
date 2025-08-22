@@ -5,7 +5,9 @@ import {z} from 'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Input} from '@/components/ui/input'
 import { Link, Navigate } from "react-router"
+import { useAuthStore } from "@/stores/auth.store"
 function Register (){
+    const {signUp} = useAuthStore()
     const schema = z.object({
         username: z.string().min(2,{
             message: "username must be atleast 2 characters"
@@ -26,6 +28,7 @@ function Register (){
         }
     })
     const onsubmit = async(data)=>{
+        console.log(data)
         const res = await signUp(data)
         if(res){
             return <Navigate to={'/login'}/>

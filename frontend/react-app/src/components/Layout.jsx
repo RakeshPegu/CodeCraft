@@ -10,7 +10,7 @@ function Layout(){
     return(
         <div>
             <Navbar/>
-            <div className="">
+            <div className="bg-blue-100">
                 <Outlet/>
             </div>
             <div>
