@@ -13,8 +13,8 @@ function Portfolio(){
             </div>
             <div className="flex flex-col items-center  gap-15 lg:flex-row lg:flex-wrap  lg:justify-center  ">
                  
-                <ProjectCard name='chat101'/>
-                <ProjectCard name="tradivibe"/>
+                <ProjectCard name='chat101' description={'this is real time chat application built using socket.io for real time data where users can have better messaging experience '} />
+                <ProjectCard name="tradivibe" description={'this is an applicatin whose the backend is based on microservice architecture and use cache and other advanced system design concepts for scalability purposes'}/>
                     
             </div>
         </div>
