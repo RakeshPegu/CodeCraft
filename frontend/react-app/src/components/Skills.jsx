@@ -105,8 +105,8 @@ if (screenWidth >= 1024) {
   return (
     <div className='h-full flex flex-col gap-20  text-pink-50 lg:text-gray-950' id='skill'>
       <div className='flex flex-col items-center py-10 gap-10 lg:flex-row '>
-        <div className='h-full flex flex-col justify-center items-center p-4 w-[98%] lg:w-[60%] gap-3'>
-          <h1 className='text-8xl font-bold font-serif text-center'>|Tools</h1>
+        <div className='h-full flex flex-col justify-center items-center p-4 w-[98%] lg:w-[60%] gap-3 lg:text-indigo-950'>
+          <h1 className='text-8xl font-bold font-serif text-center '>|Tools</h1>
           <p className='text-xl font-mono lg:w-[40%] text-center '>
             Here are some of the tools and technologies I use.
           </p>
