@@ -103,15 +103,15 @@ if (screenWidth >= 1024) {
   ];
 
   return (
-    <div className='h-full flex flex-col gap-20  text-pink-50 lg:text-gray-950' id='skill'>
-      <div className='flex flex-col items-center py-10 gap-10 lg:flex-row '>
-        <div className='h-full flex flex-col justify-center items-center p-4 w-[98%] lg:w-[60%] gap-3 lg:text-indigo-950'>
+    <div className='h-full flex flex-col gap-20' id='skill'>
+      <div className='flex flex-col items-center py-10 gap-10 lg:flex-row  lg:bg-gray-900 lg:text-white '>
+        <div className='h-full flex flex-col justify-center items-center p-4 w-[98%] lg:w-[60%] gap-3 text-indigo-950 lg:text-pink-100'>
           <h1 className='text-8xl font-bold font-serif text-center '>|Tools</h1>
           <p className='text-xl font-mono lg:w-[40%] text-center '>
             Here are some of the tools and technologies I use.
           </p>
         </div>
-        <div className='w-[98%] flex justify-center items-center font-mono lg:w-[70%] pl-3 '>
+        <div className='w-[98%] flex justify-center items-center font-mono lg:w-[70%] pl-3  '>
           <p className='text-xl text-center'>
             From powerful frameworks to clever little libraries, these tools aren't just part of my
             workflow — they're my creative partners in crime. Whether it's building slick frontends,
@@ -122,7 +122,7 @@ if (screenWidth >= 1024) {
         </div>
       </div>
 
-       <div className=' lg:overflow-hidden  bg-gray-500 ' style={{ height: `${skills.length * heightMultiplier}vh` }}>
+       <div className=' lg:overflow-hidden  ' style={{ height: `${skills.length * heightMultiplier}vh` }}>
         <div ref={containerRef} className='h-full lg:h-screen   lg:pl-15  lg:overflow-hidden '>
           <div className='flex flex-col sm:flex-row  flex-nowrap sm:flex-wrap lg:flex-nowrap  lg:flex-row items-center justify-center lg:justify-start  gap-10 pt-10  pb-10 lg:pt-30  lg:pb-50 '>
             {skills.map((skill, index) => (
