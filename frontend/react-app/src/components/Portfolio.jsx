@@ -3,7 +3,7 @@ import ProjectCard from "./card/ProjectCard";
 function Portfolio(){
     return(
           <div className="flex flex-col h-full d gap-[50px] pb-[150px] lg:pt-30" id="project">
-            <div className=" h-[100%]  just flex flex-col justify-center gap-3 " >
+            <div className=" h-[100%]  just flex flex-col justify-center gap-3 relative left-2 lg:left-0" >
                 <div className=" lg:bg-gray-900 lg:text-gray-50 flex flex-col gap-5 lg:gap-0">
                 <h1 className="text-5xl sm:text-6xl font-bold lg:pb-10  lg:pl-15 ">| BUILDING SOMETHING INTERESTING</h1>
                 <p className="text-xl font-bold lg:font-mono lg:pl-30">

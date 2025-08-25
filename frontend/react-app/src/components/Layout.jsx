@@ -8,7 +8,7 @@ import { Navigate, Outlet } from "react-router";
 function Layout(){
    
     return(
-        <div>
+        <div >
             <Navbar/>
             <div className="bg-blue-100">
                 <Outlet/>

@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 
 function ProjectCard({name, description}){
     return(
-        <div className=" shadow-md/20 bg-gray-50   w-[92%] hover:shadow-xl/25 hover:bg-white h-[100%] lg:h-[550px] flex flex-col items-center backdrop-blur-3xl lg:w-[20%] lg:gap-10 ">
+        <div className=" shadow-md/20 bg-gray-50   w-[82%] hover:shadow-xl/25 hover:bg-white h-[100%] lg:h-[550px] flex flex-col items-center backdrop-blur-3xl lg:w-[20%] lg:gap-10 ">
             <h1 className=" w-full text-center text-2xl h-[40px]">{name} </h1>
             <div className="flex flex-col justify-center items-center">
                 <img src="./proj.png" alt={name+'photo'} className="w-[90%] pt-2"/>

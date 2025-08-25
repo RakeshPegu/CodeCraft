@@ -20,33 +20,33 @@ function Navbar(){
    }
   
     return (
-       <nav className="flex flex-row justify-between z-20 pt-2 top-0 items-center  h-[50px] backdrop-blur-xl fixed w-full">
+       <nav className="flex flex-row  z-20 pt-2 top-0 items-center justify-between lg:justify-normal h-[50px] backdrop-blur-xl fixed w-full font-serif">
          <div className="pl-5">
             <Link to={'/'}>
             <h1 style={{fontFamily:"'Blaka Ink', system-ui",fontWeight: 400}} className="text-5xl cursor-pointer pb-2" >C2 </h1>
             </Link>
          </div>
-         <div className="flex flex-row gap-10  text-xl pr-8 text-pink-50">
-            <NavLink className="sm:hidden">
+         <div className="flex flex-row gap-6 lg:gap-25  text-xl pr-8 text-gray-900 lg:relative lg:left-150 lg:text-2xl">
+            <NavLink className="sm:hidden ">
                  <span>Menu</span>
               
             </NavLink>
-            <NavLink className="hidden sm:inline " onClick={handleAbout}>
-                About me
+            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleAbout}>
+                about me
              </NavLink>
             
-            <NavLink className="hidden sm:inline " onClick={handleProject}>
-                Portfolio
+            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleProject}>
+                project
              </NavLink>
-            <NavLink className="hidden sm:inline " onClick={handleSkill}>
-                Skills
+            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleSkill}>
+                skill
              </NavLink>
             
-             <NavLink className="hidden sm:inline ">
-                CONTACT ME
+             <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2">
+                contact me
              </NavLink>
             <NavLink to={'/profile'}>
-                <span className="material-symbols-outlined ">account_circle</span>
+                <span className="material-symbols-outlined text-black  ">account_circle</span>
             </NavLink>
          </div>
          

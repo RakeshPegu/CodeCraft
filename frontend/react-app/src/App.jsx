@@ -29,9 +29,10 @@ function App(){
       element:<Login/>
     },
     {
-      path:"/project",
-      element:<ProjectForm/>
+      path:"profile",
+      element:<Profile/>
     }
+
     
 
 
@@ -42,10 +43,11 @@ function App(){
       element:<AuthRequireLayout/>,
       errorElement:<ErrorPage/>,
       children:[
-        {
-          path:"profile",
-          element:<Profile/>
+          {
+            path:"/project",
+            element:<ProjectForm/>
         }
+      
       ]
     }
 

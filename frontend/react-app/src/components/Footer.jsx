@@ -27,20 +27,20 @@ function Footer(){
                 <h1 className="text-2xl font-serif">Import links</h1>
                 <ul className="flex flex-col items-center gap-1 pt-2">                
                 <li >
-                    <Link to={'/'}>  HOME</Link>
+                    <Link to={'/'}>  home</Link>
                    
                 </li>
                 <li onClick={handleProjectClick} className="cursor-pointer">
-                    PROJECTS
+                    project
                 </li>
                 <li onClick={handleAboutClick}  className="cursor-pointer">
-                    ABOUT
+                    about
                 </li>
                 <li  onClick={handleSkillClick}  className="cursor-pointer">
-                    SKILLS
+                    skill
                 </li>
                 <li  className="cursor-pointer">
-                    CONTAC ME
+                    contact me
                 </li>
                </ul>
                </div>

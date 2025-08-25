@@ -59,7 +59,7 @@ function Login(){
 
                             )}/>
                             
-                             <Button className="bg-blue-500"  disabled={isSigningIn} type="submit">Submit</Button>
+                             <Button className='bg-blue-500 disabled:cursor-not-allowed '  disabled={isSigningIn}  type="submit">Submit</Button>
                             <span className="text-center" >Don't Have a account?  <Link to={'/register'} className="text-blue-400"> Sign up</Link></span>
                         </form>
                     </Form>

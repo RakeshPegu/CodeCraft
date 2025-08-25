@@ -57,7 +57,7 @@ function OtherSkills(){
                 </div>           
                
             </div>
-            <div className="lg:flex lg:flex-col lg:w-4/5 lg:gap-50 lg:pb-60  lg:h-full  w-[96%] " ref={rightDivRef}>               
+            <div className="flex flex-col lg:w-4/5 lg:gap-50 lg:pb-60  lg:h-full  w-[96%] gap-15 " ref={rightDivRef}>               
         
             <div className=" lg:w-[500px]  lg:pt-100 lg:ml-20">
                 <p className="text-xl lg:font-mono lg:lg:text-4xl">
@@ -91,13 +91,13 @@ function OtherSkills(){
                     frontend: 
                 </h2>
                 <div className="">
-                <p className="lg:text-xl font-mono">
+                <p className="text-xl font-mono">
                     Built fully responsive web applications using Vanilla JavaScript, React, HTML, and styled them using CSS, SASS, TailwindCSS, ShadCN/UI, GSAP, and more.
                    
                 </p>
-                <p className="lg:text-xl lg:font-mono">Followed Atomic Design principles for component structuring. To improve UX and performance, used code splitting, lazy loading, and CDN services.</p>
-                <p className="lg:text-xl lg:font-mono">Implemented form validation using Zod and React Hook Form. Used Zustand for state management and SweetAlert2 for user-friendly alerts.</p>
-                <p className="lg:text-xl lg:font-mono">For real-time features, integrated Socket.IO, and leveraged browser localStorage for lightweight data persistence.</p>
+                <p className="text-xl font-mono">Followed Atomic Design principles for component structuring. To improve UX and performance, used code splitting, lazy loading, and CDN services.</p>
+                <p className="text-xl font-mono">Implemented form validation using Zod and React Hook Form. Used Zustand for state management and SweetAlert2 for user-friendly alerts.</p>
+                <p className="text-xl font-mono">For real-time features, integrated Socket.IO, and leveraged browser localStorage for lightweight data persistence.</p>
                 </div>
                 </div>
             </div>
