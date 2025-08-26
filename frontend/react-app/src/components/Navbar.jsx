@@ -1,10 +1,13 @@
 import ContactForm from "@/subComponent/ContactForm";
 import MenuCard from "@/subComponent/menu";
+import SendEmail from "@/subComponent/sendEmail";
 import { useState } from "react";
 import { Link, NavLink } from "react-router";
 function Navbar(){
    const [menuState, setMenuState] = useState(false)
    const [showContactForm, setShowContactForm] = useState(false)
+   const [showEmailForm, setShowEmailForm] = useState(false)
+   
    const handleAbout = ()=>{
       const about = document.getElementById('about')
       if(about){
@@ -26,6 +29,10 @@ function Navbar(){
    const handleContactClick = ()=>{
       setShowContactForm((prev)=>!prev)
    }
+   const handleEmailForm =()=>{
+      setShowEmailForm((prev)=> !prev)
+   }
+
   
     return (
        <nav className="flex flex-row  z-20 pt-2 top-0 items-center justify-between h-[50px] backdrop-blur-xl fixed w-full font-serif">
@@ -34,7 +41,7 @@ function Navbar(){
             <h1 style={{fontFamily:"'Blaka Ink', system-ui",fontWeight: 400}} className="text-5xl cursor-pointer pb-2" >C2 </h1>
             </Link>
          </div>
-         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-gray-900  lg:text-2xl lg:mr-8">
+         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-indigo-900  lg:text-2xl lg:mr-8">
             <div>
                <NavLink className={`sm:hidden`} onMouseEnter={()=>setMenuState(true)} onClick={()=>setMenuState(prev => !prev)}  >
                  menu
@@ -43,6 +50,7 @@ function Navbar(){
                <div className={`sm:hidden  flex justify-center items-center ${menuState?'flex':'hidden'}`} >
                  <MenuCard  showState={setMenuState}/>
                </div> 
+               <div className="flex justify-center w-full"> <SendEmail emailFormState={showEmailForm} changeEmailFormState={handleEmailForm}/> </div>
 
             </div>
 
@@ -62,7 +70,7 @@ function Navbar(){
                 contact me
              </NavLink>
              <div className=" w-[300px] bg-pink-600">
-               <ContactForm  formState={showContactForm} changeState={handleContactClick}/>
+               <ContactForm  formState={showContactForm} changeState={handleContactClick}  changeEmailFormState={handleEmailForm}/>
              </div>
             </div>
             <NavLink to={'/profile'}>
