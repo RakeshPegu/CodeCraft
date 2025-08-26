@@ -8,7 +8,7 @@ function Home(){
         
    
        return(
-         <div className=" h-full flex flex-col gap-[50px] md:gap-[300px] lg:bg-gray-100  top-0 relative overflow-y-scroll " id="home"> 
+         <div className=" h-full flex flex-col gap-30 md:gap-[300px] lg:bg-gray-100  top-0 relative overflow-y-scroll " id="home"> 
          <Introduction/>
          <Suspense fallback={<div>... loading</div>}>
            <About/>

@@ -1,5 +1,10 @@
+import ContactForm from "@/subComponent/ContactForm";
+import MenuCard from "@/subComponent/menu";
+import { useState } from "react";
 import { Link, NavLink } from "react-router";
 function Navbar(){
+   const [menuState, setMenuState] = useState(false)
+   const [showContactForm, setShowContactForm] = useState(false)
    const handleAbout = ()=>{
       const about = document.getElementById('about')
       if(about){
@@ -18,19 +23,30 @@ function Navbar(){
          skills.scrollIntoView({behavior:"smooth"})
       }
    }
+   const handleContactClick = ()=>{
+      setShowContactForm((prev)=>!prev)
+   }
   
     return (
-       <nav className="flex flex-row  z-20 pt-2 top-0 items-center justify-between lg:justify-normal h-[50px] backdrop-blur-xl fixed w-full font-serif">
+       <nav className="flex flex-row  z-20 pt-2 top-0 items-center justify-between h-[50px] backdrop-blur-xl fixed w-full font-serif">
          <div className="pl-5">
             <Link to={'/'}>
             <h1 style={{fontFamily:"'Blaka Ink', system-ui",fontWeight: 400}} className="text-5xl cursor-pointer pb-2" >C2 </h1>
             </Link>
          </div>
-         <div className="flex flex-row gap-6 lg:gap-25  text-xl pr-8 text-gray-900 lg:relative lg:left-150 lg:text-2xl">
-            <NavLink className="sm:hidden ">
-                 <span>Menu</span>
+         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-gray-900  lg:text-2xl lg:mr-8">
+            <div>
+               <NavLink className={`sm:hidden`} onMouseEnter={()=>setMenuState(true)} onClick={()=>setMenuState(prev => !prev)}  >
+                 menu
               
-            </NavLink>
+              </NavLink>
+               <div className={`sm:hidden  flex justify-center items-center ${menuState?'flex':'hidden'}`} >
+                 <MenuCard  showState={setMenuState}/>
+               </div> 
+
+            </div>
+
+
             <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleAbout}>
                 about me
              </NavLink>
@@ -41,15 +57,19 @@ function Navbar(){
             <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleSkill}>
                 skill
              </NavLink>
-            
-             <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2">
+            <div className="hidden sm:inline ">
+             <NavLink className='hover:rounded-4xl  hover:bg-white/50 backdrop-blur-xl pr-2 pl-2' onMouseEnter={()=>setShowContactForm(true)} onClick={handleContactClick}>
                 contact me
              </NavLink>
+             <div className=" w-[300px] bg-pink-600">
+               <ContactForm  formState={showContactForm} changeState={handleContactClick}/>
+             </div>
+            </div>
             <NavLink to={'/profile'}>
                 <span className="material-symbols-outlined text-black  ">account_circle</span>
             </NavLink>
          </div>
-         
+                 
        </nav>
     )
 }

@@ -103,7 +103,7 @@ if (screenWidth >= 1024) {
   ];
 
   return (
-    <div className='h-full flex flex-col gap-20' id='skill'>
+    <div className='h-full flex flex-col gap-20 mt-20 lg:pt-0' id='skill'>
       <div className='flex flex-col items-center py-10 gap-10 lg:flex-row  lg:bg-gray-900 lg:text-white '>
         <div className='h-full flex flex-col justify-center items-center p-4 w-[98%] lg:w-[60%] gap-3 text-indigo-950 lg:text-pink-100'>
           <h1 className='text-8xl font-bold font-serif text-center '>|Tools</h1>
