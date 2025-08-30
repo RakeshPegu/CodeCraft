@@ -37,6 +37,7 @@ const otpSchema = new mongoose.Schema({
 },{timestamps:true})
 otpSchema.index({email:1, otp:1}, {unique:true})
 otpSchema.pre('findOneAndUpdate', function(){
+    console.log(this.getQuery())
     const optIno = this.getUpdate()
     const info = this.getQuery()
     sendEmail(info.email, optIno.$set.otp)

@@ -63,19 +63,26 @@ export const updateUser = async(req, res)=>{
     }
 }
 export const deleteUser = async(req, res)=>{
-    const userRole = req.session.userRole
     let sessionUserId = req.session.userId
     let userID = req.params.id
+    const {password} = req.body
     try {
+        console.log(password)
+        if(!password){
+            return res.status(400).json({message:'passsword required'})
+        }
         sessionUserId = sessionUserId.trim()
         userID = userID.trim()
 
-        if(sessionUserId !== userID || userRole !=='admin'){
+        if(sessionUserId !== userID ){
             return res.status(200).json({ succss:false, message:"not authorized"})
         }
-        const existingUser = await userModel.findById(useId)
+        const existingUser = await userModel.findById(userID)
         if(!existingUser){
             return res.status(404).json({message:'user not found'})
+        }
+        if(existingUser.password !== password){
+            return res.status(401).json({succss:false, message:"Wrong password"})
         }
         await userModel.findByIdAndDelete(userID)
         res.status(200).json({succss:true, message:'Deleted user successfully'})

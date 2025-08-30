@@ -10,15 +10,16 @@ export const register = async(req, res)=>{
         }
         const existingUser = await userModel.findOne({email})
         if(existingUser){
-            return res.status(401).json({message:"Email address already exist"})
+            return res.status(400).json({message:"Email address already exist"})
         }
         const result = await otpModel.findOne({otp})
+        console.log('result', result)
         if(!result || result.otp !== otp){
             return res.status(401).json({message:'Invalid otp! try again'})
         }
         const hashedPass = await bcrypt.hash(password, 10)
-        await userModel.create({username,email, password:hashedPass, avatar})
-        res.status(200).json({success:true, message:'Account created successfully'})
+        const newUser = await userModel.create({username,email, password:hashedPass, avatar})
+        res.status(201).json({success:true, message:'Account created successfully',newUser })
 
     } catch (error) {
         res.status(500).json({success:false, message:"Something went wrong"})
@@ -68,7 +69,7 @@ export const login = async(req, res)=>{
         } 
         req.session.userId = existingUser.id
         req.session.userRole = existingUser.role      
-       res.status(200).json({success:true,message:"LoggedIn successfully", existingUser})
+       res.status(201).json({success:true,message:"LoggedIn successfully", existingUser})
     } catch (error) {
         console.log('login error',error)
         res.status(500).json({ success:false, message:'Something went wrong'})
