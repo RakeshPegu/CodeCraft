@@ -5,7 +5,10 @@ export const useAuthStore = create((set,get)=>({
     isSigningUp:false,
     isSigningIn:false,
     isAuthenticated:false,
+    isUpdating:false,
     userInfo:[],
+    isSendingEmail:false,
+    isLoggingOut:false,
     signUp:async(data)=>{
         try {
             set({isSigningUp:true})
@@ -18,6 +21,20 @@ export const useAuthStore = create((set,get)=>({
             
         }finally{
             set({isSigningUp:false})
+        }
+    },
+    sendingEmail: async(data)=>{
+        try {
+            const res = await apiRequest.post('/send_email', data)
+            set({isSendingEmail:true})
+            toast.success(res?.data?.message)
+            return res.data
+            
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "something went wrong")
+            set({isSendingEmail:false})
+        }finally{
+            set({isSendingEmail:false})
         }
     },
     signIn:async(data)=>{
@@ -39,15 +56,34 @@ export const useAuthStore = create((set,get)=>({
         }
 
     },
-    logout: async()=>{
+    updateUserInfo: async(data)=>{
+        console.log(data)
+        try {
+            const res = await apiRequest.put(`/users`)
+            set({isUpdating:true})
+
+            
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'something went wrong')
+            set({isUpdating:false})
+            
+        }
+
+    },
+    logOut: async()=>{
         try {
             const res = await apiRequest.post('/auth/logout')
             set({userInfo: []})
-            set({isAuthenticated:false})
+            set({isLoggingOut:true})
             
         } catch (error) {
             toast.error(error?.response?.data?.message)
+            set({isLoggingOut:false})
             
+        }finally{
+            set({
+                isLoggingOut:false
+            })
         }
     }
 

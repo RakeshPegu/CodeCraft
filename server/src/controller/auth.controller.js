@@ -13,7 +13,6 @@ export const register = async(req, res)=>{
             return res.status(400).json({message:"Email address already exist"})
         }
         const result = await otpModel.findOne({otp})
-        console.log('result', result)
         if(!result || result.otp !== otp){
             return res.status(401).json({message:'Invalid otp! try again'})
         }
@@ -67,9 +66,11 @@ export const login = async(req, res)=>{
         if(!isValidPass){
             return res.status(401).json({success:false, message:"wrong password! try again"})
         } 
+        console.log(req.cookies)
         req.session.userId = existingUser.id
-        req.session.userRole = existingUser.role      
-       res.status(201).json({success:true,message:"LoggedIn successfully", existingUser})
+        req.session.userRole = existingUser.role  
+        
+        res.status(201).json({success:true,message:"LoggedIn successfully", existingUser})
     } catch (error) {
         console.log('login error',error)
         res.status(500).json({ success:false, message:'Something went wrong'})

@@ -10,7 +10,7 @@ function ContactForm ({formState, changeState, changeEmailFormState}){
     }
 
     return (
-        <div className={`absolute top-15 right-50 w-[350px] items-center h-[250px] bg-gray-700 gap-10 text-white  flex flex-col rounded-xl ${formState?'flex':'hidden'}`}>
+        <div className={`absolute top-15 right-90 w-[350px] items-center h-[250px] bg-gray-700 gap-10 text-white  flex flex-col rounded-xl ${formState?'flex':'hidden'}`}>
 
             <div className="flex justify-between w-full">            
             <h4 className="text-3xl text-center pl-25 pt-6">

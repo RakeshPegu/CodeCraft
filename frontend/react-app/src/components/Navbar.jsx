@@ -41,7 +41,7 @@ function Navbar(){
             <h1 style={{fontFamily:"'Blaka Ink', system-ui",fontWeight: 400}} className="text-5xl cursor-pointer pb-2" >C2 </h1>
             </Link>
          </div>
-         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-indigo-900  lg:text-2xl lg:mr-8">
+         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-amber-500  lg:text-2xl lg:mr-8">
             <div>
                <NavLink className={`sm:hidden`} onMouseEnter={()=>setMenuState(true)} onClick={()=>setMenuState(prev => !prev)}  >
                  menu

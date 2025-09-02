@@ -12,7 +12,7 @@ describe('auth test', ()=>{
         await mongoose.disconnect()
     })
 
-    describe('POST /api/auth/register', ()=>{
+    describe('POST /api/v1/auth/register', ()=>{
             let testUserData = {
               username:"rakeshpegu",
               email:`rpegu0651@gmail.com`,
@@ -44,11 +44,10 @@ describe('auth test', ()=>{
         it('should fail if email address already exist', async()=>{
             await request(app).post('/api/v1/auth/register').send(testUserData)
             const res  = await request(app).post('/api/v1/auth/register').send(testUserData)
-            console.log('this is the response', res)
             expect(res.statusCode).toBe(400)
         })
     }),
-    describe('POST /api/auth/login', ()=>{
+    describe('POST /api/v1/auth/login', ()=>{
         let loginUser;
         beforeEach(async()=>{            
             loginUser = {
@@ -84,5 +83,28 @@ describe('auth test', ()=>{
             expect(res.statusCode).toBe(401)
         })
 
+    }),
+    describe('POST /api/v1/auth/logout', ()=>{
+        let testUserData = {
+            username:"rakeslord",
+            email:"rpegu0651@gmail.com",
+            password:"rakesh7099",
+            otp:''
+        }
+        let cookie;
+        beforeAll(async()=>{
+            await request(app).post('/api/v1/auth/send_otp').send({email:testUserData.email})
+            const otpDoc = await otpModel.findOne({email:testUserData.email})
+            testUserData.otp = otpDoc.otp;
+            await request(app).post('/api/v1/auth/register').send(testUserData)
+            const res = await request(app).post('/api/v1/auth/login').send({email:testUserData.email, password:testUserData.password})
+            cookie = res.headers['set-cookie'][0]
+        
+        } )
+        it('validate user identity', async()=>{
+            const res = await request(app).post('/api/v1/auth/logout').set('Cookie',cookie)
+            expect(res.statusCode).toBe(200)
+
+        })
     })
 })

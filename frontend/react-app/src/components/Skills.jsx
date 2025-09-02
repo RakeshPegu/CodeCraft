@@ -68,7 +68,7 @@ if (screenWidth >= 1024) {
     );
   return () => {
       mm.revert(); 
-      console.log('GSAP MatchMedia context reverted.');
+      
     };
   }, []);
 
