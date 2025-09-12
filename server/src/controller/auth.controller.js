@@ -1,6 +1,7 @@
 import { otpModel, userModel } from "../lib/db.js"
 import otpGen from 'otp-generator'
 import bcrypt from 'bcrypt'
+import generateToken from "../utility/generateToken.js"
 
 export const register = async(req, res)=>{
     const {email, username, password, avatar, otp} = req.body
@@ -66,10 +67,15 @@ export const login = async(req, res)=>{
         if(!isValidPass){
             return res.status(401).json({success:false, message:"wrong password! try again"})
         } 
-        console.log(req.cookies)
-        req.session.userId = existingUser.id
-        req.session.userRole = existingUser.role  
+        const {accessToken, refreshToken} = await generateToken(existingUser)
         
+        res.cookie('refreshToken',refreshToken ,{
+            maxAge:1000*60*60*24*30,
+            sameSite:strict,
+            secure:process.env.NODE_ENV==='production'?true:false,
+            httpOnly:true
+
+        }).json({accessToken})      
         res.status(201).json({success:true,message:"LoggedIn successfully", existingUser})
     } catch (error) {
         console.log('login error',error)

@@ -20,14 +20,6 @@ app.use(helmet())
 app.use(compression())
 app.use(express.json())
 app.use(cookieParser())
-app.use(cookieSession({
-    name:'session',
-    secret:process.env.COOKIE_SECRET,
-    secure:process.envNODE_ENV='production',
-    maxAge:1000*60*60*24*3,
-
-}))
-
 mongoose.connect(process.env.DATABASE_URL).then(()=>{
     console.log('connected to database successfully')
 }).catch((err)=>{
@@ -37,9 +29,10 @@ app.use(morganMiddleware)
 app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
 app.use((err, req, res, next)=>{
     const status = err.status || 5000
-    res.status(status).json({message: err.message||'Internal server error'})
-
-    
+    res.status(status).json({message: err.message||'Internal server error'})    
+})
+app.get('/api/v1', (req, res)=>{
+    console.log(req.ip)
 })
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users',userRouter)
