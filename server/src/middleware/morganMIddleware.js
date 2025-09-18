@@ -1,22 +1,21 @@
 import morgan from "morgan";
 import logger from "../utility/logger.js";
 export const morganMiddleware = morgan(
-    function(token, req, res){
+    function(tokens, req, res){
         return JSON.stringify({
-          ip:req.ip,
-          method : token.method(req, res),
-          url: token.url(req, res),
-          status: Number.parseFloat(token.status(req, res)),
-          content_length: token.res(req, res, 'content-length'),
-          response_time: Number.parseFloat(token['response-time'](req, res)),
+          ip:req.headers['x-forwarded-for'] || req.ip,
+          method : tokens.method(req, res),
+          url: tokens.url(req, res),
+          status: Number.parseFloat(tokens.status(req, res)),
+          content_length: tokens.res(req, res, 'content-length'),
+          response_time: Number.parseFloat(tokens['response-time'](req, res)),
           user_agent:req.headers['user-agent']
 
         })
     },
     {
         stream: {
-            write: (msg)=>{
-                const data = JSON.parse(msg)
+            write: (data)=>{                
                 logger.http('incoming_request',data)
                 
             }

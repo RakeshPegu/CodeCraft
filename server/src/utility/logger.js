@@ -1,6 +1,7 @@
-import winston from 'winston'
+import { format } from 'morgan';
+import winston, { info } from 'winston'
 import 'winston-daily-rotate-file'
-const {colorize, combine, timestamp, printf, json} = winston.format
+const {colorize, combine, timestamp, printf, json, errors} = winston.format
 const transports = [];
 if(process.env.NODE_ENV !=='production'){
   transports.push(
@@ -11,38 +12,22 @@ if(process.env.NODE_ENV !=='production'){
   )
 
 }
-transports.push(
-  new winston.transports.DailyRotateFile({
-    level:"info",
-    filename:"combined-%DATE%.log",
+const createFileTransport = (level, filename)=>{
+  return   new winston.transports.DailyRotateFile({
+    level:level,
+    filename:`${filename}-%DATE%.log`,
     datePattern: 'YYYY-MM-DD',
     maxFiles:'14d',
     maxSize:'20m',
-    format: combine(timestamp({format:"YYYY-MM-DD hh:mm:ss.SSS A"}),json())
+    format: combine(timestamp({format: ()=> new Date.toISOString()}),errors({stack:true}), json())
+})}
 
-    
-  }),
-  new winston.transports.DailyRotateFile({
-  level: "error",
-  filename: "error-%DATE%.log",
-  datePattern: "YYYY-MM-DD",
-  maxFiles: "14d",
-  maxSize: "20m",
-  format: combine(timestamp({ format: "YYYY-MM-DD hh:mm:ss.SSS A" }), json())
-}),
-
-  new winston.transports.DailyRotateFile({
-    level:"http",
-    filename:'http-%DATE%.log',
-    datePattern:'YYYY-MM-DD',
-    maxFiles:'14d',
-    maxSize:'20m',
-    format:combine(
-      timestamp({format:'YYYY-MM-DD hh:mm:ss.SSS A'}),
-      json()
-    )
-  })
+transports.push(
+  createFileTransport('info', 'combined'),
+  createFileTransport('error', 'error'),
+  createFileTransport('http', 'http')
 )
+
 const logger = winston.createLogger({
   level:'silly',
   defaultMeta:{
@@ -50,16 +35,11 @@ const logger = winston.createLogger({
   },
   transports,
   exceptionHandlers:[
-    new winston.transports.DailyRotateFile({
-      filename:'exception-%DATE%.log',
-      format:combine(timestamp({format:'YYYY-MM-DD'}),json())
-    })
+    createFileTransport('error', 'exceptioin')
+   
   ],
   rejectionHandlers:[
-    new winston.transports.DailyRotateFile({
-      filename:'rejection-%DATE%.log',
-      format:combine(timestamp({format:'YYYY-MM-DD'}), json())
-    })
+    createFileTransport('error', 'reject')  
   ]
 })
 export default logger
