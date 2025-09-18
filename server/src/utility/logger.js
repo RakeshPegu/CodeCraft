@@ -1,5 +1,4 @@
-import { format } from 'morgan';
-import winston, { info } from 'winston'
+import winston from 'winston'
 import 'winston-daily-rotate-file'
 const {colorize, combine, timestamp, printf, json, errors} = winston.format
 const transports = [];
