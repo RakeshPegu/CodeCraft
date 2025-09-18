@@ -5,4 +5,5 @@ const tokenSchema = new mongoose.Schema({
     createdAt:{type:Date, default:Date.now, expire:60*60*24*30}
 
 })
-export const  tokenModel = mongoose.model('Token', tokenSchema)
+const  tokenModel = mongoose.model('Token', tokenSchema)
+export default tokenModel

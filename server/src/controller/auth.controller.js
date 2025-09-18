@@ -1,41 +1,42 @@
 import { otpModel, userModel } from "../lib/db.js"
+import { catchAsycn } from "../utility/catchAsynch.js"
+import { AppError } from "../utility/errorHandler.js"
 import otpGen from 'otp-generator'
 import bcrypt from 'bcrypt'
-import generateToken from "../utility/generateToken.js"
-
-export const register = async(req, res)=>{
-    const {email, username, password, avatar, otp} = req.body
-    try {
+import { generateToken } from "../utility/generateToken.js"
+export const register = catchAsycn(async(req, res)=>{
+        const {email, username, password, avatar, otp} = req.body
         if(!email || !username ||!password || !otp){
-            return res.status(400).json({message:'All the fields are mandatory'})
+            throw new AppError(400, 'All fields are mandatory')
+            
         }
         const existingUser = await userModel.findOne({email})
         if(existingUser){
-            return res.status(400).json({message:"Email address already exist"})
+            throw new AppError(400, 'Email address already exist')
+        
         }
         const result = await otpModel.findOne({otp})
         if(!result || result.otp !== otp){
-            return res.status(401).json({message:'Invalid otp! try again'})
+            throw new AppError(403, 'Invalid otp')
+        
         }
         const hashedPass = await bcrypt.hash(password, 10)
         const newUser = await userModel.create({username,email, password:hashedPass, avatar})
+        logger.info('Register user succesfully')
         res.status(201).json({success:true, message:'Account created successfully',newUser })
 
-    } catch (error) {
-        res.status(500).json({success:false, message:"Something went wrong"})
-        
-    }
-}
-export const send_otp = async(req, res)=>{
-    const {email}= req.body
-    try {
+})
+export const send_otp = catchAsycn(async(req, res)=>{
+        const {email}= req.body
         console.log(email)
         if(!email){
-            return res.status(400).json({message:'valid email required'})
+            throw new AppError(404, 'Valid email required')
+    
         }  
         const existingUser = await userModel.findOne({email})
         if(existingUser){
-            return res.status(401).json({message:"email address already exist"})
+            throw new AppError(403, 'Email address already exist')
+            
         }
         let otp = otpGen.generate(6, {specialChars:false, upperCaseAlphabets:false, lowerCaseAlphabets:false})
         let result = await otpModel.findOne(({otp:otp}))
@@ -44,55 +45,47 @@ export const send_otp = async(req, res)=>{
 
         }while(result)
         const response = await otpModel.findOneAndUpdate({email}, {$set:{otp:otp}},{upsert:true})
+        logger.info('Send otp successfully')
         res.status(200).json({message:"Otp send successfully"})       
 
-    } catch (error) {
-        console.log('send otp error', error)
-        res.status(500).json({success:false, message:"Something went wrong"})    
-    }
-}
-
-export const login = async(req, res)=>{
+    
+})
+export const login = catchAsycn(async(req, res)=>{
     const {email, password} = req.body
-    try {
-        if(!email ||!password){
-            return res.status(400).json({message:'the the fieds are mandatory'})
+    if(!email ||!password){
+            throw new AppError(400, 'All the fields are mandatory')
         }
         const existingUser = await userModel.findOne({email})
         if(!existingUser){
-            return res.status(404).json({successf:false, message:"Account not found"})
-
+            throw new AppError(404, 'Account not found')
+            
         }
         const isValidPass = await bcrypt.compare(password, existingUser.password)
         if(!isValidPass){
-            return res.status(401).json({success:false, message:"wrong password! try again"})
-        } 
-        const {accessToken, refreshToken} = await generateToken(existingUser)
+            throw new AppError(403, 'Invalid password')
+        }        
         
+        const {accessToken, refreshToken} = await generateToken(existingUser)
         res.cookie('refreshToken',refreshToken ,{
             maxAge:1000*60*60*24*30,
-            sameSite:strict,
-            secure:process.env.NODE_ENV==='production'?true:false,
+            sameSite:'strict',
+            secure:process.env.NODE_ENV==='production'? true:false,
             httpOnly:true
 
-        }).json({accessToken})      
-        res.status(201).json({success:true,message:"LoggedIn successfully", existingUser})
-    } catch (error) {
-        console.log('login error',error)
-        res.status(500).json({ success:false, message:'Something went wrong'})
+        })  
+        logger.info('Logged user succesfully')
+        res.status(201).json({success:true,accessToken, message:"LoggedIn successfully", existingUser})
+    
+})
+export const logout = catchAsycn(async(req, res)=>{
+        const tokenUserId = req.userId
+        if(!tokenUserId){
+            throw new AppError(404, 'Not authenticated')
+        }
         
-    }
-}
-export const logout = async(req, res)=>{
-    const userID= req.session.userID
-    try {
-        console.log(req.session)
-        req.session = null
-        res.status(200).json({success:'logout successfully'})
+        await userModel.findOneAndDelete({_id:tokenUserId})
+        res.clearCookie('token').status(200).json({success:'logout successfully'})
+    
         
-    } catch (error) {
-        console.log('log out error', error)
-        res.status(500).json({success:false, message:'Something went wrong'})
-        
-    }
-}
+    
+})

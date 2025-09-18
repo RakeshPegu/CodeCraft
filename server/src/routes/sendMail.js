@@ -1,7 +1,9 @@
 import express from 'express'
 import nodemailer from 'nodemailer'
+import { verifyToken } from '../middleware/verifyToken.js'
+import { slidingWindowCounterRateLimiter } from '../middleware/rateLimiting.js'
 const router = express.Router()
-router.post('/', async(req, res)=>{
+router.post('/',verifyToken, slidingWindowCounterRateLimiter({endpoint:'send_email', maxRequests:10, windowInSeconds:60}), async(req, res)=>{
     const {firstName, middleName, lastName, email, message} = req.body
     try {
         if(!firstName  || !lastName || !email || !message){

@@ -1,95 +1,68 @@
 import { userModel } from "../lib/db.js"
-import mongoose from "mongoose"
+import { AppError } from "../utility/errorHandler.js"
+import { catchAsycn } from "../utility/catchAsynch.js"
 
-export const getUsers = async(req, res)=>{
-    const userRole = req.session.userRole
-    try {
+export const getUsers = catchAsycn(async(req, res)=>{
+        const userRole = req.session.userRole
         if(userRole !=='admin'){
-            return res.status(403).json({succss:false, message:"Not authorized"})
+            throw new AppError(403, 'Not authorized')
         }
         const getUsers = await userModel.find()
 
         res.status(200).json({succss:true, getUsers})
-    } catch (error) {
-        console.log('get users error', error)
-        res.status(200).json({message:'Something went wrong'})
-        
-    }
-}
-export const getUser = async(req, res)=>{
-    const userRole = req.session.userRole
-    let  sessionUserId = req.session.userId
-    let  userId = req.params.id
-    try {
-        userId =userId.trim()
-        sessionUserId = sessionUserId.trim()
-        
+ 
+})
+export const getUser =catchAsycn(async(req, res)=>{
+        const userRole = req.session.userRole
+        let  tokenUserId= req.userId
+        let  userId = req.params.id
+        userId =userId.trim()                
         if(sessionUserId !== userId || userRole !== 'admin'){
-            return res.status(403).json({message:'Not authorized'})
+            throw new AppError(403, 'Unauthorized')
         }
         const user = await userModel.findById(userId)
         if(!user){
-            return res.status(404).json({message:'User not found'})
+            throw new AppError(404, 'User not found')
         }
         res.status(200).json({succss:true, user})
-        
-    } catch (error) {
-        console.log('get user error', error)
-        res.status(500).json({ succss:false, message:'Something went wrong'})
-        
-    }
-}
-export const updateUser = async(req, res)=>{
-    let  sessionUserId = req.session.userId
-    let userId = req.params.id
-    const {...userInfo} = req.body
-    try {
-        userId = userId.trim()
-        sessionUserId = sessionUserId.trim()
-        if(sessionUserId !== userId ){
-            return res.status(403).json({ succss:false, message:'Not authorized'})
+        })
+export const updateUser = catchAsycn(async(req, res)=>{
+        let  tokenUserId = req.userId
+        let userId = req.params.id
+        const {...userInfo} = req.body
+        userId = userId.trim()       
+        if(tokenUserId !== userId ){
+            throw new AppError(403, 'UnAuthorized')
 
         }
-        const existingUser = await userModel.findById(userId)
+        const existingUser = await userModel.findById(tokenUserId)
         if(!existingUser){
-            return res.status(404).json({ succss:false, message:'User not found'})
+            throw new AppError(404, 'User not found')
         }
-        const updateInfo = await userModel.findByIdAndUpdate(userId,{$set:{...userInfo}})
+        const updateInfo = await userModel.findByIdAndUpdate(tokenUserId,{$set:{...userInfo}})
         res.status(200).json({succss:true, message:'Updated user successfully', updateInfo})
-    } catch (error) {
-        console.log('update user Error',error)
-        res.status(500).json({succss:false, message:"Something went wrong"})
-        
-    }
-}
-export const deleteUser = async(req, res)=>{
-    let sessionUserId = req.session.userId
-    let userID = req.params.id
-    const {password} = req.body
-    try {
+    })
+export const deleteUser = catchAsycn(async(req, res)=>{
+        let tokenUserId = req.userId
+        let userID = req.params.id
+        const {password} = req.body
         console.log(password)
         if(!password){
-            return res.status(400).json({message:'passsword required'})
+            throw new AppError(400, 'Password required')
         }
-        sessionUserId = sessionUserId.trim()
         userID = userID.trim()
 
-        if(sessionUserId !== userID ){
-            return res.status(200).json({ succss:false, message:"not authorized"})
+        if(tokenUserId!== userID ){
+            throw new AppError(403, 'Unauthorized')
         }
         const existingUser = await userModel.findById(userID)
         if(!existingUser){
-            return res.status(404).json({message:'user not found'})
+            throw new AppError(404, 'User not found')
         }
         if(existingUser.password !== password){
-            return res.status(401).json({succss:false, message:"Wrong password"})
+            throw new Error(403, 'Wrong password')
         }
         await userModel.findByIdAndDelete(userID)
         res.status(200).json({succss:true, message:'Deleted user successfully'})
         
-    } catch (error) {
-        console.log('delete user Error', error)
-        res.status(500).json({ succss:false, message:'something went wrong'})
-        
-    }
-}
+  })

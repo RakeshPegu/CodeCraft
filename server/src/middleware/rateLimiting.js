@@ -1,15 +1,18 @@
+import { catchAsycn } from '../utility/catchAsynch.js'
 import client from '../utility/connectRedis.js'
 
-export const slidingWindowLogRateLimiter = async(rule)=>{    
-    const {endpoint,maxRequests,windowInSeconds} = rule
-    return async(req, res , next)=>{
-        const userId = req.userId
-        const now = Date.now()
-        const redisId = `${endpoint}:${userId? userId :req.headers['x-forwarded-for']|| req.ip}`
-        try {
+export const slidingWindowLogRateLimiter = (rule)=>{   
+    const {endpoint,maxRequests, windowInSeconds}  = rule
+    return catchAsycn(async(req, res , next)=>{
+            const userId = req.userId
+            const now = Date.now()
+            console.log('goo')
+            const redisId = `${endpoint}:${userId? userId :req.headers['x-forwarded-for']|| req.ip}`
+            console.log('done') 
             const windowStarts = now - windowInSeconds *1000
             await client.zRemRangeByScore(redisId, 0, windowStarts)
-            const countRequests = await client.zCard(redisId)   
+            const countRequests = await client.zCard(redisId)  
+            
             if(countRequests >= maxRequests){
                 let ttl = await client.ttl(redisId)
                 if(ttl<0){ttl = windowInSeconds}
@@ -19,29 +22,21 @@ export const slidingWindowLogRateLimiter = async(rule)=>{
             if((await client.ttl(redisId))<0){
                 await client.expire(redisId, windowInSeconds)
             }
-
+            
             next()
-
-        } catch (error) {
-            console.error(error)
-            next()
-        
-    }
-}
+})
  }
-export const slidingWindowCounterRateLimiter = async(rule)=>{
-    const {endpoint, maxRequests, windowInSeconds} = rule
-    return async(req, res, next)=>{
-        const ipAddress = req.headers['x-forwarded-for'] || req.ip
-        const userId = req.userId
-        const now = Date.now()
-        const windowSize = Number(windowInSeconds)*1000;
-        const currentWindowSize = Math.floor(now/windowSize)
-        const previousWindow = currentWindowSize -1
-        const currntKey = `${endpoint}:${userId?userId:ipAddress}:${currentWindowSize}`
-        const previousKey = `${endpoint}:${userId?userId:ipAddress}:${previousWindow}`
-
-        try {
+export const slidingWindowCounterRateLimiter = (rule)=>{
+     const {endpoint, maxRequests, windowInSeconds} = rule
+     return catchAsycn(async(req, res, next)=>{
+             const ipAddress = req.headers['x-forwarded-for'] || req.ip
+            const userId = req.userId
+            const now = Date.now()
+            const windowSize = Number(windowInSeconds)*1000;
+            const currentWindowSize = Math.floor(now/windowSize)
+            const previousWindow = currentWindowSize -1
+            const currntKey = `${endpoint}:${userId?userId:ipAddress}:${currentWindowSize}`
+            const previousKey = `${endpoint}:${userId?userId:ipAddress}:${previousWindow}`
             const currentWindowRequests = await client.get(currntKey)
             const previousWindowRequest = await client.get(previousKey)
             const elasped = now % windowSize
@@ -56,11 +51,7 @@ export const slidingWindowCounterRateLimiter = async(rule)=>{
             }
             next()
             
-        } catch (error) {
-            console.error(error)
-            next()
-            
-        }
-    }
+      
+    })
 
 }
