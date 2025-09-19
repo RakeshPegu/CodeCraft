@@ -4,6 +4,7 @@ import { AppError } from "../utility/errorHandler.js"
 import otpGen from 'otp-generator'
 import bcrypt from 'bcrypt'
 import { generateToken } from "../utility/generateToken.js"
+import logger from "../utility/logger.js"
 export const register = catchAsycn(async(req, res)=>{
         const {email, username, password, avatar, otp} = req.body
         if(!email || !username ||!password || !otp){
@@ -74,16 +75,16 @@ export const login = catchAsycn(async(req, res)=>{
 
         })  
         logger.info('Logged user succesfully')
-        res.status(201).json({success:true,accessToken, message:"LoggedIn successfully", existingUser})
+        res.status(201).json({success:true,message:"LoggedIn successfully", accessToken, existingUser})
     
 })
 export const logout = catchAsycn(async(req, res)=>{
         const tokenUserId = req.userId
         if(!tokenUserId){
             throw new AppError(404, 'Not authenticated')
-        }
-        
+        }        
         await userModel.findOneAndDelete({_id:tokenUserId})
+        logger.info('Logged out successfully')
         res.clearCookie('token').status(200).json({success:'logout successfully'})
     
         

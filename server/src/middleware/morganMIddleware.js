@@ -15,7 +15,8 @@ export const morganMiddleware = morgan(
     },
     {
         stream: {
-            write: (data)=>{                
+            write: (data)=>{         
+                console.log(data)       
                 logger.http('incoming_request',data)
                 
             }
