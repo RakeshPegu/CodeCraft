@@ -22,10 +22,10 @@ function Layout(){
     
 }
 function AuthRequireLayout(){
-    const {isAuthenticated} = useAuthStore()
-    console.log(isAuthenticated)
+    const {isAuthenticated,refreshToken} = useAuthStore()
     if(!isAuthenticated){
-        return <Navigate to={'/login'}/>
+        refreshToken()
+        
     }else{
     return(
     <div>

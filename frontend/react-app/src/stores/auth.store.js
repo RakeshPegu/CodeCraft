@@ -9,6 +9,19 @@ export const useAuthStore = create((set,get)=>({
     userInfo:[],
     isSendingEmail:false,
     isLoggingOut:false,
+    accessToken:'' ,
+    refreshToken:async()=>{
+        try {
+            const res = await apiRequest.post('/auth/refresh')
+            console.log(res.data)
+            set({accessToken:res.data.accessToken})
+            return res
+            
+        } catch (error) {
+            
+        }
+
+    },
     signUp:async(data)=>{
         try {
             set({isSigningUp:true})
@@ -41,8 +54,10 @@ export const useAuthStore = create((set,get)=>({
         
         try {
             set({isSigningIn:true})
-            const res = await apiRequest.post('/auth/login', data)  
-            console.log(res.data.existingUser)          
+            const res = await apiRequest.post('/auth/login', data)
+            console.log(res.data.accessToken)  
+            console.log(res.data.existingUser) 
+            set({accessToken:res.data.accessToken})        
             set({userInfo: [res.data.existingUser]})
             set({isAuthenticated:true})
             toast.success(res.data.message)
