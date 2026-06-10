@@ -3,82 +3,210 @@ import MenuCard from "@/subComponent/menu";
 import SendEmail from "@/subComponent/sendEmail";
 import { useState } from "react";
 import { Link, NavLink } from "react-router";
-function Navbar(){
-   const [menuState, setMenuState] = useState(false)
-   const [showContactForm, setShowContactForm] = useState(false)
-   const [showEmailForm, setShowEmailForm] = useState(false)
-   
-   const handleAbout = ()=>{
-      const about = document.getElementById('about')
-      if(about){
-         about.scrollIntoView({behavior:"smooth"})
-      }
-   }
-   const handleProject = ()=>{
-      const project = document.getElementById('project')
-      if(project){
-         project.scrollIntoView({behavior:"smooth"})
-      }
-   }
-   const handleSkill = ()=>{
-      const skills = document.getElementById('skill')
-      if(skills){
-         skills.scrollIntoView({behavior:"smooth"})
-      }
-   }
-   const handleContactClick = ()=>{
-      setShowContactForm((prev)=>!prev)
-   }
-   const handleEmailForm =()=>{
-      setShowEmailForm((prev)=> !prev)
-   }
 
-  
-    return (
-       <nav className="flex flex-row  z-20 pt-2 top-0 items-center justify-between h-[50px] backdrop-blur-xl fixed w-full font-serif">
-         <div className="pl-5">
-            <Link to={'/'}>
-            <h1 style={{fontFamily:"'Blaka Ink', system-ui",fontWeight: 400}} className="text-5xl cursor-pointer pb-2" >C2 </h1>
-            </Link>
-         </div>
-         <div className="flex flex-row gap-10   lg:gap-25  text-xl pr-8 text-amber-500  lg:text-2xl lg:mr-8">
-            <div>
-               <NavLink className={`sm:hidden`} onMouseEnter={()=>setMenuState(true)} onClick={()=>setMenuState(prev => !prev)}  >
-                 menu
-              
-              </NavLink>
-               <div className={`sm:hidden  flex justify-center items-center ${menuState?'flex':'hidden'}`} >
-                 <MenuCard  showState={setMenuState}/>
-               </div> 
-               <div className="flex justify-center w-full"> <SendEmail emailFormState={showEmailForm} changeEmailFormState={handleEmailForm}/> </div>
+function Navbar() {
+  const [menuState, setMenuState] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(false);
 
+  const handleAbout = () => {
+    const about = document.getElementById("about");
+    if (about) {
+      about.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleProject = () => {
+    const project = document.getElementById("project");
+    if (project) {
+      project.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleSkill = () => {
+    const skills = document.getElementById("skill");
+    if (skills) {
+      skills.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleContactClick = () => {
+    setShowContactForm((prev) => !prev);
+  };
+
+  const handleEmailForm = () => {
+    setShowEmailForm((prev) => !prev);
+  };
+
+  return (
+    <>
+      <nav
+        className="
+          sticky top-1  
+          z-40     
+          w-[99%]
+          flex h-16 
+          items-center justify-between
+          rounded-2xl
+          border border-white/10
+          bg-white/5
+          px-5
+          lg:px-9
+          backdrop-blur-2xl
+          shadow-lg
+        "
+      >
+        {/* Logo */}
+        <Link to="/">
+          <h1
+            className="
+              text-3xl
+              font-bold
+              cursor-pointer
+              bg-gradient-to-r
+              from-purple-400
+              via-blue-600
+              to-purple-500
+              bg-clip-text
+              text-transparent
+            "
+          >
+            C2
+          </h1>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden sm:flex items-center gap-2 lg:gap-4">
+          <button
+            onClick={handleAbout}
+            className="
+              rounded-xl
+              px-4 py-2
+              text-slate-300
+              transition-all
+              duration-300
+              hover:bg-white/10
+              hover:text-white
+              cursor-pointer
+            "
+          >
+            About
+          </button>
+
+          <button
+            onClick={handleProject}
+            className="
+              rounded-xl
+              px-4 py-2
+              text-slate-300
+              transition-all
+              duration-300
+              hover:bg-white/10
+              hover:text-white
+              cursor-pointer
+            "
+          >
+            Projects
+          </button>
+
+          <button
+            onClick={handleSkill}
+            className="
+              rounded-xl
+              px-4 py-2
+              text-slate-300
+              transition-all
+              duration-300
+              hover:bg-white/10
+              hover:text-white
+              cursor-pointer
+            "
+          >
+            Skills
+          </button>
+
+          {/* Contact CTA */}
+          <div className="relative">
+            <button
+              onClick={handleContactClick}
+              className="
+                rounded-xl
+                bg-gray-200
+                px-5 py-2
+                transition-all
+                duration-300
+                hover:bg-gray-100
+                hover:shadow-lg
+                hover:shadow-blue-500/30
+                cursor-pointer
+                text-black
+              "
+            >
+              Contact Me
+            </button>
+
+            <div className="absolute right-0 top-14">
+              <ContactForm
+                formState={showContactForm}
+                changeState={handleContactClick}
+                changeEmailFormState={handleEmailForm}
+              />
             </div>
+          </div>
 
-
-            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleAbout}>
-                about me
-             </NavLink>
-            
-            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleProject}>
-                project
-             </NavLink>
-            <NavLink className="hidden sm:inline hover:rounded-4xl hover:bg-white/50 backdrop-blur-xl pl-2 pr-2" onClick={handleSkill}>
-                skill
-             </NavLink>
-            <div className="hidden sm:inline ">
-             <NavLink className='hover:rounded-4xl  hover:bg-white/50 backdrop-blur-xl pr-2 pl-2' onMouseEnter={()=>setShowContactForm(true)} onClick={handleContactClick}>
-                contact me
-             </NavLink>
-             <div className=" w-[300px] bg-pink-600">
-               <ContactForm  formState={showContactForm} changeState={handleContactClick}  changeEmailFormState={handleEmailForm}/>
-             </div>
+          {/* Profile */}
+          <NavLink to="/profile">
+            <div
+              className="
+                flex h-11 w-11
+                items-center justify-center
+                rounded-full
+                border border-white/10
+                bg-white/5
+                transition-all
+                duration-300
+                hover:bg-white/10
+                hover:scale-105
+              "
+            >
+              <span className="material-symbols-outlined text-slate-300">
+                account_circle
+              </span>
             </div>
-            <NavLink to={'/profile'}>
-                <span className="material-symbols-outlined text-black  ">account_circle</span>
-            </NavLink>
-         </div>
-                 
-       </nav>
-    )
+          </NavLink>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="sm:hidden relative">
+          <button
+            onClick={() => setMenuState((prev) => !prev)}
+            className="
+              rounded-xl
+              bg-white/10
+              p-2
+              text-white
+            "
+          >
+            <span className="material-symbols-outlined">
+              // menu logo
+            </span>
+          </button>
+
+          {menuState && (
+            <div className="absolute right-0 top-14">
+              <MenuCard showState={setMenuState} />
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Email Form */}
+      <SendEmail
+        emailFormState={showEmailForm}
+        changeEmailFormState={handleEmailForm}
+      />
+    </>
+  );
 }
+
 export default Navbar;

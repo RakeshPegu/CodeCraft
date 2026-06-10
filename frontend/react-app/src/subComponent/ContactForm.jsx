@@ -1,32 +1,64 @@
-import { Github, Linkedin, Mails, LucideGithub} from "lucide-react";
+import { Github, Linkedin, Mail, X } from "lucide-react";
 
-function ContactForm ({formState, changeState, changeEmailFormState}){
-    
-    const handleClickX =()=>{
-          changeState()
-    }
-    const handleEmailForm =()=>{
-        changeEmailFormState()
-    }
+function ContactForm({
+  formState,
+  changeState,
+  changeEmailFormState,
+}) {
+  return (
+    <div
+      className={`absolute right-6 top-20 z-50 w-80 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+        formState
+          ? "opacity-100 translate-y-0"
+          : "pointer-events-none opacity-0 -translate-y-4"
+      }`}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
+        <h3 className="text-lg font-semibold text-white">
+          Contact Me
+        </h3>
 
-    return (
-        <div className={`absolute top-15 right-90 w-[350px] items-center h-[250px] bg-gray-700 gap-10 text-white  flex flex-col rounded-xl ${formState?'flex':'hidden'}`}>
+        <button
+          onClick={changeState}
+          className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-800 hover:text-white"
+        >
+          <X size={20} />
+        </button>
+      </div>
 
-            <div className="flex justify-between w-full">            
-            <h4 className="text-3xl text-center pl-25 pt-6">
-                contact me
-            </h4>
-            <p className="text-3xl flex font-bold cursor-pointer justify-end pr-5  " onClick={handleClickX}>×</p>
-            </div>
-            <div className="flex flex-col  w-[91%] gap-3 text-xl">
-                
-                <a href={"https://www.linkedin.com/in/rakeshpegu/"} className="flex gap-10 justify-center"><Linkedin  color="#193cb8" /> LinkedIn</a>
-                <a href={'#'} className="flex gap-10 justify-center" onClick={handleEmailForm}>  <Mails color="red" /> send mail</a>
-                <a href={'https://github.com/RakeshPegu'} className="flex gap-15 justify-center"> <Github color="black"/>  Github</a>
-        
-            </div>
-        </div>
-    )
-    
+      {/* Content */}
+      <div className="flex flex-col gap-3 p-5">
+        <a
+          href="https://www.linkedin.com/in/rakeshpegu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 rounded-xl p-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+        >
+          <Linkedin size={20} />
+          <span>LinkedIn</span>
+        </a>
+
+        <button
+          onClick={changeEmailFormState}
+          className="flex items-center gap-4 rounded-xl p-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+        >
+          <Mail size={20} />
+          <span>Send Email</span>
+        </button>
+
+        <a
+          href="https://github.com/RakeshPegu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 rounded-xl p-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+        >
+          <Github size={20} />
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  );
 }
+
 export default ContactForm;

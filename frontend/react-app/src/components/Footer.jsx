@@ -1,74 +1,139 @@
-import { Link } from "react-router"
+import { Link } from "react-router";
 
-function Footer(){
-    const handleProjectClick = ()=>{
-        const project = document.getElementById('project')
-        if(project){
-            project.scrollIntoView({behavior:'smooth'})
-        }
-    }
-    const handleAboutClick = ()=>{
-        const about = document.getElementById('about')
-        if(about){
-            about.scrollIntoView({behavior:"smooth"})
-        }
-    }
-    const handleSkillClick = ()=>{
-        const skill = document.getElementById('skill')
-        if(skill){
-            skill.scrollIntoView({behavior:'smooth'})
-        }
-    }
-    return(
-        <div className="bg-[url(/cod.jpg)] bg-gray-400 bg-blend-overlay h-full bg-no-repeat bg-cover bg-center text-amber-50">
-         <div className="flex flex-col gap-10 backdrop-brightness-40">
-             <div className="flex flex-row justify-evenly pt-6">
-             <div>
-                <h1 className="text-2xl font-serif">Import links</h1>
-                <ul className="flex flex-col items-center gap-1 pt-2">                
-                <li >
-                    <Link to={'/'}>  home</Link>
-                   
-                </li>
-                <li onClick={handleProjectClick} className="cursor-pointer">
-                    project
-                </li>
-                <li onClick={handleAboutClick}  className="cursor-pointer">
-                    about
-                </li>
-                <li  onClick={handleSkillClick}  className="cursor-pointer">
-                    skill
-                </li>
-                <li  className="cursor-pointer">
-                    contact me
-                </li>
-               </ul>
-               </div>
-               <div className=" pb-12">
-                <h1 className="text-2xl font-serif"> Social platforms </h1>
-               <ul className="flex flex-col items-center gap-1 pt-2">
-                
-                <li className="">
-                    <a href='https://github.com/RakeshPegu'> GitHub</a>
-                   
-                </li>
-                <li>
-                     <a href='https://www.linkedin.com/in/rakeshpegu/'>LinkedIn</a>                
-                </li>
-                <li>
-                    Fiverr
-                </li>
-               </ul>
-               </div>
+function Footer() {
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
 
-             </div>
-             <div className="pb-8" >
-                
-                <h3 className="font-semibold text-white text-center">&copy; 2025 CodeCraft</h3>
-             </div>
-         </div>
-   
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <footer className="border-t border-slate-800 bg-slate-950 text-slate-300">
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="grid gap-12 md:grid-cols-3">
+          
+          {/* Brand */}
+          <div>
+            <h2 className="text-2xl font-bold text-white">
+              Rakesh Pegu
+            </h2>
+
+            <p className="mt-4 leading-relaxed text-slate-400">
+              Full-Stack Developer focused on building scalable backend
+              systems, modern web applications, and reliable digital
+              experiences.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h3 className="mb-4 text-lg font-semibold text-white">
+              Navigation
+            </h3>
+
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/"
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <button
+                  onClick={() => scrollToSection("project")}
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  Projects
+                </button>
+              </li>
+
+              <li>
+                <button
+                  onClick={() => scrollToSection("about")}
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  About
+                </button>
+              </li>
+
+              <li>
+                <button
+                  onClick={() => scrollToSection("skill")}
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  Skills
+                </button>
+              </li>
+
+              <li>
+                <button className="transition-colors hover:text-cyan-400">
+                  Contact
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Socials */}
+          <div>
+            <h3 className="mb-4 text-lg font-semibold text-white">
+              Connect
+            </h3>
+
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="https://github.com/RakeshPegu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  GitHub
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/rakeshpegu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  LinkedIn
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#"
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  Fiverr
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-    );
+
+        {/* Bottom Bar */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 text-sm text-slate-500 md:flex-row">
+          <p>
+            © {new Date().getFullYear()} Rakesh Pegu. All rights reserved.
+          </p>
+
+          <p>
+            Built with React, Tailwind CSS & TypeScript.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
 }
+
 export default Footer;

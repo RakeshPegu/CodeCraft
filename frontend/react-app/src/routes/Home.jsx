@@ -1,6 +1,6 @@
 import React, { Suspense} from "react";
 const About = React.lazy(()=> import("@/components/About"))
-const Introduction = React.lazy(()=> import("@/components/Introduction"))
+const Introduction = React.lazy(()=> import("@/components/Hero"))
 const OtherSkills = React.lazy(()=>import("@/components/otherSkill"))
 const Portfolio = React.lazy(()=>import("@/components/Portfolio"))
 const Skill = React.lazy(()=>import("@/components/Skills"))
@@ -8,20 +8,20 @@ function Home(){
         
    
        return(
-         <div className=" h-full flex flex-col gap-30 md:gap-[300px] lg:bg-gray-100  top-0 relative overflow-y-scroll " id="home"> 
+         <div className=" mt-[-60px] h-full flex flex-col gap-30 md:gap-[300px]  relative  bg-gray-700" id="home"> 
          <Introduction/>
          <Suspense fallback={<div>... loading</div>}>
            <About/>
-         </Suspense>
-         <Suspense fallback={<div>...  loading</div>} >
-          <Skill/>
          </Suspense>
          <Suspense fallback={<div>... loading</div>}>
           <OtherSkills/>
          </Suspense>
          <Suspense fallback={<div>... loading</div>}>
           <Portfolio/>
-         </Suspense>           
+         </Suspense>     
+          <Suspense fallback={<div>...  loading</div>} >
+          <Skill/>
+         </Suspense>      
          </div>
     )
     

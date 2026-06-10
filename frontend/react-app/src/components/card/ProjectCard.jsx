@@ -1,23 +1,125 @@
 import { Button } from "../ui/button";
+import { Github, ExternalLink } from "lucide-react";
 
-function ProjectCard({name, description}){
-    return(
-        <div className=" shadow-md/20 bg-gray-50   w-[82%] hover:shadow-xl/25 hover:bg-white h-[100%] lg:h-[550px] flex flex-col items-center backdrop-blur-3xl lg:w-[20%] lg:gap-10 ">
-            <h1 className=" w-full text-center text-2xl h-[40px]">{name} </h1>
-            <div className="flex flex-col justify-center items-center">
-                <img src="./proj.png" alt={name+'photo'} className="w-[90%] pt-2"/>
-            </div>
-            
-            <div  className=" lg:w-[98%] flex flex-col items-center lg:gap-15">
-                <p  className="lg:w-[90%]  text-center">{description} </p>
-                <div className="flex w-full justify-evenly mt-2 text-black pb-8">
-                <Button className='cursor-pointer bg-gray-950 text-white hover:shadow-xl'>View the project</Button>
-                <Button className="cursor-pointer bg-blue-200 hover:shadow-xl">Github</Button>
-                </div>
-            </div>
-      
+function ProjectCard({ name, description, src }) {
+  return (
+    <div
+      className="
+      group
+      relative
+      overflow-hidden
+      rounded-3xl
+      border border-white/10
+      bg-white/5
+      backdrop-blur-xl
+      transition-all
+      duration-500
+      hover:-translate-y-3
+      hover:shadow-[0_20px_80px_rgba(0,0,0,0.25)]
+    "
+    >
+      {/* Gradient Glow */}
+      <div
+        className="
+        absolute
+        inset-0
+        opacity-0
+        transition-opacity
+        duration-500
+        group-hover:opacity-100
+      "
+      >
+        <div
+          className="
+          absolute
+          -top-24
+          -right-24
+          h-48
+          w-48
+          rounded-full
+        bg-blue-500/20
+          blur-3xl
 
+        "
+        />
+      </div>
+
+      {/* Project Image */}
+      <div className="relative overflow-hidden">
+        <img
+          src={src}
+          alt={name}
+          className="
+            h-64
+            w-full
+            object-cover
+            transition-transform
+            duration-700
+            group-hover:scale-110
+          "
+        />
+
+        {/* Overlay */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-t
+            from-black/70
+            via-black/20
+            to-transparent
+          "
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative p-6">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold text-white">
+            {name}
+          </h2>
+
+          <div className="mt-2 h-1 w-12 rounded-full bg-blue-500 transition-all duration-500 group-hover:w-20" />
         </div>
-    )
+
+        <p className="mb-6 leading-relaxed text-slate-300">
+          {description}
+        </p>
+
+        <div className="flex gap-3">
+          <Button
+            className="
+              flex-1
+              rounded-xl
+              bg-white
+              text-black
+              hover:bg-slate-200
+              cursor-pointer
+            "
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Live Demo
+          </Button>
+
+          <Button
+            variant="outline"
+            className="
+              flex-1
+              rounded-xl
+              border-white/20
+              bg-white/5
+              text-white
+              hover:bg-white/10
+              cursor-pointer
+            "
+          >
+            <Github className="mr-2 h-4 w-4" />
+            GitHub
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default ProjectCard;

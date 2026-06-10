@@ -1,11 +1,53 @@
 export function IntroContent() {
   return (
-    <div className="flex flex-col text-pink-100 pt-10 gap-3  lg:pr-7">
-      <h1 style={{ fontFamily: "'Chokokutai', system-ui" }} className="text-6xl pr-2 flex justify-end  sm:text-[6em] md:text-[8em]">
+    <div className="flex flex-col gap-6 text-center lg:text-right">
+      <p
+        className="
+          text-sm
+          uppercase
+          tracking-[0.3em]
+          text-blue-400
+          font-semibold
+        "
+      >
+        Full Stack Developer
+      </p>
+
+      <h1
+        className="
+          text-6xl
+          sm:text-7xl
+          md:text-8xl
+          lg:text-9xl
+          font-black
+          leading-none
+          bg-gradient-to-r
+          from-white
+          via-slate-200
+          to-slate-400
+          bg-clip-text
+          text-transparent
+        "
+      >
         CODECRAFT
       </h1>
-      <h2 className="flex justify-end pr-4 md:text-3xl lg:pr-30" > A GROUND TO BUILD SOMETHING INTERESTING</h2>
+
+      <h2
+        className="
+          text-lg
+          sm:text-xl
+          md:text-2xl
+          text-slate-400
+          max-w-2xl
+          lg:ml-auto
+        "
+      >
+        Building scalable web applications,
+        modern user experiences, and reliable
+        backend systems.
+      </h2>
     </div>
   );
 }
+
 export default IntroContent;
