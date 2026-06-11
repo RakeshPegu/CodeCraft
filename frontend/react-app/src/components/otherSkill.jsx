@@ -60,13 +60,13 @@ function OtherSkills(){
     ref={pinRef}
   >
     <div className="max-w-lg px-6 flex flex-col ">
-      <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm uppercase tracking-widest text-gray-400">
+      <span className="rounded-full border text-center  border-white/20 bg-white/5 px-4 py-2 text-sm uppercase tracking-widest text-gray-400">
         Expertise
       </span>
 
       <h1 className="mt-6 text-5xl lg:text-7xl font-bold leading-tight">
         Skills &
-        <span className="block text-gray-400">Technologies</span>
+        <span className="block text-gray-400 text-5xl ">Technologies</span>
       </h1>
 
       <p className="mt-6 text-lg text-gray-400 leading-relaxed">

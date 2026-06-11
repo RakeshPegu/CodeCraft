@@ -1,13 +1,27 @@
 import { Github, Linkedin, Mail, X } from "lucide-react";
+import { useEffect } from "react";
 
 function ContactForm({
   formState,
   changeState,
   changeEmailFormState
 }) {
+  useEffect(()=>{
+    if(formState){
+      document.body.style.overflowY = 'hidden'
+      document.body.style.paddingRight= '15px'
+    }else{
+      document.body.style.overflowY = 'auto'
+      document.body.style.paddingRight ='0'
+    }
+    return ()=>{
+      document.body.style.overflowY = 'auto'
+      document.body.style.paddingRight = '0'
+    }
+  },[ formState])
   return (
     <div
-      className={`absolute  right-4 sm:right-25 top-20 z-50 w-80 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+      className={`fixed right-20 top-20 z-50 w-80  rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
         formState
           ? "opacity-100 translate-y-0"
           : "pointer-events-none opacity-0 -translate-y-4"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Settings,
   LogOut,
@@ -14,6 +14,26 @@ function SettingMenu({ showMenu, buttonDisable }) {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [showLogoutForm, setShowLogoutForm] = useState(false);
+
+  // ✅ useEffect INSIDE the component function
+  useEffect(() => {
+    const isAnyModalOpen = showMenu || showLogoutForm || showUpdateForm || showDeleteForm;
+    
+    if (isAnyModalOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = '15px'
+    } else {
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+      document.body.style.paddingRight = '0px'
+    }
+    
+    return () => {
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    };
+  }, [showMenu, showLogoutForm, showUpdateForm, showDeleteForm]);
 
   const onchangeState = () => {
     setShowUpdateForm((prev) => !prev);

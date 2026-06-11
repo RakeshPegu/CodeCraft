@@ -1,36 +1,53 @@
 import ContactForm from "@/subComponent/ContactForm";
 import MenuCard from "@/subComponent/menu";
 import SendEmail from "@/subComponent/sendEmail";
-import { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { Menu } from "lucide-react";
 
 function Navbar() {
   const [menuState, setMenuState] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false)
-  
-  console.log('contact form state', showContactForm)
-
-  const handleAbout = () => {
-    const about = document.getElementById("about");
-    if (about) {
-      about.scrollIntoView({ behavior: "smooth" });
-    }
+  const location = useLocation()
+  const navigate = useNavigate()
+   const handleAbout = () => {  
+      if(location.pathname === '/'){
+        const about = document.getElementById('about')?.scrollIntoView({behavior:'smooth'})
+        return;
+      }
+      navigate('/')
+      const timer = setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({behavior:'smooth'})
+        
+      }, 500);
+      return ()=> clearTimeout(timer)
+    
   };
 
   const handleProject = () => {
-    const project = document.getElementById("project");
-    if (project) {
-      project.scrollIntoView({ behavior: "smooth" });
-    }
+     if(location.pathname === '/'){
+       document.getElementById('project')?.scrollIntoView({behavior:"smooth"})
+     }
+     navigate('/')
+     const timer = setTimeout(()=>{
+       document.getElementById('project')?.scrollIntoView({behavior:"smooth"})
+
+     }, 500)
+     return ()=>clearTimeout(timer)
+     
   };
 
   const handleSkill = () => {
-    const skills = document.getElementById("skill");
-    if (skills) {
-      skills.scrollIntoView({ behavior: "smooth" });
+    if(location.pathname === '/'){
+      document.getElementById('skill')?.scrollIntoView({behavior:"smooth"})
     }
+    navigate('/')
+    const timer = setTimeout(() => {
+      document.getElementById('skill')?.scrollIntoView({behavior:"smooth"})
+      
+    }, 500);
+    return ()=>clearTimeout(timer)
   };
 
   const handleContactClick = () => {

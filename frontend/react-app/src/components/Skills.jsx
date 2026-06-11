@@ -24,8 +24,15 @@ const Skills = () => {
       id="skill"
       className="
         relative
-        py-32
-        px-6
+        w-full
+        mt-16
+        md:mt-24
+        lg:mt-40
+        py-16
+        md:py-24
+        lg:py-32
+        px-4
+        sm:px-6
         lg:px-12
         overflow-hidden
       "
@@ -49,11 +56,13 @@ const Skills = () => {
 
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-24 text-center">
+        <div className="mb-12 md:mb-20 lg:mb-24 text-center">
           <p
             className="
-              mb-4
-              text-sm
+              mb-3
+              md:mb-4
+              text-xs
+              sm:text-sm
               font-semibold
               uppercase
               tracking-[0.3em]
@@ -65,16 +74,22 @@ const Skills = () => {
 
           <h2
             className="
-              text-4xl
-              md:text-6xl
+              text-2xl
+              sm:text-3xl
+              md:text-5xl
+              lg:text-6xl
               font-bold
               text-white
               leading-tight
+              mb-4
+              md:mb-6
             "
           >
             Building Modern Apps With
             <span
               className="
+                block
+                sm:inline
                 bg-gradient-to-r
                 from-blue-500
                 via-cyan-400
@@ -91,11 +106,17 @@ const Skills = () => {
           <p
             className="
               mx-auto
-              mt-8
+              mt-4
+              md:mt-6
+              lg:mt-8
               max-w-3xl
-              text-lg
+              text-xs
+              sm:text-sm
+              md:text-base
+              lg:text-lg
               leading-relaxed
               text-slate-400
+              px-2
             "
           >
             I focus on building scalable backend systems,
@@ -104,12 +125,19 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Grid */}
+        {/* Grid - Fully Responsive */}
         <div
           className="
             grid
-            gap-8
-            grid-cols-[repeat(auto-fit,minmax(280px,1fr))]
+            gap-3
+            sm:gap-4
+            md:gap-6
+            lg:gap-8
+            grid-cols-2
+            sm:grid-cols-3
+            md:grid-cols-3
+            lg:grid-cols-4
+            xl:grid-cols-5
           "
         >
           {skills.map((skill, index) => (

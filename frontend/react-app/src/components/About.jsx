@@ -10,12 +10,12 @@ function About() {
   const pinRef = useRef(null);
   const parentContainerRef = useRef(null);
   const rightDivRef = useRef(null);
-  const [isMediumScreen, setIsMediumScreen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useLayoutEffect(() => {
-    // Check if screen is medium or larger (md breakpoint is 768px)
+    // Check if screen is large (1024px and above)
     const checkScreenSize = () => {
-      setIsMediumScreen(window.innerWidth >= 768);
+      setIsLargeScreen(window.innerWidth >= 1024);
     };
 
     checkScreenSize();
@@ -25,8 +25,8 @@ function About() {
   }, []);
 
   useLayoutEffect(() => {
-    // Only set up ScrollTrigger on medium screens and larger
-    if (!isMediumScreen || !parentContainerRef.current || !pinRef.current) {
+    // Only set up ScrollTrigger on large screens
+    if (!isLargeScreen || !parentContainerRef.current || !pinRef.current) {
       return;
     }
 
@@ -51,7 +51,7 @@ function About() {
         scrollTriggerInstance.kill();
       }
     };
-  }, [isMediumScreen]);
+  }, [isLargeScreen]);
 
   return (
     <div
@@ -59,24 +59,24 @@ function About() {
       id="about"
     >
       <div
-        className="flex flex-col md:h-[300vh] w-full md:relative md:flex-row gap-[60px] md:gap-0 pl-3"
+        className="flex flex-col lg:h-[300vh] w-full lg:relative lg:flex-row lg:gap-0 pl-3"
         ref={parentContainerRef}
       >
-        {/* Left Section - Pinned on MD+ */}
+        {/* Left Section - Pinned on LG+ */}
         <div
-          className="w-full md:w-2/5 md:h-screen md:relative md:flex justify-center md:items-center px-6 md:px-8 py-20 md:py-0"
+          className="w-full lg:w-2/5 lg:h-screen lg:relative lg:flex justify-center lg:items-center px-6 lg:px-8 py-12 lg:py-0 "
           ref={pinRef}
         >
           <div className="flex flex-col justify-center gap-4 max-w-md">
-            <span className="text-sm font-semibold tracking-[0.25em] uppercase text-blue-400">
+            <span className="text-sm font-semibold tracking-[0.25em] uppercase pt-10 text-blue-400">
               About Me
             </span>
 
-            <h2 className="text-3xl md:text-6xl font-bold leading-tight text-white">
+            <h2 className="text-3xl lg:text-6xl font-bold leading-tight text-white">
               Building scalable web applications with modern technologies.
             </h2>
 
-            <p className="text-slate-400 text-sm md:text-lg leading-relaxed">
+            <p className="text-slate-400 text-sm lg:text-lg leading-relaxed">
               I'm Rakesh, a self-taught full-stack developer focused on building
               reliable, performant, and user-friendly applications. My primary
               expertise lies in React, Node.js, Express, MongoDB, and modern
@@ -85,12 +85,12 @@ function About() {
           </div>
         </div>
 
-        {/* Right Section - Scrollable on MD+ */}
+        {/* Right Section - Scrollable on LG+ */}
         <div
-          className="w-full md:w-3/5 flex flex-col gap-10 md:gap-20 px-6 md:pl-[50px] md:pr-8"
+          className="w-full lg:w-3/5 flex flex-col gap-15 lg:gap-20 px-6 lg:pl-[50px] lg:pr-8 pb-6 "
           ref={rightDivRef}
         >
-          <div className="md:pt-[450px] pt-0">
+          <div className="lg:pt-[450px] pt-0 ">
             <AboutCard
               heading={"WHO I AM ?"}
               content1={`I'm a Full-Stack Developer with close to 2 years of experience, but I'm currently transitioning into a more backend-focused role — because that's where I thrive.`}
@@ -98,8 +98,8 @@ function About() {
             />
           </div>
 
-          <div className="flex flex-col gap-10">
-            <h3 className="text-3xl md:text-4xl font-bold font-serif">
+          <div className="flex flex-col gap-6">
+            <h3 className="text-3xl lg:text-4xl font-bold font-serif">
               What interest me in tech?
             </h3>
 
@@ -114,9 +114,6 @@ function About() {
               content1={`I've always been the kind of person who wants to know what's really happening under the hood. That's probably why I'm so drawn to backend development — it's like solving puzzles with code, and I enjoy every bit of it`}
             />
           </div>
-
-          {/* Spacer for mobile */}
-          <div className="md:hidden pb-10"></div>
         </div>
       </div>
     </div>

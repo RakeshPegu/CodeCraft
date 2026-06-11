@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/auth.store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function SendEmail({ emailFormState, changeEmailFormState }) {
   const initialFormState = {
@@ -10,7 +10,18 @@ function SendEmail({ emailFormState, changeEmailFormState }) {
     email: "",
     message: "",
   };
+    useEffect(() => {
+    if (emailFormState) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [emailFormState]);
+ 
   const [formData, setFormData] = useState(initialFormState);
 
   const { isSendingEmail, sendingEmail } = useAuthStore();
@@ -32,7 +43,7 @@ function SendEmail({ emailFormState, changeEmailFormState }) {
   return (
     <div
       className={`
-        absolute top-20 left-1/2 -translate-x-1/2
+         fixed top-20 left-1/2 -translate-x-1/2
         w-[500px] max-w-[95vw]
         bg-white/90 backdrop-blur-md
         shadow-2xl rounded-2xl
@@ -46,7 +57,7 @@ function SendEmail({ emailFormState, changeEmailFormState }) {
       <div className="flex items-center justify-between mb-5">
         <div>
           <h3 className="text-2xl font-bold text-gray-800">
-            Contact Me
+            Email Me
           </h3>
           <p className="text-sm text-gray-500">
             I'd love to hear from you.
