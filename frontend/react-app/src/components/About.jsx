@@ -51,21 +51,30 @@ function About() {
       <div
         className="flex h-screen flex-col lg:h-[300vh] lg:relative lg:flex-row lg:w-full lg:bg-transparent"
         ref={parentContainerRef}
-      >
-        <div
-          className="lg:relative lg:w-2/5 lg:p-8 lg:h-screen w-full h-full lg:flex justify-center lg:items-center"
+      >  
+
+      <div
+          className="lg:relative lg:w-2/5 lg:h-screen w-full h-full lg:flex justify-center lg:items-center px-6 lg:px-8"
           ref={pinRef}
         >
-          <div className="flex flex-col justify-center h-[200px] lg:h-[100vh] lg:items-center">
-            <h2 className="text-4xl font-bold font-serif lg:text-6xl">
-              | ABOUT ME
-            </h2>
+        <div className="flex flex-col justify-center gap-4 h-[220px] lg:h-screen lg:max-w-md">
+        <span className="text-sm font-semibold tracking-[0.25em] uppercase text-blue-400">
+         About Me
+         </span>
 
-            <p className="text-xl font-mono lg:text-[1em] lg:w-[240px]">
-              Everyone brings something different to the table — here’s mine
-            </p>
-          </div>
+        <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-white">
+          Building scalable web applications with modern technologies.
+         </h2>
+
+         <p className="text-slate-400 text-base lg:text-lg leading-relaxed">
+           I'm Rakesh, a self-taught full-stack developer focused on building
+           reliable, performant, and user-friendly applications. My primary
+           expertise lies in React, Node.js, Express, MongoDB, and modern backend
+            architecture.
+          </p>
         </div>
+      </div>
+
 
         <div
           className="flex flex-col gap-15 lg:w-3/5 lg:pl-[50px] lg:bg-transparent lg:text-white lg:gap-70"

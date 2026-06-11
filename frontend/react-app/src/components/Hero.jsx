@@ -3,6 +3,12 @@ import { Github } from "lucide-react";
 import { Link } from "react-router";
 
 function HeroSection() {
+  const handleProjectClick = ()=>{
+    const projectElement = document.getElementById('project')
+    if(projectElement){
+      projectElement.scrollIntoView({behavior:"smooth"})
+    }
+  }
   return (
     <section
       className="
@@ -86,6 +92,7 @@ function HeroSection() {
 
             <div className="flex flex-col gap-4 sm:flex-row">
               <Button
+          
                 className="
                   h-12
                   rounded-xl
@@ -94,12 +101,13 @@ function HeroSection() {
                   text-black
                   hover:bg-gray-100
                 "
+                onClick={handleProjectClick}
               >
                 View Projects
               </Button>
-
+        
               <Button
-                variant="outline"
+                
                 className="
                   h-12
                   rounded-xl
@@ -111,9 +119,17 @@ function HeroSection() {
                   
                 "
               >
+              <a          
+              href="https://github.com/RakeshPegu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-cent w-full justify-center">
                 <Github /> Github
+              </a>
               </Button>
+              
             </div>
+            
 
             {/* Stats */}
             <div className="flex flex-wrap gap-10 pt-8">

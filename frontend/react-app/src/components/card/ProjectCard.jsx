@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { Github, ExternalLink } from "lucide-react";
 
-function ProjectCard({ name, description, src }) {
+function ProjectCard({ name, description, src , githubProjectRef}) {
   return (
     <div
       className="
@@ -47,7 +47,7 @@ function ProjectCard({ name, description, src }) {
       {/* Project Image */}
       <div className="relative overflow-hidden">
         <img
-          src={src}
+          src={src || 'defaultProj.png'}
           alt={name}
           className="
             h-64
@@ -100,7 +100,7 @@ function ProjectCard({ name, description, src }) {
             <ExternalLink className="mr-2 h-4 w-4" />
             Live Demo
           </Button>
-
+          
           <Button
             variant="outline"
             className="
@@ -113,9 +113,13 @@ function ProjectCard({ name, description, src }) {
               cursor-pointer
             "
           >
+            <a href={githubProjectRef}  className="flex items-center justify-center" >
+            
             <Github className="mr-2 h-4 w-4" />
             GitHub
+            </a>
           </Button>
+          
         </div>
       </div>
     </div>

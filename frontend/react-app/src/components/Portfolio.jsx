@@ -106,11 +106,13 @@ function Portfolio() {
             name="Horizon"
             src={'./horizon.png'}
             description="A web platform that helps businesses and professionals establish their online presence through custom websites and portfolio solutions."
+            githubProjectRef={'https://github.com/RakeshPegu/ServiceWebsite'}
           />
 
           <ProjectCard
             name="Tradivibe"
             description="A scalable application built using microservices architecture, Redis caching, and modern system design patterns to ensure reliability and performance at scale."
+            githubProjectRef={'https://github.com/RakeshPegu/Tradi-Vibe'}
           />
         </div>
       </div>

@@ -192,7 +192,7 @@ function Navbar() {
           </button>
 
           {menuState && (
-            <div className="absolute left-30">
+            <div className="absolute left-20">
               <MenuCard showState={setMenuState} handleContactForm={handleContactClick}/>
             </div>
           )}
