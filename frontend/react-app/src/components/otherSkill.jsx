@@ -50,16 +50,16 @@ function OtherSkills(){
     }, [])
     return(
 <div
-  className="relative flex flex-col lg:flex-row-reverse text-white min-h-screen"
+  className="relative flex flex-col lg:flex-row-reverse  text-white min-h-screen"
   ref={parentContainerRef}
   id="experience"
 >
   {/* Left Pinned Section */}
   <div
-    className="flex h-[300px] lg:h-screen lg:w-2/5 items-center justify-center"
+    className={`flex h-[300px] lg:h-screen lg:w-2/5 items-center justify-center `}
     ref={pinRef}
   >
-    <div className="max-w-lg px-6">
+    <div className="max-w-lg px-6 flex flex-col ">
       <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm uppercase tracking-widest text-gray-400">
         Expertise
       </span>

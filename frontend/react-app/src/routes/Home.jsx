@@ -8,7 +8,7 @@ function Home(){
         
    
        return(
-         <div className=" mt-[-60px] h-full flex flex-col gap-30 md:gap-[300px]  relative  bg-gray-700" id="home"> 
+         <div className=" mt-[-60px]  h-full flex flex-col  md:gap-[300px]  relative  bg-gray-700" id="home"> 
          <Introduction/>
          <Suspense fallback={<div>... loading</div>}>
            <About/>
