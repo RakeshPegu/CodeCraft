@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
 import { Link } from "react-router";
 
 function HeroSection() {
@@ -77,7 +78,7 @@ function HeroSection() {
                 text-slate-400
               "
             >
-              Hi, I'm Rakesh. A self-taught Full Stack Developer
+              Hi, I'm Rakesh. A  Full Stack Developer
               passionate about backend engineering, distributed
               systems, and building products that solve real-world
               problems.
@@ -88,10 +89,10 @@ function HeroSection() {
                 className="
                   h-12
                   rounded-xl
-                  bg-blue-600
+                  bg-gray-200
                   px-8
-                  text-white
-                  hover:bg-blue-500
+                  text-black
+                  hover:bg-gray-100
                 "
               >
                 View Projects
@@ -107,9 +108,10 @@ function HeroSection() {
                   px-8
                   text-white
                   backdrop-blur-xl
+                  
                 "
               >
-                Contact Me
+                <Github /> Github
               </Button>
             </div>
 

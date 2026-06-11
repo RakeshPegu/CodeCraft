@@ -3,11 +3,11 @@ import { Github, Linkedin, Mail, X } from "lucide-react";
 function ContactForm({
   formState,
   changeState,
-  changeEmailFormState,
+  changeEmailFormState
 }) {
   return (
     <div
-      className={`absolute right-6 top-20 z-50 w-80 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+      className={`absolute  right-4 sm:right-25 top-20 z-50 w-80 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
         formState
           ? "opacity-100 translate-y-0"
           : "pointer-events-none opacity-0 -translate-y-4"
@@ -41,6 +41,8 @@ function ContactForm({
 
         <button
           onClick={changeEmailFormState}
+          
+          
           className="flex items-center gap-4 rounded-xl p-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
         >
           <Mail size={20} />
@@ -52,6 +54,7 @@ function ContactForm({
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-4 rounded-xl p-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+          onClick={changeState}
         >
           <Github size={20} />
           <span>GitHub</span>

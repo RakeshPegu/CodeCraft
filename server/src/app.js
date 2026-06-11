@@ -2,7 +2,6 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import compression from 'compression'
-import cors from 'cors'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import authRoute from './routes/auth.route.js'
@@ -25,7 +24,6 @@ mongoose.connect(process.env.DATABASE_URL).then(()=>{
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/mail',emailRoutes)
-app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
 app.use(morganMiddleware)
 app.use(errorHandlerMid)
 

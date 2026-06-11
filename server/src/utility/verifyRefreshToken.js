@@ -1,5 +1,5 @@
 
-import { tokenModel } from "../lib/tokendb.js"
+import tokenModel from '../lib/tokendb.js'
 import jwt from 'jsonwebtoken'
 import { AppError } from "./errorHandler.js"
 
@@ -49,11 +49,12 @@ const verification = (refreshToken) => {
 */
 const verifyRefreshToken = async(refreshToken)=>{
     try {
-        const res = await tokenModel.findOne({token:refreshToken})
-        if(!res){
+        const existingToken = await tokenModel.findOne({token:refreshToken})
+        if(!existingToken){
             return new AppError('Invalid refresh token')
         }
-        const tokenDetail = jwt.verify(refreshToken, REFRESH_TOKEN_PRIVATE_KEY)
+      
+        const tokenDetail = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_PRIVATE_KEY)
         return {message:"valid refresh token", tokenDetail }
         
     } catch (error) {

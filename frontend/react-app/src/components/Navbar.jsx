@@ -3,11 +3,14 @@ import MenuCard from "@/subComponent/menu";
 import SendEmail from "@/subComponent/sendEmail";
 import { useState } from "react";
 import { Link, NavLink } from "react-router";
+import { Menu } from "lucide-react";
 
 function Navbar() {
   const [menuState, setMenuState] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(false)
+  
+  console.log('contact form state', showContactForm)
 
   const handleAbout = () => {
     const about = document.getElementById("about");
@@ -32,11 +35,12 @@ function Navbar() {
 
   const handleContactClick = () => {
     setShowContactForm((prev) => !prev);
+    setShowEmailForm(false)
   };
-
-  const handleEmailForm = () => {
-    setShowEmailForm((prev) => !prev);
-  };
+  const handleEmailFormState = ()=>{
+    setShowEmailForm((prev)=>!prev)
+    setShowContactForm(false)
+  }
 
   return (
     <>
@@ -131,7 +135,7 @@ function Navbar() {
               onClick={handleContactClick}
               className="
                 rounded-xl
-                bg-gray-200
+              bg-gray-200
                 px-5 py-2
                 transition-all
                 duration-300
@@ -145,13 +149,7 @@ function Navbar() {
               Contact Me
             </button>
 
-            <div className="absolute right-0 top-14">
-              <ContactForm
-                formState={showContactForm}
-                changeState={handleContactClick}
-                changeEmailFormState={handleEmailForm}
-              />
-            </div>
+
           </div>
 
           {/* Profile */}
@@ -187,23 +185,33 @@ function Navbar() {
               text-white
             "
           >
-            <span className="material-symbols-outlined">
-              // menu logo
+            <span className="material-symbols-outlined                
+             ">
+              <Menu/>
             </span>
           </button>
 
           {menuState && (
-            <div className="absolute right-0 top-14">
-              <MenuCard showState={setMenuState} />
+            <div className="absolute left-30">
+              <MenuCard showState={setMenuState} handleContactForm={handleContactClick}/>
             </div>
           )}
         </div>
       </nav>
-
+      {/*Contact menu */}
+      <ContactForm
+          formState={showContactForm}
+          changeState={handleContactClick}
+          changeEmailFormState = {handleEmailFormState}
+        />
+          
       {/* Email Form */}
       <SendEmail
         emailFormState={showEmailForm}
-        changeEmailFormState={handleEmailForm}
+        changeEmailFormState={handleEmailFormState}
+        
+      
+        
       />
     </>
   );

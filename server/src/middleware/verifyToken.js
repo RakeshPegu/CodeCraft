@@ -4,7 +4,6 @@ import { AppError } from '../utility/errorHandler.js'
 export const verifyToken = catchAsycn(async(req, res, next)=>{
         const authHeader = req.headers['authorization']
         const token = authHeader&& authHeader.split(' ')[1]
-        console.log(token)
         if(!token){
             throw new AppError(401, 'Not authenticated')
         }

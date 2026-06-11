@@ -1,14 +1,11 @@
 import { catchAsycn } from '../utility/catchAsynch.js'
 import client from '../utility/connectRedis.js'
 
-export const slidingWindowLogRateLimiter = (rule)=>{   
-    const {endpoint,maxRequests, windowInSeconds}  = rule
-    return catchAsycn(async(req, res , next)=>{
+export const slidingWindowLogRateLimiter = ({endpoint,maxRequests, windowInSeconds})=>{   
+        return catchAsycn(async(req, res , next)=>{
             const userId = req.userId
             const now = Date.now()
-            console.log('goo')
             const redisId = `${endpoint}:${userId? userId :req.headers['x-forwarded-for']|| req.ip}`
-            console.log('done') 
             const windowStarts = now - windowInSeconds *1000
             await client.zRemRangeByScore(redisId, 0, windowStarts)
             const countRequests = await client.zCard(redisId)  
@@ -26,8 +23,8 @@ export const slidingWindowLogRateLimiter = (rule)=>{
             next()
 })
  }
-export const slidingWindowCounterRateLimiter = (rule)=>{
-     const {endpoint, maxRequests, windowInSeconds} = rule
+export const slidingWindowCounterRateLimiter = ({endpoint, maxRequests, windowInSeconds})=>{
+
      return catchAsycn(async(req, res, next)=>{
              const ipAddress = req.headers['x-forwarded-for'] || req.ip
             const userId = req.userId
