@@ -1,7 +1,7 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Github, ExternalLink } from "lucide-react";
 
-function ProjectCard({ name, description, src , githubProjectRef}) {
+function ProjectCard({ name, description, src ,href, githubProjectRef}) {
   return (
     <div
       className="
@@ -37,7 +37,7 @@ function ProjectCard({ name, description, src , githubProjectRef}) {
           h-48
           w-48
           rounded-full
-        bg-blue-500/20
+          bg-blue-500/50
           blur-3xl
 
         "
@@ -97,8 +97,10 @@ function ProjectCard({ name, description, src , githubProjectRef}) {
               cursor-pointer
             "
           >
+            <a href={href} className="flex flex-row">
             <ExternalLink className="mr-2 h-4 w-4" />
             Live Demo
+            </a>
           </Button>
           
           <Button

@@ -20,19 +20,20 @@ function App(){
       path:"",
       element:<Home/>
     },
-    {
-      path:"register",
-      element:<Register/>
-    },
-    {
-      path:'login',
-      element:<Login/>
-    },
+
     {
       path:"profile",
       element:<Profile/>
     }   
       ]
+    },
+    {
+      path:"/register",
+      element:<Register/>
+    },
+    {
+      path:'/login',
+      element:<Login/>
     },
     {
       path:'/',

@@ -1,27 +1,27 @@
-import React, { Suspense} from "react";
-const About = React.lazy(()=> import("@/components/About"))
-const Introduction = React.lazy(()=> import("@/components/Hero"))
-const OtherSkills = React.lazy(()=>import("@/components/otherSkill"))
-const Portfolio = React.lazy(()=>import("@/components/Portfolio"))
-const Skill = React.lazy(()=>import("@/components/Skills"))
+import AboutSkeleton from "@/components/About/AboutSkeleton";
+import SkillCard from "@/components/card/SkillCard/SkillCard";
+import HeroSectionSkeleton from "@/components/Hero/HeroSkeleton";
+import OtherSkillsSkeleton from "@/components/OtherSkill/OtherSkillSkeleton";
+import PortfolioSkeleton from "@/components/Portfolio/PortfolioSkeleton";
+import SkillsSkeleton from "@/components/Skill/SkillSkeleton";
+import LazyLoaderSection from "@/utils/LazyLoader";
+import { lazy, Suspense} from "react";
+const About = lazy(()=> import("@/components/About/About"))
+const Introduction = lazy(()=> import("@/components/Hero/Hero"))
+const OtherSkills = lazy(()=>import("@/components/OtherSkill/otherSkill"))
+const Portfolio = lazy(()=>import("@/components/Portfolio/Portfolio"))
+const Skill = lazy(()=>import("@/components/Skill/Skills"))
 function Home(){      
         
    
        return(
          <div className=" mt-[-60px]  h-full flex flex-col  gap-20 md:gap-[300px]  relative  bg-gray-700" id="home"> 
-         <Introduction/>
-         <Suspense fallback={<div>... loading</div>}>
-           <About/>
-         </Suspense>
-         <Suspense fallback={<div>... loading</div>}>
-          <OtherSkills/>
-         </Suspense>
-         <Suspense fallback={<div>... loading</div>}>
-          <Portfolio/>
-         </Suspense>     
-          <Suspense fallback={<div>...  loading</div>} >
-          <Skill/>
-         </Suspense>      
+         <LazyLoaderSection Component={Introduction} Skeleton={HeroSectionSkeleton}/>         
+         <LazyLoaderSection Component={About} Skeleton={AboutSkeleton}/>
+         <LazyLoaderSection Component={OtherSkills} Skeleton={OtherSkillsSkeleton}/>
+          <LazyLoaderSection Component={Portfolio} Skeleton={PortfolioSkeleton}/> 
+          <LazyLoaderSection Component={Skill} Skeleton={SkillsSkeleton}/>
+             
          </div>
     )
     

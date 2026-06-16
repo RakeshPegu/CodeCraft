@@ -1,4 +1,5 @@
-import SkillCard from "./card/SkillCard";
+import SkillCard from "../card/SkillCard/SkillCard";
+
 
 const Skills = () => {
   const skills = [
@@ -21,7 +22,7 @@ const Skills = () => {
 
   return (
     <section
-      id="skill"
+      id="skill" 
       className="
         relative
         w-full
@@ -91,9 +92,9 @@ const Skills = () => {
                 block
                 sm:inline
                 bg-gradient-to-r
-                from-blue-500
-                via-cyan-400
-                to-purple-500
+                from-gray-500
+                via-gray-400
+                to-purple-100
                 bg-clip-text
                 text-transparent
               "

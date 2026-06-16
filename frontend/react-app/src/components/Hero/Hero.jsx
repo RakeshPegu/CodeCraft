@@ -40,7 +40,7 @@ function HeroSection() {
                   font-semibold
                   uppercase
                   tracking-[0.3em]
-                  text-blue-400
+                  text-gray-100
                 "
               >
                 Full Stack Developer • Backend Focused
@@ -57,13 +57,15 @@ function HeroSection() {
               >
                 Building
                 <span
-                  className="
-                    bg-gradient-to-r
-                    from-blue-500
-                    via-cyan-400
-                    to-purple-500
-                    bg-clip-text
-                    text-transparent
+                className="
+                sm:inline
+                bg-gradient-to-r
+                from-gray-500
+                via-gray-400
+                to-purple-100
+                bg-clip-text
+                text-transparent
+                  
                   "
                 >
                   {" "}
@@ -190,30 +192,30 @@ function HeroSection() {
                   text-slate-300
                 "
               >
-{`const developer = {
-  name: "Rakesh",
-  role: "Full Stack Developer",
+           {`const developer = {
+              name: "Rakesh",
+              role: "Full Stack Developer",
 
-  backend: [
-    "Node.js",
-    "Express",
-    "Redis",
-    "MongoDB",
-    "MySQL"
-  ],
+              backend: [
+                   "Node.js",
+                   "Express",
+                   "Redis",
+                   "MongoDB",
+                   "MySQL"
+               ],
 
-  frontend: [
-    "React",
-    "TypeScript",
-    "Tailwind"
-  ],
+              frontend: [
+                  "React",
+                  "TypeScript",
+                  "Tailwind"
+               ],
 
-  currentFocus: [
-    "System Design",
-    "Microservices",
-    "Scalability"
-  ]
-};`}
+             currentFocus: [
+                 "System Design",
+                 "Microservices",
+                 "Scalability"
+            ]
+         };`}
               </pre>
             </div>
           </div>

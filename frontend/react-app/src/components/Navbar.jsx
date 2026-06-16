@@ -84,15 +84,12 @@ function Navbar() {
               text-3xl
               font-bold
               cursor-pointer
-              bg-gradient-to-r
-              from-purple-400
-              via-blue-600
-              to-purple-500
+              text-gray-200
               bg-clip-text
-              text-transparent
+              
             "
           >
-            C2
+            Rakesh <span className="text-fuchsia-600 text-4xl">.</span>
           </h1>
         </Link>
 

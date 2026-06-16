@@ -1,6 +1,24 @@
-import ProjectCard from "./card/ProjectCard";
+
+import ProjectCard from '../card/ProjectCard/ProjectCard';
 
 function Portfolio() {
+  const projects = [
+    {
+      name:'HORIZON',
+      imgeUrl:'./horizon.png',
+      live:'https://service-website-lemon.vercel.app/',
+      description:"A webite agency that helps businesses and professionals establish their online presence through custom websites and portfolio solutions.",
+      githubProjectRef:'https://github.com/RakeshPegu/ServiceWebsite'
+    },
+    {
+      name:'Serene Smile',
+      imgeUrl:'./serene.png',
+      live:'https://dental-clinic-website-zeta-opal.vercel.app/',
+      description:"A web application built for a dental clinic where user can book appointment or contact the clinic through this site.",
+      githubProjectRef:'https://github.com/RakeshPegu/Tradi-Vibe'
+    }
+
+  ]
   return (
     <section
       id="project"
@@ -42,20 +60,8 @@ function Portfolio() {
               md:text-6xl
             "
           >
-            Building products that solve
-            <span
-              className="
-                bg-gradient-to-r
-                from-blue-500
-                via-cyan-400
-                to-purple-500
-                bg-clip-text
-                text-transparent
-              "
-            >
-              {" "}
-              real problems
-            </span>
+            Building products that solve real problems
+            
           </h2>
 
           <p
@@ -100,20 +106,15 @@ function Portfolio() {
             grid
             gap-8
             grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
-          "
-        >
-          <ProjectCard
-            name="Horizon"
-            src={'./horizon.png'}
-            description="A web platform that helps businesses and professionals establish their online presence through custom websites and portfolio solutions."
-            githubProjectRef={'https://github.com/RakeshPegu/ServiceWebsite'}
-          />
+          ">
+            
+          {projects.map((project, index)=>(
+            <div key={index}>
+              <ProjectCard name={project.name} href={project.live} src={project.imgeUrl} description={project.description} githubProjectRef={project.githubProjectRef}/>
+            </div>
 
-          <ProjectCard
-            name="Tradivibe"
-            description="A scalable application built using microservices architecture, Redis caching, and modern system design patterns to ensure reliability and performance at scale."
-            githubProjectRef={'https://github.com/RakeshPegu/Tradi-Vibe'}
-          />
+          ))}
+
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import AboutCard from "./card/AboutCard";
+import AboutCard from "../card/AboutCard/AboutCard";
 import TechContent from "@/subComponent/TechContent";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
