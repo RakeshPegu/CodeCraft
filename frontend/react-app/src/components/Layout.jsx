@@ -2,6 +2,7 @@ import { useAuthStore } from "@/stores/auth.store";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Navigate, Outlet } from "react-router";
+import ScrollToTop from "@/utils/Scroll";
 
 
 
@@ -9,9 +10,16 @@ function Layout(){
    
     return(
         <>
-            <Navbar/>   
+          <header>
+            <Navbar/>
+          </header>
+          <main>
+            <ScrollToTop/>
             <Outlet/>        
             <Footer/>
+          </main>
+          
+
         </>
     )
     

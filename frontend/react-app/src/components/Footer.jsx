@@ -1,14 +1,23 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 function Footer() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const scrollToSection = (id) => {
-    const section = document.getElementById(id);
+    if(location.pathname === '/'){
+      const section = document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-      });
     }
+    navigate('/')
+    const timer = setTimeout(()=>{
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth'})
+    },500)
+    return ()=>{
+      clearInterval(timer)
+    }
+    
+  
+
   };
 
   return (
@@ -72,12 +81,7 @@ function Footer() {
                 </button>
               </li>
 
-              <li>
-                <button className="transition-colors hover:text-cyan-400">
-                  Contact
-                </button>
-              </li>
-            </ul>
+           </ul>
           </div>
 
           {/* Socials */}
