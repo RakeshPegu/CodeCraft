@@ -5,8 +5,22 @@ import otpGen from 'otp-generator'
 import bcrypt from 'bcrypt'
 import { generateToken } from "../utility/generateToken.js"
 import logger from "../utility/logger.js"
+import {email, z} from 'zod'
+const registerSchema = z.object({
+    email:z.email('Invalid email address'),
+    username:z.string().min(3, 'Username must be atleast 3 characters'),
+    password: z.string().min(3, 'Password must be 3 characters'),
+    otp:z.string().min(6, 'OTP must be 6 characters')
+})
+const sendOtpSchema = z.object({
+    email:z.email('Invalid email address')
+})
+const loginSchema = z.object({
+    email:z.email('Invalid email address'),
+    password:z.string().min(3, 'Password must be of 3 characters')
+})
 export const register = catchAsycn(async(req, res)=>{
-        const {email, username, password, avatar, otp} = req.body
+        const {email, username, password, avatar, otp} = registerSchema.parse(req.body)
         if(!email || !username ||!password || !otp){
             throw new AppError(400, 'All fields are mandatory')
             
@@ -28,7 +42,7 @@ export const register = catchAsycn(async(req, res)=>{
 
 })
 export const send_otp = catchAsycn(async(req, res)=>{
-        const {email}= req.body
+        const {email}= sendOtpSchema.parse(req.body)
         console.log(email)
         if(!email){
             throw new AppError(404, 'Valid email required')
@@ -52,7 +66,7 @@ export const send_otp = catchAsycn(async(req, res)=>{
     
 })
 export const login = catchAsycn(async(req, res)=>{
-    const {email, password} = req.body
+    const {email, password} = loginSchema.parse(req.body)
     if(!email ||!password){
             throw new AppError(400, 'All the fields are mandatory')
         }

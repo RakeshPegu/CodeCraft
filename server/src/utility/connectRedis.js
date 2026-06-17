@@ -13,6 +13,17 @@ client.on('error', (err) => {
   console.error('Redis Client Error:', err)
 })
 
-await client.connect()  
+// Connect without blocking module import. Retry on failure.
+async function connectWithRetry(retryDelay = 5000) {
+  try {
+    await client.connect()
+    console.log('Redis connected')
+  } catch (err) {
+    console.error('Redis connection failed, retrying in', retryDelay, 'ms', err)
+    setTimeout(() => connectWithRetry(Math.min(retryDelay * 2, 60000)), retryDelay)
+  }
+}
+
+connectWithRetry()
 
 export default client

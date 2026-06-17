@@ -1,10 +1,7 @@
-import { AppError } from "../utility/errorHandler.js"
-import logger from "../utility/logger.js"
 
-export const errorHandlerMid = (err, req, res, next)=>{
+export const errorHandlerMiddleware = (err, req, res, next)=>{
     const statusCode = err.statusCode || 500
     const status  = err.status || 'error'
-    logger.error(new AppError(err))
     if(process.env.NODE_ENV === 'development'){
         res.status(statusCode).json({
             status:status,

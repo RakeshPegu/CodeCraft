@@ -8,20 +8,24 @@ import {
   ShieldCheck,
   Calendar,
 } from "lucide-react";
+import { useUserStore } from "@/stores/user.store";
+import { useAuthStore } from "@/stores/auth.store";
 
 function Profile() {
   const [showMenu, setShowMenu] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
-
+  const {userInfo, isAuthenticated} = useAuthStore()
   const handleSettingClick = () => {
     if (!buttonDisable) {
       setShowMenu((prev) => !prev);
     }
   };
-
+  const newDateFormat = new Date(userInfo?.createdAt).toISOString().slice(0, 7)
+  
   const handleDisable = () => {
     setButtonDisable((prev) => !prev);
   };
+  if(!userInfo)return null;
 
   return (
     <div className="mt-[-60px] min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-24 px-4 flex justify-center items-start relative">
@@ -89,11 +93,11 @@ function Profile() {
               </div>
 
               <h2 className="mt-5 text-3xl font-bold text-white">
-                Rakesh Pegu
+                 {userInfo.username}
               </h2>
 
               <p className="mt-2 text-slate-400">
-                rpegu0651@gmail.com
+                {userInfo.email}
               </p>
 
               <div className="mt-4">
@@ -133,7 +137,7 @@ function Profile() {
                 </div>
 
                 <p className="text-lg font-medium text-white">
-                  rakeshpegu
+                  {userInfo.username}
                 </p>
               </div>
 
@@ -150,7 +154,7 @@ function Profile() {
                 </div>
 
                 <p className="text-lg font-medium text-white break-all">
-                  rpegu0651@gmail.com
+                  {userInfo.email}
                 </p>
               </div>
 
@@ -184,7 +188,7 @@ function Profile() {
                 </div>
 
                 <p className="font-medium text-white">
-                  June 2026
+                  {newDateFormat}
                 </p>
               </div>
             </div>

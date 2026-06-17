@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 
 import { useForm } from "react-hook-form";
@@ -16,10 +16,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuthStore } from "@/stores/auth.store";
 
 const LoginForm = () => {
+  const navigate = useNavigate()
+  const { signIn, isSigningIn} = useAuthStore()
   const [showPassword, setShowPassword] = useState(false);
-  const [isSigningIn, setIsSigningIn] = useState(false);
+
 
   const form = useForm({
     defaultValues: {
@@ -30,19 +33,11 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data) => {
-    try {
-      setIsSigningIn(true);
+     const res = await signIn(data)
+     if(res){
+      return navigate('/')
+     }
 
-      console.log(data);
-
-      // API Call Here
-      // await login(data)
-
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSigningIn(false);
-    }
   };
 
   return (

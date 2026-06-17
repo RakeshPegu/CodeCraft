@@ -1,107 +1,114 @@
 import { apiRequest } from "@/lib/apiRequest"
-import {create}  from "zustand"
-import {toast} from 'react-hot-toast'
-export const useAuthStore = create((set,get)=>({
-    isSigningUp:false,
-    isSigningIn:false,
-    isAuthenticated:false,
-    isUpdating:false,
-    userInfo:[],
-    isSendingEmail:false,
-    isLoggingOut:false,
-    accessToken:'' ,
-    refreshToken:async()=>{
-        try {
-            const res = await apiRequest.post('/auth/refresh')
-            console.log(res.data)
-            set({accessToken:res.data.accessToken})
-            return res
-            
-        } catch (error) {
-            
-        }
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
+import { toast } from 'react-hot-toast'
 
-    },
-    signUp:async(data)=>{
+export const useAuthStore = create(
+    // persist is zustand middleWare that saves our store data to browser storage(localstorage by default)
+    // so it survives page refreshes
+  persist(
+    (set, get) => ({
+      isSigningUp: false,
+      isSigningIn: false,
+      isAuthenticated: false,
+      isUpdating: false,
+      userInfo: null,  
+      isSendingEmail: false,
+      isLoggingOut: false,
+      accessToken: '',
+      refreshTokenValue: '',
+      refreshToken: async () => {
         try {
-            set({isSigningUp:true})
-            const res =await apiRequest.post('/auth/register', data)  
-            toast.success(res.data.message)   
-            return res    
+          const res = await apiRequest.post('/auth/refresh')
+          set({ accessToken: res.data.accessToken })
+          return res
         } catch (error) {
-                toast.error(error?.response?.data?.message || 'Something went wrong')
-            
-            
-        }finally{
-            set({isSigningUp:false})
+          console.error('Refresh failed:', error)
+          set({ isAuthenticated: false, userInfo: null })
         }
-    },
-    sendingEmail: async(data)=>{
+      },
+    
+      signUp: async (data) => {
         try {
-            const res = await apiRequest.post('/send_email', data)
-            set({isSendingEmail:true})
-            toast.success(res?.data?.message)
-            return res.data
-            
+          set({ isSigningUp: true })
+          const res = await apiRequest.post('/auth/register', data)
+          toast.success(res.data.message)
+          return res
         } catch (error) {
-            toast.error(error?.response?.data?.message || "something went wrong")
-            set({isSendingEmail:false})
-        }finally{
-            set({isSendingEmail:false})
+          toast.error(error?.response?.data?.message || 'Something went wrong')
+        } finally {
+          set({ isSigningUp: false })
         }
-    },
-    signIn:async(data)=>{
-        
-        try {
-            set({isSigningIn:true})
-            const res = await apiRequest.post('/auth/login', data)
-            console.log(res.data.accessToken)  
-            console.log(res.data.existingUser) 
-            set({accessToken:res.data.accessToken})        
-            set({userInfo: [res.data.existingUser]})
-            set({isAuthenticated:true})
-            toast.success(res.data.message)
-            return res
-                  
-        } catch (error) {
-                toast.error(error?.response?.data?.message || 'something went wrong')
-            
-        }finally{
-            set({isSigningIn:false})
-        }
+      },
 
-    },
-    updateUserInfo: async(data)=>{
-        console.log(data)
+      sendingEmail: async (data) => {
         try {
-            const res = await apiRequest.put(`/users`)
-            set({isUpdating:true})
-
-            
+          set({ isSendingEmail: true })
+          const res = await apiRequest.post('/send_email', data)
+          toast.success(res?.data?.message)
+          return res.data
         } catch (error) {
-            toast.error(error?.response?.data?.message || 'something went wrong')
-            set({isUpdating:false})
-            
+          toast.error(error?.response?.data?.message || "Something went wrong")
+        } finally {
+          set({ isSendingEmail: false })
         }
+      },
 
-    },
-    logOut: async()=>{
+      signIn: async (data) => {
         try {
-            const res = await apiRequest.post('/auth/logout')
-            set({userInfo: []})
-            set({isLoggingOut:true})
-            
+          set({ isSigningIn: true })
+          const res = await apiRequest.post('/auth/login', data)
+          console.log('userinfo', res.data.existingUser)
+          set({
+            accessToken: res.data.accessToken,
+            userInfo: res.data.existingUser,  
+            isAuthenticated: true
+          })
+          
+          toast.success(res.data.message)
+          return res
         } catch (error) {
-            toast.error(error?.response?.data?.message)
-            set({isLoggingOut:false})
-            
-        }finally{
-            set({
-                isLoggingOut:false
-            })
+          toast.error(error?.response?.data?.message || 'Something went wrong')
+        } finally {
+          set({ isSigningIn: false })
         }
+      },
+
+      updateUserInfo: async (data) => {
+        try {
+          set({ isUpdating: true })
+          const res = await apiRequest.put('/users', data)
+          set({ userInfo: res.data })
+          toast.success('Profile updated successfully')
+          return res
+        } catch (error) {
+          toast.error(error?.response?.data?.message || 'Something went wrong')
+        } finally {
+          set({ isUpdating: false })
+        }
+      },
+
+      logOut: async () => {
+        try {
+          set({ isLoggingOut: true })
+          await apiRequest.post('/auth/logout')
+          
+          set({
+            userInfo: null,
+            accessToken: '',
+            isAuthenticated: false
+          })
+          
+          toast.success('Logged out successfully')
+        } catch (error) {
+          toast.error(error?.response?.data?.message || 'Logout failed')
+        } finally {
+          set({ isLoggingOut: false })
+        }
+      }
+    }),
+    {
+      name: 'auth-store' 
     }
-
-
-
-}))
+  )
+)

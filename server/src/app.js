@@ -4,14 +4,13 @@ import mongoose from 'mongoose'
 import compression from 'compression'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
-import authRoute from './routes/auth.route.js'
-import userRoute from './routes/user.router.js'
-import emailRoutes from './routes/sendMail.js'
-import { morganMiddleware } from './middleware/morganMIddleware.js'
-import { errorHandlerMid } from './middleware/erorHandleMid.js'
+import cors from 'cors'
+import { errorHandlerMiddleware } from './middleware/erorHandleMid.js'
+import authRoutes from './routes/auth.route.js'
+import projectRoutes from './routes/project.route.js'
+
 const app = express()
 dotenv.config()
-app.set('trust proxy', 1)
 app.use(helmet())
 app.use(compression())
 app.use(express.json())
@@ -21,10 +20,8 @@ mongoose.connect(process.env.DATABASE_URL).then(()=>{
 }).catch((err)=>{
     console.log('mongoose connection error', err)
 })
-app.use('/api/v1/auth', authRoute)
-app.use('/api/v1/user', userRoute)
-app.use('/api/v1/mail',emailRoutes)
-app.use(morganMiddleware)
-app.use(errorHandlerMid)
-
+app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
+app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/project', projectRoutes)
+app.use(errorHandlerMiddleware)
 export default app;

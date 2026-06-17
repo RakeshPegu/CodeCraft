@@ -6,9 +6,11 @@ import {Layout, AuthRequireLayout } from './components/Layout';
 import ProjectForm from './routes/ProjectForm';
 import ErrorPage from './routes/Error';
 import Profile from './routes/Profile';
+import { useAuthStore } from './stores/auth.store';
 
 
 function App(){
+  const {isHydrated} = useAuthStore()
 
   const router = createBrowserRouter([
     {
@@ -21,10 +23,7 @@ function App(){
       element:<Home/>
     },
 
-    {
-      path:"profile",
-      element:<Profile/>
-    }   
+   
       ]
     },
     {
@@ -40,16 +39,21 @@ function App(){
       element:<AuthRequireLayout/>,
       errorElement:<ErrorPage/>,
       children:[
-          {
-            path:"/project",
+        {
+            path:"project",
             element:<ProjectForm/>
         },
+        {
+          path:"profile",
+          element:<Profile/>
+        }
    
       ]
     }
 
 
   ])
+
   return (
     <RouterProvider router={router}/>
   );

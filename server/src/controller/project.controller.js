@@ -1,9 +1,15 @@
 import { projectModel } from "../lib/db.js"
 import mongoose from 'mongoose'
+import {z} from 'zod'
+const projectValidateSchema = z.object({
+    name:z.string().min(3, 'Project name must be atleast of 3 character'),
+    description:z.string(10, 'description must be of 10 characters'),
 
+})
+const projectSchema = z.object
 export const createProject = async(req, res)=>{
     const userRole = req.session.userRole
-    const {name, description, images} = req.body
+    const {name, description, images} = projectValidateSchema(req.body)
     try {      
          
         if(userRole !== 'admin'){
