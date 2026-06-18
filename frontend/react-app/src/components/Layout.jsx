@@ -1,9 +1,9 @@
 import { useAuthStore } from "@/stores/auth.store";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { Navigate, Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import ScrollToTop from "@/utils/Scroll";
-import { useEffect } from "react";
+import { Navigate } from "react-router";
 
 
 
@@ -25,16 +25,13 @@ function Layout(){
     )
     
 }
+
 function AuthRequireLayout(){
-    const {isAuthenticated} = useAuthStore()
-    console.log(isAuthenticated)
-    const navigate = useNavigate()
-    useEffect(()=>{
-        if(!isAuthenticated){
-            navigate('/login')
-        }
-    }, [isAuthenticated, navigate])
-    if(!isAuthenticated)return null;
+    const {isAuthenticated, } = useAuthStore()
+ 
+    if(!isAuthenticated){
+        return  <Navigate to={'/login'} replace />
+     }
     return(
     <>
     <header>

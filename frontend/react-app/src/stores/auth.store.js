@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast'
 export const useAuthStore = create(
     // persist is zustand middleWare that saves our store data to browser storage(localstorage by default)
     // so it survives page refreshes
-  persist(
+    persist(
     (set, get) => ({
       isSigningUp: false,
       isSigningIn: false,
@@ -16,17 +16,6 @@ export const useAuthStore = create(
       isSendingEmail: false,
       isLoggingOut: false,
       accessToken: '',
-      refreshTokenValue: '',
-      refreshToken: async () => {
-        try {
-          const res = await apiRequest.post('/auth/refresh')
-          set({ accessToken: res.data.accessToken })
-          return res
-        } catch (error) {
-          console.error('Refresh failed:', error)
-          set({ isAuthenticated: false, userInfo: null })
-        }
-      },
     
       signUp: async (data) => {
         try {
@@ -35,12 +24,29 @@ export const useAuthStore = create(
           toast.success(res.data.message)
           return res
         } catch (error) {
+          console.log('this is the error',error?.response?.data?.message)
           toast.error(error?.response?.data?.message || 'Something went wrong')
         } finally {
           set({ isSigningUp: false })
         }
       },
 
+      setAccessToken: (accessToken)=>{
+        set({accessToken:accessToken})
+      },
+      refreshToken: async()=>{
+        try {
+          const res = await apiRequest.post('/auth/refresh_token',{}, {_skipInterceptor:true})
+          set({accessToken:res.data.accessToken})
+          
+        } catch (error) {
+          console.log(error)
+          throw error
+
+          
+        }
+
+      },
       sendingEmail: async (data) => {
         try {
           set({ isSendingEmail: true })
@@ -58,22 +64,20 @@ export const useAuthStore = create(
         try {
           set({ isSigningIn: true })
           const res = await apiRequest.post('/auth/login', data)
-          console.log('userinfo', res.data.existingUser)
           set({
             accessToken: res.data.accessToken,
             userInfo: res.data.existingUser,  
             isAuthenticated: true
-          })
-          
+          })      
           toast.success(res.data.message)
-          return res
+          return true
         } catch (error) {
           toast.error(error?.response?.data?.message || 'Something went wrong')
+          return false
         } finally {
           set({ isSigningIn: false })
         }
       },
-
       updateUserInfo: async (data) => {
         try {
           set({ isUpdating: true })
@@ -108,7 +112,15 @@ export const useAuthStore = create(
       }
     }),
     {
-      name: 'auth-store' 
+      name:"auth-store",
+      partialize: (state)=>({
+        userInfo: state.userInfo,
+        isAuthenticated: state.isAuthenticated,
+
+        
+      })
     }
   )
+    
+  
 )

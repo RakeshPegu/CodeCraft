@@ -4,14 +4,23 @@ import HeroSectionSkeleton from "@/components/Hero/HeroSkeleton";
 import OtherSkillsSkeleton from "@/components/OtherSkill/OtherSkillSkeleton";
 import PortfolioSkeleton from "@/components/Portfolio/PortfolioSkeleton";
 import SkillsSkeleton from "@/components/Skill/SkillSkeleton";
+import { apiRequest } from "@/lib/apiRequest";
 import LazyLoaderSection from "@/utils/LazyLoader";
-import { lazy, Suspense} from "react";
+import { lazy, Suspense, useEffect} from "react";
 const About = lazy(()=> import("@/components/About/About"))
 const Introduction = lazy(()=> import("@/components/Hero/Hero"))
 const OtherSkills = lazy(()=>import("@/components/OtherSkill/otherSkill"))
 const Portfolio = lazy(()=>import("@/components/Portfolio/Portfolio"))
 const Skill = lazy(()=>import("@/components/Skill/Skills"))
-function Home(){      
+function Home(){    
+      useEffect(()=>{
+    async function fetchData (){
+      const res  = await apiRequest.get('/protected/test')
+      console.log('this is response from the protected route', res)
+    }
+    fetchData()
+
+  }, [])  
         
    
        return(

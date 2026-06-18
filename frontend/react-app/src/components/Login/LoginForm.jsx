@@ -34,8 +34,9 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
      const res = await signIn(data)
+     console.log('this is res', res)
      if(res){
-      return navigate('/')
+        navigate('/')
      }
 
   };

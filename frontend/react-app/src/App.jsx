@@ -6,13 +6,10 @@ import {Layout, AuthRequireLayout } from './components/Layout';
 import ProjectForm from './routes/ProjectForm';
 import ErrorPage from './routes/Error';
 import Profile from './routes/Profile';
-import { useAuthStore } from './stores/auth.store';
-
 
 function App(){
-  const {isHydrated} = useAuthStore()
 
-  const router = createBrowserRouter([
+   const router = createBrowserRouter([
     {
       path:"/",
       errorElement:<ErrorPage/>,
@@ -53,8 +50,7 @@ function App(){
 
 
   ])
-
-  return (
+   return (
     <RouterProvider router={router}/>
   );
 }
