@@ -1,16 +1,17 @@
-import { otpModel, userModel } from "../lib/db.js"
+import { userModel } from "../lib/db.js"
 import { catchAsycn } from "../utility/catchAsynch.js"
 import { AppError } from "../utility/errorHandler.js"
 import otpGen from 'otp-generator'
 import bcrypt from 'bcrypt'
 import { generateToken } from "../utility/generateToken.js"
 import logger from "../utility/logger.js"
-import {email, z} from 'zod'
+import {email, success, z} from 'zod'
 const registerSchema = z.object({
     email:z.email('Invalid email address'),
     username:z.string().min(3, 'Username must be atleast 3 characters'),
     password: z.string().min(3, 'Password must be 3 characters'),
-    otp:z.string().min(6, 'OTP must be 6 characters')
+    //otp:z.string().min(6, 'OTP must be 6 characters')
+    terms:z.boolean().refine((value)=> value == true , {message:'User must agree to terms'})
 })
 const sendOtpSchema = z.object({
     email:z.email('Invalid email address')
@@ -20,8 +21,8 @@ const loginSchema = z.object({
     password:z.string().min(3, 'Password must be of 3 characters')
 })
 export const register = catchAsycn(async(req, res)=>{
-        const {email, username, password, avatar, otp} = registerSchema.parse(req.body)
-        if(!email || !username ||!password || !otp){
+        const {email, username, password, avatar, terms} = registerSchema.parse(req.body)
+        if(!email || !username ||!password || !terms ){
             throw new AppError(400, 'All fields are mandatory')
             
         }
@@ -30,13 +31,8 @@ export const register = catchAsycn(async(req, res)=>{
             throw new AppError(400, 'Email address already exist')
         
         }
-        const result = await otpModel.findOne({otp})
-        if(!result || result.otp !== otp){
-            throw new AppError(403, 'Invalid otp')
-        
-        }
         const hashedPass = await bcrypt.hash(password, 10)
-        const newUser = await userModel.create({username,email, password:hashedPass, avatar})
+        const newUser = await userModel.create({username,email, password:hashedPass,isAgreeToTerms:terms, avatar})
         logger.info('Register user succesfully')
         res.status(201).json({success:true, message:'Account created successfully',newUser })
 
@@ -81,7 +77,7 @@ export const login = catchAsycn(async(req, res)=>{
         }        
         
         const {accessToken, refreshToken} = await generateToken(existingUser)
-        res.cookie('refreshToken',refreshToken ,{
+        res.cookie('refreshToken', refreshToken ,{
             maxAge:1000*60*60*24*30,
             sameSite:'strict',
             secure:process.env.NODE_ENV==='production'? true:false,
@@ -95,11 +91,10 @@ export const login = catchAsycn(async(req, res)=>{
 export const logout = catchAsycn(async(req, res)=>{
         const tokenUserId = req.userId
         if(!tokenUserId){
-            throw new AppError(404, 'Not authenticated')
+            throw new AppError(401, 'Not authenticated')
         }        
-        await userModel.findOneAndDelete({_id:tokenUserId})
         logger.info('Logged out successfully')
-        res.clearCookie('token').status(200).json({success:'logout successfully'})
+        res.clearCookie('refreshToken').status(200).json({success:'logout successfully'})
     
         
     

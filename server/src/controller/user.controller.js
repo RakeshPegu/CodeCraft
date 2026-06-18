@@ -2,6 +2,7 @@ import { userModel } from "../lib/db.js"
 import { AppError } from "../utility/errorHandler.js"
 import { catchAsycn } from "../utility/catchAsynch.js"
 import logger from "../utility/logger.js"
+import bcrypt from 'bcrypt'
 
 export const getUsers = catchAsycn(async(req, res)=>{
         const userRole = req.session.userRole
@@ -48,25 +49,22 @@ export const updateUser = catchAsycn(async(req, res)=>{
     })
 export const deleteUser = catchAsycn(async(req, res)=>{
         let tokenUserId = req.userId
-        let userID = req.params.id
-        const {password} = req.body
-        console.log(password)
+        const {password}= req.body    
+        if(!tokenUserId){
+            throw new AppError(401, 'Authentication is requird')
+        }
         if(!password){
             throw new AppError(400, 'Password required')
         }
-        userID = userID.trim()
-
-        if(tokenUserId!== userID ){
-            throw new AppError(403, 'Unauthorized')
-        }
-        const existingUser = await userModel.findById(userID)
+        const existingUser = await userModel.findById(tokenUserId)
         if(!existingUser){
             throw new AppError(404, 'User not found')
         }
-        if(existingUser.password !== password){
-            throw new Error(403, 'Wrong password')
+        const isVerified = await bcrypt.compare(password, existingUser.password)
+        if(!isVerified){
+            throw new AppError(403, 'Wrong password')
         }
-        await userModel.findByIdAndDelete(userID)
+        await userModel.findByIdAndDelete(tokenUserId)
         logger.info(`${tokenUserId} deleted it's account`)
         res.status(200).json({succss:true, message:'Deleted user successfully'})
         

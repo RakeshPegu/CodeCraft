@@ -38,7 +38,7 @@ apiRequest.interceptors.response.use(
     (response)=>response,
     async(error)=>{
         let  originalRequest = error.config
-        if (originalRequest._skipInterceptor) {
+        if (originalRequest._skipInterceptor                                                         ) {
             return Promise.reject(error);
         }
         if(isRefreshing){

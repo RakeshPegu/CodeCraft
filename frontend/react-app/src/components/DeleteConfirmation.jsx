@@ -3,21 +3,27 @@ import { AlertTriangle, Lock, X } from "lucide-react";
 
 import { useUserStore } from "@/stores/user.store";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router";
 
 function DeleteAccountConfirmation({
   showDeleteForm,
   onChangeState,
 }) {
-  const { deleteUserAccount } = useUserStore();
+  
+  const { deleteUserAccount,isDeletinAccount } = useUserStore();
+  const navigate = useNavigate()
 
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await deleteUserAccount({
+    const res = await deleteUserAccount({
       password,
     });
+    if(res){
+      navigate('/')
+
+    }
   };
 
   if (!showDeleteForm) return null;
@@ -27,7 +33,7 @@ function DeleteAccountConfirmation({
       className="
         fixed inset-0
         z-50
-        flex items-center justify-center
+        flex items-center justify-center 
         bg-black/40
         backdrop-blur-sm
         px-4
@@ -83,10 +89,12 @@ function DeleteAccountConfirmation({
               rounded-xl
               p-2
               text-slate-400
-              hover:bg-white/10
+               hover:bg-gray-500
               hover:text-white
               transition-colors
+              
             "
+        
           >
             <X size={18} />
           </button>
@@ -183,13 +191,17 @@ function DeleteAccountConfirmation({
             </Button>
 
             <Button
+              disabled={isDeletinAccount}
               type="submit"
               className="
                 flex-1
                 bg-red-600
                 text-white
-                hover:bg-red-700
+                hover:bg-red-400
+                disabled:cursor-not-allowed
+                disabled:opacity-40
               "
+              
             >
               Delete Account
             </Button>

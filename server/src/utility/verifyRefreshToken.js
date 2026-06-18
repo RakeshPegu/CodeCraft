@@ -48,6 +48,7 @@ const verification = (refreshToken) => {
 }
 */
 const verifyRefreshToken = async(refreshToken)=>{
+     console.log('this is the refresh Token', refreshToken)
     try {
         const existingToken = await tokenModel.findOne({token:refreshToken})
         if(!existingToken){

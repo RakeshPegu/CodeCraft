@@ -92,6 +92,7 @@ export const useAuthStore = create(
         }
       },
 
+
       logOut: async () => {
         try {
           set({ isLoggingOut: true })

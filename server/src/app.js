@@ -8,6 +8,8 @@ import cors from 'cors'
 import { errorHandlerMiddleware } from './middleware/erorHandleMid.js'
 import authRoutes from './routes/auth.route.js'
 import projectRoutes from './routes/project.route.js'
+import protectedRoute from './routes/protectedRoute.js'
+import userRoutes from './routes/user.router.js'
 
 const app = express()
 dotenv.config()
@@ -23,5 +25,7 @@ mongoose.connect(process.env.DATABASE_URL).then(()=>{
 app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/project', projectRoutes)
+app.use('/api/v1/protected',protectedRoute)
+app.use('/api/v1/users', userRoutes)
 app.use(errorHandlerMiddleware)
 export default app;
