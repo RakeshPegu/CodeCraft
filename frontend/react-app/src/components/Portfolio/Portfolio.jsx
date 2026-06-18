@@ -107,7 +107,7 @@ function Portfolio() {
           className="
             grid
             grid-cols-1
-            lg:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
+            lg:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]
             gap-6 sm:gap-8
           ">
             

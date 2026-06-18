@@ -111,7 +111,7 @@ const Skills = () => {
               md:mt-6
               lg:mt-8
               max-w-3xl
-              text-xs
+              text-md
               sm:text-sm
               md:text-base
               lg:text-lg
@@ -134,11 +134,11 @@ const Skills = () => {
             sm:gap-4
             md:gap-6
             lg:gap-8
-            grid-cols-2
+            grid-cols-1
             sm:grid-cols-3
             md:grid-cols-3
             lg:grid-cols-4
-            xl:grid-cols-5
+        
           "
         >
           {skills.map((skill, index) => (
