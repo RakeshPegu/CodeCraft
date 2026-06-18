@@ -7,7 +7,7 @@ export const generateToken = async (user) => {
         throw new Error("JWT secret keys are missing in environment variables");
     }
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_PRIVATE_KEY, { expiresIn: "15m" });
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_PRIVATE_KEY, { expiresIn: "30m" });
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_PRIVATE_KEY, { expiresIn: "15d" });
     await tokenModel.findOneAndDelete({ userId: payload.id });
     await new tokenModel({ userId: payload.id, token: refreshToken }).save();
     return { accessToken, refreshToken };

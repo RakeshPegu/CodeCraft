@@ -78,7 +78,7 @@ export const login = catchAsycn(async(req, res)=>{
         
         const {accessToken, refreshToken} = await generateToken(existingUser)
         res.cookie('refreshToken', refreshToken ,{
-            maxAge:1000*60*60*24*30,
+            maxAge:1000*60*60*24*15,
             sameSite:'strict',
             secure:process.env.NODE_ENV==='production'? true:false,
             httpOnly:true

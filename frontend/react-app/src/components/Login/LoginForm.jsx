@@ -67,19 +67,17 @@ const LoginForm = () => {
         <div className="mb-8 text-center">
           <div
             className="
-              mx-auto
               mb-4
               flex
               h-14
-              w-14
               items-center
               justify-center
               rounded-2xl
-              bg-blue-100
-              text-2xl
+              text-4xl
+              font-bold
             "
           >
-            🔐
+             Rakesh <span className="text-fuchsia-600 text-4xl">.</span>
           </div>
 
           <h1 className="text-3xl font-bold text-slate-900">

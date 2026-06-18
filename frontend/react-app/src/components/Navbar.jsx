@@ -3,7 +3,7 @@ import MenuCard from "@/subComponent/menu";
 import SendEmail from "@/subComponent/sendEmail";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
-import { Menu } from "lucide-react";
+import { Menu, User} from "lucide-react";
 
 function Navbar() {
   const [menuState, setMenuState] = useState(false);
@@ -182,7 +182,7 @@ function Navbar() {
               "
             >
               <span className="material-symbols-outlined text-slate-300">
-                account_circle
+                <User/>
               </span>
             </div>
           </NavLink>

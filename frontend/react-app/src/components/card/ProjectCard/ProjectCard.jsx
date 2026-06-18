@@ -35,7 +35,7 @@ function ProjectCard({ name, description, src ,href, githubProjectRef}) {
           -top-24
           -right-24
           h-48
-          w-48
+          sm:w-48
           rounded-full
           bg-blue-500/50
           blur-3xl

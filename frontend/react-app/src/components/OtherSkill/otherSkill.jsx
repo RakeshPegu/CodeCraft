@@ -64,12 +64,12 @@ function OtherSkills(){
         Expertise
       </span>
 
-      <h1 className="mt-6 text-5xl lg:text-7xl font-bold leading-tight">
+      <h1 className="mt-6 text-3xl sm:text-5xl lg:text-7xl font-bold leading-tight">
         Skills &
         <span className="block text-gray-400 text-5xl ">Technologies</span>
       </h1>
 
-      <p className="mt-6 text-lg text-gray-400 leading-relaxed">
+      <p className="mt-6 text-base sm:text-lg text-gray-400 leading-relaxed">
         A collection of technologies, tools, and architectural patterns I've
         used to build scalable full-stack applications.
       </p>
@@ -83,7 +83,7 @@ function OtherSkills(){
   >
     {/* Intro */}
     <div className="lg:pt-40">
-      <p className="text-2xl lg:text-4xl font-light leading-relaxed text-gray-200">
+      <p className="text-md sm:text-2xl lg:text-4xl font-light leading-relaxed text-gray-200">
         Turning ideas into scalable digital products through modern web
         technologies, performance-focused architecture, and continuous
         learning.

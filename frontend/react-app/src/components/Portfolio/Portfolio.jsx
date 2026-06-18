@@ -25,23 +25,24 @@ function Portfolio() {
       className="
         relative
         overflow-hidden
-        py-32
-        px-6
+        py-16 sm:py-24 lg:py-32
         lg:px-12
-      "
-    >
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
-      </div>
+        min-h-screen
+        flex
+        flex-col
 
-      <div className="mx-auto max-w-7xl">
+        "
+    >
+
+
+      <div>
         {/* Section Header */}
-        <div className="mb-24 text-center">
+        <div className="mb-24 text-center flex flex-col items-center">
           <p
             className="
               mb-4
-              text-sm
+              text-base
+              sm:text-xl
               font-semibold
               uppercase
               tracking-[0.3em]
@@ -69,7 +70,8 @@ function Portfolio() {
               mx-auto
               mt-8
               max-w-3xl
-              text-lg
+              text-md
+              sm:text-lg
               leading-relaxed
               text-slate-400
             "
@@ -104,8 +106,9 @@ function Portfolio() {
         <div
           className="
             grid
-            gap-8
-            grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
+            grid-cols-1
+            lg:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
+            gap-6 sm:gap-8
           ">
             
           {projects.map((project, index)=>(
