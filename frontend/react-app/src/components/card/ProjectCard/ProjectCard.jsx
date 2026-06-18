@@ -6,6 +6,8 @@ function ProjectCard({ name, description, src ,href, githubProjectRef}) {
     <div
       className="
       group
+      w-[95%]
+      sm:w-full
       relative
       overflow-hidden
       rounded-3xl

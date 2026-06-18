@@ -106,13 +106,13 @@ function Portfolio() {
         <div
           className="
             grid
-            grid-cols-1
+            grid-cols-1        
             lg:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]
             gap-6 sm:gap-8
           ">
             
           {projects.map((project, index)=>(
-            <div key={index}>
+            <div key={index} className=' flex justify-center sm:justify-normal'>
               <ProjectCard name={project.name} href={project.live} src={project.imgeUrl} description={project.description} githubProjectRef={project.githubProjectRef}/>
             </div>
 
