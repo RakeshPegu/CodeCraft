@@ -15,7 +15,6 @@ function SettingMenu({ showMenu, buttonDisable }) {
   const [showDeleteForm, setShowDeleteForm] = useState(false);
   const [showLogoutForm, setShowLogoutForm] = useState(false);
 
-  // ✅ useEffect INSIDE the component function
   useEffect(() => {
     const isAnyModalOpen = showMenu || showLogoutForm || showUpdateForm || showDeleteForm;
     

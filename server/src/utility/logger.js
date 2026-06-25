@@ -18,7 +18,13 @@ if(process.env.NODE_ENV !== 'production'){
   transports.push(
     new winston.transports.Console({
       level:'debug',
-      format:combine(colorize({all:true}),errors({stack:true}),timestamp({format: 'YYYY-MM-DD HH-mm-ss.SSS'}), printf((info)=>`[${info.timestamp}] ${info.level}: ${info.message}`))
+      format:combine(colorize({all:true}),errors({stack:true}),timestamp({format: 'YYYY-MM-DD HH-mm-ss.SSS'}),
+      printf((info)=>{
+        const { timestamp, level, message, ...meta } = info;
+        let metaString = Object.keys(meta).length ? JSON.stringify(meta, null, 2) : '';
+        return `[${timestamp}] ${level}: ${message} ${metaString}`;
+})
+    )
     })
   )
 

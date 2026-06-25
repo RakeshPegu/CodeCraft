@@ -1,18 +1,29 @@
 import tokenModel from "../lib/tokendb.js"
 import { catchAsycn } from "../utility/catchAsynch.js"
+import client from "../utility/connectRedis.js"
 import { AppError } from "../utility/errorHandler.js"
 import { generateToken } from "../utility/generateToken.js"
-import verifyRefreshToken from "../utility/verifyRefreshToken.js"
+import { TokenBlackList } from "../utility/tokenBlackLIst.js"
 import jwt from 'jsonwebtoken'
 
 
 
 export const refreshTokenFunction =catchAsycn(async(req, res)=>{    
-        const currentRefreshToken = req.cookies.refreshToken   
-        if(!currentRefreshToken){
-            throw new AppError(401, 'Authentication is required')
-        }   
-        let tokenDetail
+        const currentRefreshToken = req.cookies.refreshToken 
+        const decodedPayload = jwt.decode(currentRefreshToken)
+        const refreshTokenKey = `refresh_token:${decodedPayload.id}`
+        const exist = await client.exists(refreshTokenKey)
+        if(!exist){
+            throw new AppError(401, 'Invalid refresh token here')
+
+        }
+        const blacklist = new TokenBlackList()
+        const isBlacklisted = await blacklist.isBlackListedRefreshToken(currentRefreshToken)
+        if(isBlacklisted){
+            throw new AppError(401, 'refreshToken token is blacklisted')
+        }
+
+        let tokenDetail          
         try {
          tokenDetail = jwt.verify(currentRefreshToken, process.env.REFRESH_TOKEN_PRIVATE_KEY) 
             

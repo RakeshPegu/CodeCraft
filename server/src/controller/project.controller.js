@@ -9,7 +9,7 @@ const projectValidateSchema = z.object({
 const projectSchema = z.object
 export const createProject = async(req, res)=>{
     const userRole = req.session.userRole
-    const {name, description, images} = projectValidateSchema(req.body)
+    const {name, description, image} = projectValidateSchema(req.body)
     try {      
          
         if(userRole !== 'admin'){
@@ -18,7 +18,7 @@ export const createProject = async(req, res)=>{
         if(!name || !description){
             return res.status(400).json({message:'Name and description must'})
         }
-        const project = await projectModel.create({name, description, images})
+        const project = await projectModel.create({name, description, image})
         res.status(200).json({message:'new project has been created'})
     } catch (error) {
         console.log('create project error', error)

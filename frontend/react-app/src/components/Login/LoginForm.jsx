@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAuthStore } from "@/stores/auth.store";
+import { client } from "@/lib/googleClient";
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -280,6 +281,7 @@ const LoginForm = () => {
             </p>
           </form>
         </Form>
+        <button onClick={()=>client.requestCode()}>Google</button>
       </div>
     </div>
   );
