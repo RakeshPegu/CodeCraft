@@ -1,4 +1,3 @@
-import tokenModel from "../lib/tokendb.js"
 import { catchAsycn } from "../utility/catchAsynch.js"
 import client from "../utility/connectRedis.js"
 import { AppError } from "../utility/errorHandler.js"
@@ -8,8 +7,10 @@ import jwt from 'jsonwebtoken'
 
 
 
-export const refreshTokenFunction =catchAsycn(async(req, res)=>{    
+export const refreshTokenFunction =catchAsycn(async(req, res)=>{   
+        console.log('refresh token controller get triggered') 
         const currentRefreshToken = req.cookies.refreshToken 
+        console.log('this is currentRefreshToken', currentRefreshToken)
         const decodedPayload = jwt.decode(currentRefreshToken)
         const refreshTokenKey = `refresh_token:${decodedPayload.id}`
         const exist = await client.exists(refreshTokenKey)

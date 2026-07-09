@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import tokenModel from '../lib/tokendb.js';
 import { v4 as uuidv4 } from 'uuid'
 import client from './connectRedis.js';
 import logger from './logger.js';

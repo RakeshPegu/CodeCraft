@@ -7,11 +7,10 @@ const projectValidateSchema = z.object({
 
 })
 const projectSchema = z.object
-export const createProject = async(req, res)=>{
+export const createProject = async(req, res, next)=>{
     const userRole = req.session.userRole
     const {name, description, image} = projectValidateSchema(req.body)
     try {      
-         
         if(userRole !== 'admin'){
             return res.status(403).json({message:'not authorized'})
         }
@@ -22,22 +21,19 @@ export const createProject = async(req, res)=>{
         res.status(200).json({message:'new project has been created'})
     } catch (error) {
         console.log('create project error', error)
-        res.status(200).json({success:false, message:'Something went wrong'})
-        
+        next(error)
     }
 }
-export const getProjects = async(req, res)=>{
+export const getProjects = async(req, res, next)=>{
     try {
         const projectsInfo = await projectModel.find()
         res.status(200).json({success:true, projectsInfo})
-        
     } catch (error) {
         console.log('',error)
-        res.status(500).json({success:false, message:'something went wrong'})
-        
+        next(error)
     }
 }
-export const getProject = async(req, res)=>{
+export const getProject = async(req, res, next)=>{
     const projectId = req.params.id
     try {
         const projectInfo = await projectModel.findById(projectId)
@@ -47,15 +43,13 @@ export const getProject = async(req, res)=>{
         res.status(200).json({success:true, projectInfo})
     } catch (error) {
         console.log('',error)
-        res.status(500).json({success:false, message:'something went wrong'})
-        
+        next(error)
     }
 }
-export const updateProject = async(req, res)=>{
+export const updateProject = async(req, res, next)=>{
       const userRole = req.session.userRole
       let  projectId = req.params.id
       const {...newProjectInfo} = req.body
-
     try {
         if(userRole !== 'admin'){
             return res.status(403).json({message:'not authorized'})
@@ -66,14 +60,12 @@ export const updateProject = async(req, res)=>{
         }
         const updatedInfo= await projectModel.findByIdAndUpdate(projectId, {$set:{...newProjectInfo}})
         res.status(200).json({success:true, updatedInfo})
-        
     } catch (error) {
         console.log('this is the update project error',error)
-        res.status(500).json({success:false, message:'something went wrong'})
-        
+        next(error)
     }
 }
-export const deleteProject = async(req, res)=>{
+export const deleteProject = async(req, res, next)=>{
       const userRole = req.session.userRole
       const projectId = req.params.id
     try {
@@ -86,11 +78,8 @@ export const deleteProject = async(req, res)=>{
         }
         await projectModel.findByIdAndDelete(projectId)
         res.status(200).json({ success:true, message:'project has been deleted successfully'})
-
-        
     } catch (error) {
         console.log('',error)
-        res.status(500).json({success:false, message:'something went wrong'})
-        
+        next(error)
     }
 }

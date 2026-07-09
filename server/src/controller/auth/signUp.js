@@ -10,17 +10,15 @@ export const registerSchema = z.object({
     username:z.string().min(3, 'Username must be atleast 3 characters'),
     password: z.string().min(3, 'Password must be 3 characters'),
     terms:z.boolean().refine((value)=> value == true , {message:'User must agree to terms'}),
-    email:z.string().email().optional(),
-    phoneNumber:z.string().e164().optional
-}).refine((data)=>(data.email && !data.phoneNumber )|| (!data.email || data.phoneNumber), {error:"Either email or phone number is required"})
+    email:z.string().email()
+    })
 export const signUpWithPass = catchAsycn(async(req, res)=>{
         const {email, username, password, avatar, terms} = registerSchema.parse(req.body)     
         const existingUser = await userModel.findOne({email})
         if(existingUser){
             throw new AppError(400, 'Email address already exist')        
         }
-        const newUser = await userModel.create({username,email,firstName, lastName, passwordHash:password,isAgreeToTerms:terms, avatar})
-        logger.info('Register user succesfully')
+        const newUser = await userModel.create({username,email, passwordHash:password,isAgreeToTerms:terms, avatar})
         res.status(201).json({success:true, message:'Account created successfully',newUser })
 
 })
@@ -33,11 +31,8 @@ export const signUpWithGoogleAuth = catchAsycn( async (req, res) => {
   try {
     const { code } = req.body;
 
-    const { tokens } = await oauth2Client.getToken(code);
-    console.log('token', tokens)
-   
-    oauth2Client.setCredentials(tokens);
-    
+    const { tokens } = await oauth2Client.getToken(code);   
+    oauth2Client.setCredentials(tokens);    
     const oauth2 = google.oauth2({
       auth: oauth2Client,
       version: 'v2',
@@ -53,7 +48,7 @@ export const signUpWithGoogleAuth = catchAsycn( async (req, res) => {
     lastLogin: new Date(),
     oauth: {
       google: {
-        id: user.id,
+        id: user.openid,
         email: user.email,
         refreshToken:tokens.refresh_token
       },
@@ -66,7 +61,7 @@ export const signUpWithGoogleAuth = catchAsycn( async (req, res) => {
     }
     const payload = {_id:existingUser.id || newlyCreatedUser.id, role:'user'}
     const {accessToken, refreshToken} = await generateToken(payload)
-    
+    const {oauth, ...userInfo} = existingUser._doc || newlyCreatedUser._doc
     res.cookie('refreshToken',refreshToken ,{
             maxAge:1000*60*60*24*15,
             sameSite:'strict',
@@ -74,7 +69,7 @@ export const signUpWithGoogleAuth = catchAsycn( async (req, res) => {
             httpOnly:true
         }).status(200).json({
        success: true,
-       user: existingUser || newlyCreatedUser,
+       user: userInfo,
        accessToken:accessToken
     });
   } catch (error) {

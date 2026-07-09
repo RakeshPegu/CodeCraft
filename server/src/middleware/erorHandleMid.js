@@ -1,4 +1,7 @@
+import * as Sentry from '@sentry/node'
+
 export const errorHandlerMiddleware = (err, req, res, next)=>{
+    Sentry.captureException(err)
     const statusCode = err.statusCode || 500
     const status  = err.status || 'error'
     if(process.env.NODE_ENV === 'development'){

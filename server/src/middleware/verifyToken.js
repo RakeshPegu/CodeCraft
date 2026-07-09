@@ -6,22 +6,17 @@ import logger from '../utility/logger.js'
 import client from '../utility/connectRedis.js'
 export const verifyToken = catchAsycn(async(req, res, next)=>{
         const authHeader = req.headers['authorization']
+        console.log('authHEADER', authHeader)
+        if(!authHeader){
+            throw new AppError(401, 'Not authenticated')
+        }
         const token = authHeader&& authHeader.split(' ')[1]
         if(!token){
             throw new AppError(401, 'Not authenticated')
         }
+        console.log("completed")
         const payload = jwt.decode(token)
-        const accessTokenKey = `access_token:${payload.id}`
-        const existToken = await client.get(accessTokenKey)
-        if(existToken !== token){
-            throw new AppError(401, 'Not authorized here')
-        }
-        const blacklist = new TokenBlackList()
-        const isBlacklisted = await blacklist.isBlackListedAccessToken(token)
-        console.log('state of blackLIsted',isBlacklisted)
-        if(isBlacklisted){
-            throw new AppError(401, 'access token is blacklisted')
-        }
+        
         let isVerified 
         try {
             isVerified = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY)
@@ -32,6 +27,17 @@ export const verifyToken = catchAsycn(async(req, res, next)=>{
             }
             throw new AppError(401, 'Invalid token')
             
+        }
+        const accessTokenKey = `access_token:${payload.id}`
+        const existToken = await client.get(accessTokenKey)
+        if(existToken !== token){
+            throw new AppError(401, 'Not authorized here')
+        }
+        const blacklist = new TokenBlackList()
+        const isBlacklisted = await blacklist.isBlackListedAccessToken(token)
+        console.log('state of blackLIsted',isBlacklisted)
+        if(isBlacklisted){
+            throw new AppError(401, 'access token is blacklisted')
         }
          
             
