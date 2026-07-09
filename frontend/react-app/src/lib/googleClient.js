@@ -1,5 +1,7 @@
+import { useAuthStore } from "@/stores/auth.store";
 
-export const client = window.google.accounts.oauth2.initCodeClient({
+export const googleClient = () =>{
+  return window.google.accounts.oauth2.initCodeClient({
   client_id: '1031281723602-gbn5o07fbo4iv06oo3fpouv7gr4fho60.apps.googleusercontent.com',
   scope: [
   'openid',
@@ -9,12 +11,15 @@ export const client = window.google.accounts.oauth2.initCodeClient({
   ux_mode: 'popup',
   callback: (response) => {
     const xhr = new XMLHttpRequest();
-    console.log('this is response from google', response)
     xhr.open('POST', "http://localhost:5000/api/v1/auth/google", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.onload = function() {
-      console.log('Auth code response: ' + xhr.responseText);
+      const response = JSON.parse(xhr.responseText)
+      const user = response.user
+      useAuthStore?.getState().setUserInfo(user)
+      useAuthStore?.getState().setAccessToken(response.accessToken)
+      console.log('this is acessToken after lgoin with google', useAuthStore?.getState().accessToken)
     };
     xhr.onerror = function() {  
       console.error('Request failed');
@@ -23,3 +28,4 @@ export const client = window.google.accounts.oauth2.initCodeClient({
   },
 });
 
+}

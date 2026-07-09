@@ -1,7 +1,9 @@
 
+import { useAuthStore } from '@/stores/auth.store';
 import ProjectCard from '../card/ProjectCard/ProjectCard';
 
 function Portfolio() {
+
   const projects = [
     {
       name:'HORIZON',

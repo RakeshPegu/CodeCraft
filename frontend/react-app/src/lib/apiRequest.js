@@ -8,6 +8,7 @@ apiRequest.interceptors.request.use((config)=>{
     try {
         const state = useAuthStore.getState()
         const token = state?.accessToken
+        
         if(token){
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -37,6 +38,7 @@ const processQueue = (error)=>{
 apiRequest.interceptors.response.use(
     (response)=>response,
     async(error)=>{
+        console.log('this is the error', error)
         let  originalRequest = error.config
         if (originalRequest._skipInterceptor                                                         ) {
             return Promise.reject(error);
@@ -59,13 +61,16 @@ apiRequest.interceptors.response.use(
                 processQueue(null)
                 return apiRequest(originalRequest)
                 
-            } catch (error) {
-                processQueue(error)
-                window.location.href = '/login'
+            } catch (refreshError) {
+                processQueue(refreshError)
+                console.log('this is the error', refreshError)
+               // window.location.href = '/login'
                 return Promise.reject(error)
 
                 
                 
+            }finally{
+                isRefreshing = false
             }
 
 
