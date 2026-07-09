@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import { useAuthStore } from "@/stores/auth.store";
 import { Eye, EyeOff, User, Mail, Lock } from "lucide-react";
+import { googleClient } from "@/lib/googleClient";
 
 function RegisterForm() {
   const { signUp, isSigningUp } = useAuthStore();
@@ -55,7 +56,17 @@ function RegisterForm() {
       terms: false,
     },
   });
-
+  
+  const handleGoogleSign = () => {
+  
+      try {
+        const client = googleClient();
+        client.requestCode();
+      } catch (error) {
+        console.error(error.message);
+        alert("Sign-in is still loading. Please try again in a second.");
+      }
+    };
   const onSubmit = async (data) => {
     const res = await signUp(data);
 
@@ -358,7 +369,7 @@ function RegisterForm() {
           </form>
         </Form>
             <div className="flex justify-center mt-2">
-            <button className="gsi-material-button " >
+            <button className="gsi-material-button "  onClick={handleGoogleSign}>
              <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
                   <div className="gsi-material-button-icon">
