@@ -1,7 +1,9 @@
+import { catchAsycn } from "../../utility/catchAsynch.js"
 import { AppError } from "../../utility/errorHandler.js"
 import { TokenBlackList } from "../../utility/tokenBlackLIst.js"
 
 export const logout = catchAsycn(async(req, res)=>{
+        console.log('logout got triggered')
         const tokenUserId = req.userId
         const accessToken = req.headers['authorization'].split(' ')[1]
         const refreshToken = req.cookies.refreshToken   

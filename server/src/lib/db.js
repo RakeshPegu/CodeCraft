@@ -1,21 +1,16 @@
 import mongoose, { mongo } from "mongoose";
-import {parsePhoneNumberFromString} from 'libphonenumber-js'
 import { AppError } from "../utility/errorHandler.js";
 import bcrypt from 'bcrypt'
 
 const UserSchema = new mongoose.Schema({
     username:{
     type: String,
-    unique: true,
-    sparse: true,
     lowercase: true,
     trim: true,
     minlength: 3
     },
     email: {
     type: String,
-    unique: true,
-    sparse: true,
     lowercase: true,
     trim: true,
     validate: {
@@ -26,25 +21,12 @@ const UserSchema = new mongoose.Schema({
     
     }
   },
-  phoneNumber:{
-    type: String,
-    unique: true,
-    sparse: true,
-    trim: true,
-
-
-  },
   firstName: String,
   lastName: String,
   avatar: String,
   passwordHash:{
     type:String,
     select:false,
-    set: async function (password) {
-        if(!password || this.passwordHash) return this.passwordHash
-        return await bcrypt.hash(password, 10)
-        
-    }
 
   },
   passwordChangedAt: Date,
@@ -72,39 +54,33 @@ const UserSchema = new mongoose.Schema({
   lockUntil: Date,
 
 }, {
-    timestamps:true,
+    timestamps:true,  
     toJSON:{
         transform(doc){
             delete doc.passwordHash
             delete doc.passwordResetToken
             delete doc.emailVerificationToken
+            delete doc.oauth
             return doc
         }
     }
 })
 
-UserSchema.index({ email: 1 }, { sparse: true })
-UserSchema.index({ username: 1 }, { sparse: true })
-UserSchema.index({ phoneNumber: 1 }, { sparse: true })
+UserSchema.index({ email: 1 },{unique:true, sparse: true })
+UserSchema.index({ username: 1 }, {unique:true, sparse:true})
 UserSchema.index({ 'oauth.google.id': 1 }, { sparse: true })
 UserSchema.index({ 'oauth.github.id': 1 }, { sparse: true })
 UserSchema.index({ createdAt: -1 })
+UserSchema.pre('save', async function(){
+  if(!this.isModified('passwordHash')) return 
+   this.passwordHash = await bcrypt.hash(this.passwordHash, 10)
+
+})
 UserSchema.pre('save' , function(next){
-    if(!this.email && ! this.phoneNumber){
+    if(!this.email && ! this.username){
         throw new AppError(400, 'Either email and phone number is required')
     }
     next()
-})
-UserSchema.pre('save', function(next){
-    if(this.phoneNumber){
-        const parsed = parsePhoneNumberFromString(this.phoneNumber)
-        if(!parsed.isValid()){
-            throw new  AppError(400, 'Invalid phone number')
-        }
-        this.phoneNumber = parsed.format('E.164')
-    }
-    next()
-
 })
 UserSchema.methods.comparePassword = async function(candidatePassword){
     if(!this.passwordHash) return false
