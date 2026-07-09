@@ -20,7 +20,7 @@ export const useAuthStore = create(
       signUp: async (data) => {
         try {
           set({ isSigningUp: true })
-          const res = await apiRequest.post('/auth/register', data)
+          const res = await apiRequest.post('/auth/signup_with_password', data)
           toast.success(res.data.message)
           return res
         } catch (error) {
@@ -30,9 +30,16 @@ export const useAuthStore = create(
           set({ isSigningUp: false })
         }
       },
+      setUserInfo: (data)=>{
+        set({
+          userInfo:data,
+          isAuthenticated:true
+        })
 
+      },
       setAccessToken: (accessToken)=>{
         set({accessToken:accessToken})
+
       },
       refreshToken: async()=>{
         try {
@@ -52,7 +59,7 @@ export const useAuthStore = create(
           set({ isSendingEmail: true })
           const res = await apiRequest.post('/send_email', data)
           toast.success(res?.data?.message)
-          return res.data
+      
         } catch (error) {
           toast.error(error?.response?.data?.message || "Something went wrong")
         } finally {
@@ -63,12 +70,13 @@ export const useAuthStore = create(
       signIn: async (data) => {
         try {
           set({ isSigningIn: true })
-          const res = await apiRequest.post('/auth/login', data)
+          const res = await apiRequest.post('/auth/signin_with_password', data)
           set({
             accessToken: res.data.accessToken,
-            userInfo: res.data.existingUser,  
+            userInfo: res.data.existingUser._doc,  
             isAuthenticated: true
           })      
+          
           toast.success(res.data.message)
           return true
         } catch (error) {
@@ -94,15 +102,17 @@ export const useAuthStore = create(
 
 
       logOut: async () => {
+        console.log('trigger')
         try {
           set({ isLoggingOut: true })
-          await apiRequest.post('/auth/logout')
-          
+          const res = await apiRequest.post('/auth/logout')
+                   
           set({
             userInfo: null,
             accessToken: '',
             isAuthenticated: false
           })
+          return res.data
           
           toast.success('Logged out successfully')
         } catch (error) {

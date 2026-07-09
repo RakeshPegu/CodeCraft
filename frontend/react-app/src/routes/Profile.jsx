@@ -8,13 +8,12 @@ import {
   ShieldCheck,
   Calendar,
 } from "lucide-react";
-import { useUserStore } from "@/stores/user.store";
 import { useAuthStore } from "@/stores/auth.store";
 
 function Profile() {
   const [showMenu, setShowMenu] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
-  const {userInfo, isAuthenticated} = useAuthStore()
+  const {userInfo, isAuthenticated, } = useAuthStore()
   const handleSettingClick = () => {
     if (!buttonDisable) {
       setShowMenu((prev) => !prev);

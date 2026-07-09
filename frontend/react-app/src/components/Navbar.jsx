@@ -1,7 +1,7 @@
 import ContactForm from "@/subComponent/ContactForm";
 import MenuCard from "@/subComponent/menu";
 import SendEmail from "@/subComponent/sendEmail";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { Menu, User} from "lucide-react";
 
