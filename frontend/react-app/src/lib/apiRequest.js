@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/stores/auth.store";
 import axios from "axios";
 export const apiRequest =  axios.create({
-    baseURL:`http://localhost:5000/api/v1`,
+    baseURL:import.meta.env.VITE_API_URI,
     withCredentials:true
 })
 apiRequest.interceptors.request.use((config)=>{
