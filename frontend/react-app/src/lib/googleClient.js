@@ -14,12 +14,12 @@ export const googleClient = () =>{
     xhr.open('POST', "http://localhost:5000/api/v1/auth/google", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.withCredentials = true
     xhr.onload = function() {
       const response = JSON.parse(xhr.responseText)
       const user = response.user
       useAuthStore?.getState().setUserInfo(user)
       useAuthStore?.getState().setAccessToken(response.accessToken)
-      console.log('this is acessToken after lgoin with google', useAuthStore?.getState().accessToken)
     };
     xhr.onerror = function() {  
       console.error('Request failed');

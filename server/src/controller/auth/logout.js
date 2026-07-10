@@ -1,5 +1,6 @@
 import { catchAsycn } from "../../utility/catchAsynch.js"
 import { AppError } from "../../utility/errorHandler.js"
+import logger from "../../utility/logger.js"
 import { TokenBlackList } from "../../utility/tokenBlackLIst.js"
 
 export const logout = catchAsycn(async(req, res)=>{

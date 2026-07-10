@@ -22,7 +22,7 @@ import { useAuthStore } from "@/stores/auth.store";
 
 const LoginForm = () => {
   const navigate = useNavigate()
-  const { signIn, isSigningIn, accessToken} = useAuthStore()
+  const { signIn, isSigningIn} = useAuthStore()
   const [showPassword, setShowPassword] = useState(false);
 
 const handleGoogleSign = () => {
@@ -30,8 +30,7 @@ const handleGoogleSign = () => {
     try {
       const client = googleClient();
       client.requestCode();
-      console.log('accessToken in login form', accessToken)
-    } catch (error) {
+      } catch (error) {
       console.error(error.message);
       alert("Sign-in is still loading. Please try again in a second.");
     }
