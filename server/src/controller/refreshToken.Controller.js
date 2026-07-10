@@ -7,10 +7,8 @@ import jwt from 'jsonwebtoken'
 
 
 
-export const refreshTokenFunction =catchAsycn(async(req, res)=>{   
-        console.log('refresh token controller get triggered') 
+export const refreshTokenFunction =catchAsycn(async(req, res)=>{    
         const currentRefreshToken = req.cookies.refreshToken 
-        console.log('this is currentRefreshToken', currentRefreshToken)
         const decodedPayload = jwt.decode(currentRefreshToken)
         const refreshTokenKey = `refresh_token:${decodedPayload.id}`
         const exist = await client.exists(refreshTokenKey)

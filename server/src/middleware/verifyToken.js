@@ -6,7 +6,6 @@ import logger from '../utility/logger.js'
 import client from '../utility/connectRedis.js'
 export const verifyToken = catchAsycn(async(req, res, next)=>{
         const authHeader = req.headers['authorization']
-        console.log('authHEADER', authHeader)
         if(!authHeader){
             throw new AppError(401, 'Not authenticated')
         }
@@ -14,7 +13,6 @@ export const verifyToken = catchAsycn(async(req, res, next)=>{
         if(!token){
             throw new AppError(401, 'Not authenticated')
         }
-        console.log("completed")
         const payload = jwt.decode(token)
         
         let isVerified 
@@ -35,7 +33,6 @@ export const verifyToken = catchAsycn(async(req, res, next)=>{
         }
         const blacklist = new TokenBlackList()
         const isBlacklisted = await blacklist.isBlackListedAccessToken(token)
-        console.log('state of blackLIsted',isBlacklisted)
         if(isBlacklisted){
             throw new AppError(401, 'access token is blacklisted')
         }
