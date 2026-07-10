@@ -7,16 +7,13 @@ import { AppError } from '../../utility/errorHandler.js'
 import logger from '../../utility/logger.js'
 import client from '../../utility/connectRedis.js'
 
-export const verifyOTPSchema = z.object({
-    otp:z.string().length(6, {error:"OTP must have 6 characters"}),
-    email:z.string().email()
-})
+
 export const sendOtpSchema =z.object({
-    email:z.string().email()
+    email:z.string().email({error:"Invalid email "})
 })
 
- export const send_otp = catchAsycn(async(req, res)=>{
-        
+ export const send_otp = catchAsycn(async(req, res)=>{ 
+        console.log('this is reached', req.body)       
         const credential = sendOtpSchema.parse(req.body)
         const email = credential.email 
         const existingUser = await userModel.findOne({email:email })
@@ -44,15 +41,4 @@ export const sendOtpSchema =z.object({
 
     
 })
-export const verifyOTP = catchAsycn(async(req, res)=>{
-    const credential = verifyOTPSchema.parse(req.body)
-    const otpKey = `OTP_key:${credential.email}`
-    const storedOTP = await client.get(otpKey)
-    if(storedOTP !== credential.otp){
-        throw new AppError(401, 'Invalid OTP here')
-    }
-    res.status(200).json({success:true, message:"verified OTP successfully"})
 
-
-    
-})
