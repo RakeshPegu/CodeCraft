@@ -61,13 +61,15 @@ export const signUpWithGoogleAuth = catchAsycn( async (req, res) => {
     }
     const payload = {_id:existingUser.id || newlyCreatedUser.id, role:'user'}
     const {accessToken, refreshToken} = await generateToken(payload)
+    console.log('this is refreshToken', refreshToken)
     const {oauth, ...userInfo} = existingUser._doc || newlyCreatedUser._doc
     res.cookie('refreshToken',refreshToken ,{
             maxAge:1000*60*60*24*15,
             sameSite:'strict',
             secure:process.env.NODE_ENV==='production'? true:false,
             httpOnly:true
-        }).status(200).json({
+        })
+    res.status(200).json({
        success: true,
        user: userInfo,
        accessToken:accessToken

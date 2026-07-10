@@ -41,9 +41,10 @@ export const useAuthStore = create(
         set({accessToken:accessToken})
 
       },
-      refreshToken: async()=>{
+      refreshTokenFn: async()=>{
         try {
           const res = await apiRequest.post('/auth/refresh_token',{}, {_skipInterceptor:true})
+          console.log('this is new accessToken got from refresh_token', res.data)
           set({accessToken:res.data.accessToken})
           
         } catch (error) {
@@ -54,6 +55,7 @@ export const useAuthStore = create(
         }
 
       },
+     
       sendingEmail: async (data) => {
         try {
           set({ isSendingEmail: true })

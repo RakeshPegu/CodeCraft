@@ -57,7 +57,7 @@ apiRequest.interceptors.response.use(
             originalRequest._retry = true        
             
             try {
-                await useAuthStore.getState().refreshToken()
+                await useAuthStore.getState().refreshTokenFn()
                 processQueue(null)
                 return apiRequest(originalRequest)
                 
