@@ -35,7 +35,7 @@ export const signUpWithPass = catchAsycn(async(req, res)=>{
                     maxAge:1000*60*60*24*15,
                     sameSite:'strict',
                     secure:process.env.NODE_ENV==='production'? true:false,
-                    httpOnly:true
+                    httpOnly:true   
                 })  
         res.status(201).json({success:true, message:'Account created successfully', user:newUser, accessToken:accessToken })
 
