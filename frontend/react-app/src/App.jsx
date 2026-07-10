@@ -6,6 +6,7 @@ import {Layout, AuthRequireLayout } from './components/Layout';
 import ProjectForm from './routes/ProjectForm';
 import ErrorPage from './routes/Error';
 import Profile from './routes/Profile';
+import VerifyOtp from './routes/Otp';
 
 function App(){
 
@@ -22,6 +23,11 @@ function App(){
 
    
       ]
+    },
+    {
+      path:"/verify_otp",
+      element:<VerifyOtp/>
+
     },
     {
       path:"/register",

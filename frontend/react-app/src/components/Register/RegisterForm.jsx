@@ -23,7 +23,7 @@ import { Eye, EyeOff, User, Mail, Lock } from "lucide-react";
 import { googleClient } from "@/lib/googleClient";
 
 function RegisterForm() {
-  const { signUp, isSigningUp } = useAuthStore();
+  const { sendOtp, isSigningUp } = useAuthStore();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
@@ -68,11 +68,12 @@ function RegisterForm() {
       }
     };
   const onSubmit = async (data) => {
-    const res = await signUp(data);
-
-    if (res) {
-      navigate("/login");
-    }
+     console.log('this is data', data.email)
+     const res = await sendOtp(data.email);
+     console.log('this is res', res)
+     if(res){
+       navigate('/verify_otp', {state:{data}})
+     }
   };
 
   // Calculate password strength

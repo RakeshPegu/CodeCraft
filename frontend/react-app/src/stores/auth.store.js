@@ -16,13 +16,34 @@ export const useAuthStore = create(
       isSendingEmail: false,
       isLoggingOut: false,
       accessToken: '',
-    
+      sendOtp: async(email)=>{
+        try {
+          console.log('this is email in auth  store level', email)
+          const res = await apiRequest.post('/auth/send_otp', {email})
+          toast.success(res.data.message)
+          return true
+          
+        } catch (error) {
+  
+          toast.error(error?.response?.data?.message || 'Something went wrong')
+          return false
+          
+        }
+
+        
+      },
       signUp: async (data) => {
         try {
           set({ isSigningUp: true })
           const res = await apiRequest.post('/auth/signup_with_password', data)
+          set({
+            userInfo:res.data.user._doc,
+            accessToken:res.data.accessToken,
+            isAuthenticated:true
+
+          })
           toast.success(res.data.message)
-          return res
+          return true
         } catch (error) {
           console.log('this is the error',error?.response?.data?.message)
           toast.error(error?.response?.data?.message || 'Something went wrong')
