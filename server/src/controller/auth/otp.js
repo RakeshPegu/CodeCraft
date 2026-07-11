@@ -25,7 +25,6 @@ export const sendOtpSchema =z.object({
        
         const otpKey = `OTP_key:${credential?.email}`
         console.log('this is otp key', otpKey)
-        const ttl = Math.floor(Date.now()/1000 + 5)
         try {
             await client.del(otpKey)
             
@@ -34,8 +33,9 @@ export const sendOtpSchema =z.object({
             logger.error(error)
             
         }
-        await client.setEx(otpKey,ttl, otp )
+        await client.setEx(otpKey,300, otp )
         try {
+          
           await sendEmail(email, otp)
           } catch (err) {
           logger.error('Failed to send OTP email', err)
