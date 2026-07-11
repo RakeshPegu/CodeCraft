@@ -35,7 +35,12 @@ export const sendOtpSchema =z.object({
             
         }
         await client.setEx(otpKey,ttl, otp )
-        await sendEmail(email, otp)
+        try {
+          await sendEmail(email, otp)
+          } catch (err) {
+          logger.error('Failed to send OTP email', err)
+          throw new AppError(500, 'Failed to send OTP email')
+        }
         logger.info('Send otp successfully')
         res.status(200).json({message:"Otp send successfully"})       
 

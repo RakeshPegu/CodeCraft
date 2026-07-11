@@ -68,9 +68,7 @@ function RegisterForm() {
       }
     };
   const onSubmit = async (data) => {
-     console.log('this is data', data.email)
      const res = await sendOtp(data.email);
-     console.log('this is res', res)
      if(res){
        navigate('/verify_otp', {state:{data}})
      }
