@@ -1,27 +1,16 @@
-import nodemailer from 'nodemailer'
+import { BrevoClient } from '@getbrevo/brevo'
+import logger from './logger.js'
+
+const brevo = new BrevoClient({
+    apiKey: process.env.BREVO_API_KEY
+})
 
 export const sendEmail = async (email, otp) => {
-    console.log(email, otp)
-    const transporter = nodemailer.createTransport({
-        service:'gmail',
-        host:"smtp.gmail.com",
-        port:587,
-        secure:false,
-        auth:{
-            user:process.env.EMAIL,
-            pass:process.env.EMAIL_PASS  
-        },
-        tls:{
-            rejectUnauthorized:false
-        }
+    const response = await brevo.transactionalEmails.sendTransacEmail({
+        subject: 'Email verification process',
+        htmlContent: `<h1>This is your OTP ${otp}</h1>`,
+        sender: { name: 'YourAppName', email: process.env.EMAIL },
+        to: [{ email }]
     })
-    await transporter.sendMail({
-        from:process.env.EMAIL,
-        to:email,
-        subject:'Email verification process',
-        html:`<h1> This  your otp ${otp}</h1>`
-    })
-    
-
-    
+    return response
 }
