@@ -15,6 +15,7 @@ export const registerSchema = z.object({
     email:z.string().email()
     })
 export const signUpWithPass = catchAsycn(async(req, res)=>{
+        console.log('the signup with password got triggered', req.body)
         const {email, username, password, avatar, terms, otp} = registerSchema.parse(req.body)     
         const existingUser = await userModel.findOne({email})
         if(existingUser){
