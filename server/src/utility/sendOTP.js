@@ -3,10 +3,15 @@ import nodemailer from 'nodemailer'
 export const sendEmail = async (email, otp) => {
     console.log(email, otp)
     const transporter = nodemailer.createTransport({
-        service:'gmail',
+        service:'smtp.gmail.com',
+        port:587,
+        secure:false,
         auth:{
             user:process.env.EMAIL,
             pass:process.env.EMAIL_PASS  
+        },
+        tls:{
+            rejectUnauthorized:false
         }
     })
     await transporter.sendMail({
