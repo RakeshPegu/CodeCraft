@@ -6,6 +6,7 @@ import { AppError } from '../../utility/errorHandler.js'
 import {google} from 'googleapis'
 import { generateToken } from '../../utility/generateToken.js'
 import client from '../../utility/connectRedis.js'
+import logger from '../../utility/logger.js'
 export const registerSchema = z.object({
     email:z.email('Invalid email address'),
     username:z.string().min(3, 'Username must be atleast 3 characters'),
@@ -15,7 +16,7 @@ export const registerSchema = z.object({
     email:z.string().email()
     })
 export const signUpWithPass = catchAsycn(async(req, res)=>{
-        console.log('the signup with password got triggered', req.body)
+        logger.info('the signup with password got triggered', req.body)
         const {email, username, password, avatar, terms, otp} = registerSchema.parse(req.body)     
         const existingUser = await userModel.findOne({email})
         if(existingUser){
@@ -38,6 +39,7 @@ export const signUpWithPass = catchAsycn(async(req, res)=>{
                     secure:process.env.NODE_ENV==='production'? true:false,
                     httpOnly:true
                 })  
+        logger.info(`user with ${email} signed up successfully`)
         res.status(201).json({success:true, message:'Account created successfully', user:newUser, accessToken:accessToken })
 
 })
