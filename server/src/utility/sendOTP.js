@@ -9,13 +9,13 @@ export const sendEmail = async (email, otp) => {
             pass:process.env.EMAIL_PASS  
         }
     })
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
         from:process.env.EMAIL,
         to:email,
         subject:'Email verification process',
         html:`<h1> This  your otp ${otp}</h1>`
     })
-    return info
+    
 
     
 }
