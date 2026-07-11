@@ -24,7 +24,7 @@ export const useAuthStore = create(
           return true
           
         } catch (error) {
-  
+          console.log('this error occur during send otp',error)
           toast.error(error?.response?.data?.message || 'Something went wrong')
           return false
           
@@ -47,6 +47,7 @@ export const useAuthStore = create(
         } catch (error) {
           console.log('this is the error',error?.response?.data?.message)
           toast.error(error?.response?.data?.message || 'Something went wrong')
+          return false
         } finally {
           set({ isSigningUp: false })
         }
