@@ -1,4 +1,4 @@
-import {email, z} from 'zod'
+import {z} from 'zod'
 import { userModel } from '../../lib/db.js'
 import { sendEmail } from '../../utility/sendOTP.js'
 import otpGen from 'otp-generator'
